@@ -46,6 +46,7 @@ The following decisions are frozen for implementation planning:
 19. Use the fictional `Evidence-First Composite Staff Interviewer` persona for post-submission Codex review, with high standards inspired by the user-named Jane Street, Google, Anthropic, OpenAI, Hudson River Trading, and Jump Trading environments.
 20. Start production learning with a qualified P001–P080 Array Systems wave instead of waiting for all 500 content packages. All 80 first-wave problems must be qualified before the first production attempt; no unqualified problem is ever scheduled.
 21. Require a version-bound grader calibration certificate before Codex can issue academic recommendations. Calibration uses explicit 0–4 score anchors, a 72-case golden suite, zero false PASS on known-invalid cases, and reproducible acceptance metrics.
+22. After the qualified P001–P080 release is installed, run one idle-aware background animation factory for P081–P500. It resumes from SQLite on application startup, yields to coding, tests, voice, and foreground Codex work, and never promotes or schedules an unqualified package.
 
 ### 2.1 Explicit amendments to the master plan
 
@@ -77,6 +78,7 @@ Local Python web application
   ├─ audio conversion and whisper.cpp adapter
   ├─ Codex CLI coach/reviewer adapter
   ├─ animation qualification, unlock, and session services
+  ├─ idle-aware animation factory and durable job lease
   ├─ export, backup, and restore
   └─ static HTML/CSS/JavaScript assets
               │
@@ -86,6 +88,7 @@ Local data
   ├─ curated problem snapshot
   ├─ bilingual problem cards
   ├─ content-addressed animation packages and certificates
+  ├─ persistent animation build queue and event history
   ├─ user code submissions
   ├─ retained Final B/C audio
   └─ CSV / JSON / Markdown backups
@@ -503,6 +506,34 @@ The player is one reusable renderer backed by declarative `AnimationSpec` data. 
 
 Watching, skipping, replaying, expanding details, or changing animation language never changes `PASS`, mastery, certification, or the next canonical schedule item. It produces learning analytics only. A later voluntary drill must be created explicitly through `PracticeRequest`.
 
+### 11.4 Idle-aware background animation factory
+
+P001–P080 is produced and qualified before the first production release. After that release, starting the local application also resumes a durable, single-worker factory for P081–P500. The application UI becomes available immediately; factory startup never blocks Today, an existing attempt, or a due review.
+
+The worker processes the earliest prerequisite-ready problem and persists every transition in SQLite:
+
+```text
+WAITING_CONTENT ──dependency ready──> QUEUED
+QUEUED → DRAFTING → VALIDATING → QUALIFIED
+DRAFTING or VALIDATING ──failure──> RETRY_WAIT ──not_before──> DRAFTING
+DRAFTING or VALIDATING ──failure after retry 3──> BLOCKED
+```
+
+`WAITING_CONTENT` means the bilingual card, semantic contract, canonical answer, deterministic tests, or prerequisites are not yet complete; it consumes no failure attempt and becomes `QUEUED` when the dependency event arrives. `DRAFTING` uses the isolated animation-authoring adapter and only frozen curriculum artifacts, never learner attempts, transcripts, weaknesses, or grader history. `VALIDATING` performs the complete schema, semantic, replay, bilingual, viewport, accessibility, prohibited-content, and renderer qualification suite. Only successful validation creates an `AnimationQualificationCertificate` and atomically promotes the package to `QUALIFIED`.
+
+The factory is idle-aware rather than continuously competitive. A foreground activity lease is held while any of the following is true:
+
+- an `IN_PROGRESS` attempt is visible in the focused practice page, or editor input was received within the last 30 seconds
+- a deterministic test run is active
+- recording, FFmpeg conversion, or whisper.cpp transcription is active
+- a foreground Codex coach, primary review, shadow review, or grader-calibration run is active
+
+The worker starts a stage only after the lease has been clear for 30 seconds. If foreground work begins during a background stage, the worker requests cooperative cancellation, terminates its child process after a five-second grace period when necessary, saves the last durable checkpoint, and returns the job to its prior runnable state. Foreground preemption does not increment the failure count. One SQLite-backed global lease, renewed every 15 seconds and expired after 60 seconds without a heartbeat, prevents two application processes from building simultaneously and allows safe crash recovery.
+
+Real build failures use exact bounded backoff with at most three retries: 1 minute after the first failed execution, 4 minutes after the second, and 16 minutes after the third. If the third retry also fails—the fourth consecutive failed execution—the job becomes `BLOCKED`, its evidence and repair reason remain visible, and the factory continues with the next eligible problem. A content correction or explicit retry event creates a new runnable transition; it does not erase the failures. Rate limits and temporary Codex unavailability follow the same durable retry path, while missing content remains `WAITING_CONTENT`.
+
+The global header shows a quiet status such as `Animation Factory · 126/500 · P127 validating`, plus `paused for practice`, `waiting for content`, `retry scheduled`, `blocked`, or `500/500 complete` when applicable. It never opens a modal, steals editor focus, auto-plays an explanation, or inserts an unqualified problem into the study queue. The worker stops when all 500 current packages qualify and automatically re-enqueues only packages invalidated by a later contract, answer, test, player, application-build, or compatibility change.
+
 ## 12. Data model additions
 
 The master plan's original models remain the base. The implementation adds or separates the following concepts.
@@ -660,6 +691,7 @@ Analytics read from deterministic SQL views rather than asking Codex to invent a
 - `v_practice_candidates`: one explainable row per eligible problem with priority tier, reason codes, target weakness, and suggested mode
 - `v_pattern_risk`: unresolved and recurring weaknesses grouped across pattern, difficulty, language, and blind stage
 - `v_content_readiness`: Wave 1 80-of-80 status, first-wave coached completion, later eligible/blocked counts, and final 500-of-500 status
+- `v_animation_factory`: qualified count, one active job, queued/waiting/retry/blocked counts, next eligible problem, pause reason, lease health, and latest build evidence
 - `v_grader_health`: active configuration hash, certificate status and expiry, latest canary/full-run metrics, and the exact reason academic review is enabled or blocked
 
 The problem detail page exposes the underlying attempts behind every trend and recommendation. No chart or recommendation is accepted as evidence unless the user can drill down to the source attempt, test failure, transcript rubric, or review observation.
@@ -727,6 +759,12 @@ Production learning first becomes `WAVE_1_READY` when all P001–P080 packages h
 
 `GraderQualificationCertificate` stores all bound version/hash fields, qualifying run IDs, issue time, 30-day expiry, 90-day full-requalification deadline, aggregate metrics, and `QUALIFIED | REVOKED | EXPIRED` status. Every `CodexReview` references the certificate used for that recommendation. Database constraints reject a new academic recommendation with a missing, revoked, expired, or configuration-mismatched certificate while preserving reviews completed under a certificate that was valid at review time.
 
+### 12.18 `AnimationBuildJob`, `AnimationBuildEvent`, and factory lease
+
+`AnimationBuildJob` has one current row per problem and target content version. It stores `problem_id`, target semantic-contract/canonical-answer/test/player/application hashes, priority and prerequisite readiness, `state`, durable stage checkpoint, `failure_count`, `not_before`, `lease_owner`, `lease_expires_at`, last error code/evidence reference, and created/updated/completed timestamps. Its state is `QUEUED | WAITING_CONTENT | DRAFTING | VALIDATING | RETRY_WAIT | BLOCKED | QUALIFIED`.
+
+`AnimationBuildEvent` is the append-only source of truth for every enqueue, dependency wait/release, lease acquisition/renewal/expiry, stage start/checkpoint/preemption, failure, retry schedule, block, qualification, promotion, invalidation, and completion. A singleton `AnimationFactoryLease` enforces the 15-second heartbeat and 60-second expiry. Startup reclaims only expired work, validates the checkpoint and target hashes, and resumes deterministically; it never assumes an interrupted draft was qualified.
+
 ## 13. Outcomes and state transitions
 
 - Coach sessions never emit `PASS`, `RETRY`, or `FAIL`.
@@ -740,6 +778,7 @@ Production learning first becomes `WAVE_1_READY` when all P001–P080 packages h
 - Missed events remain overdue and are never silently shifted or deleted.
 - Answer-animation unlock requires a finalized academic verdict or locked `COACHED_COMPLETE` review and a matching current qualification certificate.
 - Animation viewing is downstream of the immutable review and never mutates academic state or the canonical schedule.
+- Animation build jobs advance independently of academic attempts. `QUALIFIED` is reachable only through a successful current validation certificate; `BLOCKED`, `RETRY_WAIT`, `WAITING_CONTENT`, and foreground preemption never create an academic result or scheduling eligibility.
 
 ## 14. One-year and longer maintenance
 
@@ -769,6 +808,8 @@ D365 results are reported separately as `MAINTAINED_COMPACT`, `MAINTAINED_FULL`,
 - Back up the SQLite database, retained certification audio, cards, and manifest atomically.
 - Verify restore into a fresh temporary directory before marking a backup valid.
 - Build animation packages in a staging area, qualify them completely, then promote the package index atomically. Partial content is never visible to the scheduler.
+- Run at most one background animation stage at a time, under the SQLite factory lease, and give editor, tests, voice, foreground Codex, and calibration work exclusive foreground priority.
+- Keep factory input limited to frozen curriculum artifacts. Learner code, attempts, transcripts, weakness history, and academic review output are not animation-authoring inputs.
 - Retain the current and last-known-good qualified package generations. On corruption or hash mismatch, restore the last-known-good generation and re-run qualification before enabling study.
 - Before a problem is eligible, an isolated renderer preflight verifies its pinned package against the current player, application build, browser-runtime compatibility boundary, and semantic contract without sending canonical content to the active blind page.
 - Pin the qualified spec hash to the attempt before it starts so later content deployment cannot change the explanation attached to that attempt.
@@ -793,6 +834,10 @@ No software can promise that storage, the operating system, or browser hardware 
 | Transcription failure | Replay, rerecord, or typed fallback | No academic penalty |
 | Bilingual contract mismatch | Problem blocked from scheduling | Curator repair required |
 | P001–P080 only partially qualified | Content progress remains visible but production Start is disabled | No real attempt until Wave 1 is 80 of 80 |
+| Foreground practice begins during an animation build | Header changes to `paused for practice`; worker checkpoints and yields within the cancellation boundary | Job returns to its prior runnable state; failure count unchanged |
+| Animation source content or prerequisite missing | Factory shows `waiting for content` and proceeds to the next eligible problem | Job remains `WAITING_CONTENT`; no retry count and no scheduling eligibility |
+| Background build fails on the initial execution and all three retries | Problem and evidence appear in the blocked repair queue while later eligible work continues | Job becomes `BLOCKED`; no certificate and no academic effect |
+| Factory process or app exits mid-stage | Next startup reclaims the expired lease and validates the last checkpoint | Interrupted draft is resumed or restarted, never promoted implicitly |
 | Interaction ledger not acknowledged | `Recording paused`; persistent local outbox retries idempotently | Lock/finalization blocked; no partial outcome |
 | Animation certificate missing or stale | Problem absent from eligible queue | No attempt can start |
 | Animation package hash or preflight mismatch | Restore last-known-good and requalify; otherwise show operational repair state | New study paused before attempt start; no text fallback and no academic result |
@@ -918,6 +963,18 @@ Implementation follows test-driven development. Required test groups include:
 - no problem can enter an eligible queue without a matching certificate; `WAVE_1_READY` requires P001–P080 at 80 of 80, while `CONTENT_500_COMPLETE` requires 500 of 500
 - unlock is rejected before immutable review, permitted after every academic verdict and locked `COACHED_COMPLETE`, and animation viewing never changes mastery or scheduling
 
+### Background animation factory
+
+- application startup returns the study UI without waiting for the factory and resumes the earliest durable eligible P081–P500 job
+- two concurrent application processes still execute at most one background stage through lease heartbeat, expiry, and reclaim tests
+- editor activity, tests, voice conversion/transcription, every foreground Codex review, and calibration preempt background work; a preemption never increments `failure_count`
+- `WAITING_CONTENT` wakes only from a matching dependency event, and the worker skips it while continuing with other eligible problems
+- retry timing is exactly 1, 4, and 16 minutes; failure of the third retry produces `BLOCKED` and the next eligible job proceeds
+- crashes at every stage checkpoint reconstruct the same target hashes and never produce a certificate without the full validation suite
+- the header status derives from SQLite after reload and accurately reports qualified, active, waiting, retry, and blocked counts
+- reaching 500 current certificates stops the worker; invalidating one bound hash re-enqueues exactly the affected package
+- scheduler property tests prove that no factory state except current `QUALIFIED` can make a problem eligible
+
 ### Browser flows
 
 - start and resume an attempt
@@ -944,7 +1001,7 @@ The product is delivered as independently testable slices. Development preview m
 3. **Practice evidence:** Midnight Focus UI, scheduler, CodeMirror editor, interaction outbox, checkpoints, reconstruction, and deterministic tests.
 4. **Codex integration:** bounded coach sessions, the composite evidence-first reviewer, 0–4 rubrics, golden calibration suite, grader certificates, drift renewal, blind shadow review, pending-review recovery, leakage enforcement, and PASS/RETRY/FAIL policy.
 5. **Voice:** browser capture, local conversion/transcription, transcript confirmation, retention, and fallback.
-6. **Qualified explanations:** reusable animation player and primitives, P001–P080 first-wave certification, later per-problem expansion to all 500, last-known-good recovery, server-side reveal gate, and view analytics.
+6. **Qualified explanations:** reusable animation player and primitives, P001–P080 first-wave certification, the idle-aware durable P081–P500 factory, later per-problem expansion to all 500, last-known-good recovery, server-side reveal gate, and view analytics.
 7. **Certification and analytics:** B/C workflows, unseen and mocks, weakness analytics, risk projections, budget burn, and exports.
 8. **Long-term maintenance:** D365 queue and second-year maintenance analytics.
 
@@ -966,6 +1023,7 @@ The design is implemented when all of the following are demonstrably true:
 - Every meaningful practice action is durably ordered, acknowledged, and reconstructable from checkpoints; missing events prevent finalization.
 - P001–P080 reach 80-of-80 bilingual content and animation qualification before the first production attempt, and all 80 complete the coached phase before a new P081 problem is introduced.
 - P081–P500 can expand without blocking the first wave, but each problem remains unschedulable until its own content and prerequisites qualify; final content completion requires 500 of 500.
+- Starting the app resumes exactly one durable P081–P500 animation worker, active practice preempts it without consuming a retry, failure of the initial execution and all three retries blocks only that job, and the UI exposes its evidence-backed progress without interrupting study.
 - No active blind attempt can fetch answer-animation content, and every finalized verdict can open its pinned click-by-click explanation without changing the result.
 - Current-package corruption restores a verified last-known-good package before study; loss of both qualified generations pauses new study rather than exposing a broken or text-only explanation.
 - D30 and Final B certification gates match the master plan and cannot be bypassed.
@@ -986,6 +1044,7 @@ The design is implemented when all of the following are demonstrably true:
 - AI hints during blind certification
 - Automated submission to NeetCode or treating an external NeetCode result as the local academic oracle
 - Shipping 500 independent executable animation scripts or accepting text-only fallback for an unqualified animation
+- Running an always-on animation generator that competes with active coding, tests, speech processing, or foreground Codex work
 - Copying or redistributing NeetCode's protected explanations, videos, or test corpus
 - Guaranteeing employment or guaranteeing human memory outcomes
 - Adding a universal D120 full-code review

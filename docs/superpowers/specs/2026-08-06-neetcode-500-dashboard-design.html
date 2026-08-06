@@ -2032,7 +2032,7 @@
   <header class="hero page-shell">
     <div class="hero-grid">
       <div>
-        <p class="eyebrow">Design document · v2.2 · 2026-08-06</p>
+        <p class="eyebrow">Design document · v2.3 · 2026-08-06</p>
         <h1>연습·채점·정답까지 <span>끊기지 않는 학습 시스템</span></h1>
         <p class="hero-copy">
           500개 문제의 모든 의미 있는 행동을 재구성 가능한 증거로 남깁니다. 결정적 테스트와
@@ -2041,8 +2041,8 @@
         </p>
         <div class="hero-pills" aria-label="설계 핵심 속성">
           <span class="pill">모든 의미 있는 행동</span>
-          <span class="pill">Evidence-First 채점</span>
-          <span class="pill">500 / 500 애니메이션 인증</span>
+          <span class="pill">보정 인증된 Evidence-First 채점</span>
+          <span class="pill">P001–P080 첫 웨이브</span>
           <span class="pill">로컬 우선</span>
         </div>
       </div>
@@ -2066,7 +2066,7 @@
           <div class="ledger-row">
             <span class="ledger-icon">03</span>
             <span>Codex 근거 검수</span>
-            <span class="ledger-value">RETRY · 0.91</span>
+            <span class="ledger-value">RETRY · CERTIFIED</span>
           </div>
           <div class="ledger-row">
             <span class="ledger-icon">04</span>
@@ -2130,7 +2130,7 @@
         </div>
 
         <div class="context-grid" aria-label="전체 학습 설계 맥락">
-          <div class="context-card"><strong>500문제 고정</strong><span>빈출도를 1순위로 하되 100 Easy · 320 Medium · 80 Hard와 패턴 범위를 지킴</span></div>
+          <div class="context-card"><strong>500 고정 · 첫 80 시작</strong><span>전체 목록은 고정하고 P001–P080 Array Systems가 80/80 인증되면 학습 시작</span></div>
           <div class="context-card"><strong>3 Coach + 6 Blind</strong><span>처음 3회만 Codex 방향 검수, 이후 6회는 서버에서 AI 도움을 차단</span></div>
           <div class="context-card"><strong>한국어 → 영어 + 음성</strong><span>문제·코드·설명을 양언어로 재현하고 로컬 음성 전사 후 검수</span></div>
           <div class="context-card"><strong>Final B + D365</strong><span>첫해 9회와 1년 뒤 유지 검사를 분리해 장기기억을 실제로 다시 측정</span></div>
@@ -2934,6 +2934,44 @@ PRAGMA busy_timeout = 5000;</code></pre>
               </tbody>
             </table>
           </div>
+
+          <div style="margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line);">
+            <p class="eyebrow">Grader qualification</p>
+            <h3>면접관도 시험을 통과해야 채점할 수 있습니다</h3>
+            <p class="section-lede">페르소나 문장만 믿지 않습니다. 현재 model·CLI·prompt·schema·rubric 조합이 잠긴 골든 세트에서 기준을 충족해야만 학술 PASS/RETRY/FAIL을 낼 수 있습니다.</p>
+
+            <div class="rubric-grid" style="margin-top: 18px;">
+              <article class="rubric-card"><b>72 GOLDEN CASES</b><p>4개 profile × 18개. 각 profile마다 PASS·RETRY·FAIL을 6개씩 고정합니다.</p></article>
+              <article class="rubric-card"><b>FALSE PASS · 0</b><p>알려진 오답과 도움 위반을 단 한 번이라도 PASS하면 인증에 실패합니다.</p></article>
+              <article class="rubric-card"><b>≥ 17 / 18</b><p>각 profile에서 기대 결과와 최소 17개가 정확히 일치해야 합니다.</p></article>
+              <article class="rubric-card"><b>κ ≥ 0.80</b><p>quadratic-weighted 일치도와 점수 오차·반복 안정성까지 함께 통과해야 합니다.</p></article>
+            </div>
+
+            <div class="table-wrap" style="margin-top: 18px;">
+              <table>
+                <thead><tr><th>점수</th><th>관찰 가능한 의미</th><th>PASS와의 관계</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>0</strong></td><td>없음·무응답·잠긴 증거와 모순</td><td>critical이면 FAIL</td></tr>
+                  <tr><td><strong>1</strong></td><td>필수 추론을 무너뜨리는 큰 오해</td><td>critical이면 FAIL</td></tr>
+                  <tr><td><strong>2</strong></td><td>부분적으로 맞지만 현재 단계에 중요한 공백</td><td>필수 차원이면 RETRY</td></tr>
+                  <tr><td><strong>3</strong></td><td>현재 encounter 기준으로 정확하고 완결됨</td><td>필수 차원의 PASS 기준</td></tr>
+                  <tr><td><strong>4</strong></td><td>사실 오류 없이 특히 엄밀하고 간결함</td><td>가산점이며 PASS 필수 아님</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="evidence-flow" aria-label="채점 보정 profile">
+              <div class="evidence-stage"><b>COMPACT RECALL</b><span>D3 · D14 · compact D365</span></div>
+              <div class="evidence-stage"><b>FULL IMPLEMENTATION</b><span>D7 · D30 · Final B · full D365</span></div>
+              <div class="evidence-stage"><b>EXPLANATION</b><span>D60 alternative · follow-up · communication</span></div>
+              <div class="evidence-stage"><b>C VARIATION</b><span>C1 · C2 · Final C transfer reasoning</span></div>
+            </div>
+
+            <div class="atomic-note">
+              <strong>VERSION LOCK</strong>
+              <span>초기·변경 시 72개 전체를 두 번 통과합니다. 30일마다 24-case canary, 90일마다 전체 재인증을 수행합니다. 실패·만료·version mismatch는 새 결과를 <code>PENDING_AI_REVIEW</code>로 멈추지만, 유효한 인증서로 완료된 과거 판정은 다시 쓰지 않습니다.</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -3004,7 +3042,7 @@ PRAGMA busy_timeout = 5000;</code></pre>
           <span class="section-number">12</span>
           <div>
             <h2>고장 난 애니메이션은 학습에 들어올 수 없음</h2>
-            <p class="section-lede">애니메이션은 부가 기능이 아니라 문제의 필수 자격조건입니다. 오류 뒤 텍스트로 대체하는 것이 아니라, 검증되지 않았으면 그 문제를 시작하지 않습니다.</p>
+            <p class="section-lede">전체 500개를 기다리지는 않지만 기준을 낮추지도 않습니다. P001–P080 전체가 인증되고 채점자 인증서가 유효할 때 첫 학습을 시작하며, 이후에도 인증되지 않은 문제는 절대 배정하지 않습니다.</p>
           </div>
         </div>
 
@@ -3014,8 +3052,15 @@ PRAGMA busy_timeout = 5000;</code></pre>
             <div class="qualification-step"><b>02 · FULL REPLAY</b><span>주·세부 단계를 앞/뒤/재시작하고 의미·테스트 일치 확인</span></div>
             <div class="qualification-step"><b>03 · 3 VIEWPORTS</b><span>360·768·1440, 키보드, reduced motion, 접근성 검사</span></div>
             <div class="qualification-step"><b>04 · CERTIFICATE</b><span>spec·contract·renderer·app build·trace hash를 한 인증서로 결합</span></div>
-            <div class="qualification-step"><b>05 · ATOMIC READY</b><span>500 / 500이 모두 유효할 때만 production 학습 시작</span></div>
+            <div class="qualification-step"><b>05 · WAVE 1 READY</b><span>P001–P080이 80 / 80이고 grader 인증이 유효할 때 학습 시작</span></div>
           </div>
+        </div>
+
+        <div class="context-grid" aria-label="콘텐츠 웨이브 상태">
+          <div class="context-card"><strong>첫 시작 · 80 / 80</strong><span>P001–P080의 한영 카드·테스트·정답·애니메이션을 모두 인증</span></div>
+          <div class="context-card"><strong>Grader · QUALIFIED</strong><span>72-case 보정과 version certificate가 현재 상태여야 시작 가능</span></div>
+          <div class="context-card"><strong>P081 진입 조건</strong><span>첫 80개가 encounter 3까지 완료된 뒤, 인증·선수조건을 통과한 문제만 추가</span></div>
+          <div class="context-card"><strong>최종 완료 · 500 / 500</strong><span>첫 웨이브와 별개로 전체 제품 콘텐츠 완료 기준은 유지</span></div>
         </div>
 
         <div class="health-grid">
@@ -3037,9 +3082,9 @@ PRAGMA busy_timeout = 5000;</code></pre>
           <li>약점은 출처·심각도·근거를 가진 observation이며, 해결과 재발은 별도 event입니다.</li>
           <li>발전 비교는 Full/Compact, KO/EN, coached/blind 조건을 표시해 오해를 막습니다.</li>
           <li>체리픽은 <code>practice_requests</code>로 남고 필수 9회 스케줄이나 overdue debt를 바꾸지 않습니다.</li>
-          <li>결정적 테스트가 정확성 oracle이며, 합성 Staff Engineer 면접관은 잠긴 근거만 인용합니다.</li>
+          <li>결정적 테스트가 정확성 oracle이며, 합성 Staff Engineer 면접관은 72-case 보정 인증 후에만 잠긴 근거를 채점합니다.</li>
           <li>정답 애니메이션은 판정 뒤에만 열리고, 열람 행동은 학술 결과를 바꾸지 않습니다.</li>
-          <li>500개 전부가 현재 앱에서 인증되어야 production이 READY이며, 손상 시 정상본을 자동 복구합니다.</li>
+          <li>P001–P080이 80/80 인증되면 먼저 시작하고, 이후 문제는 개별 인증·선수조건을 통과할 때 확장합니다. 최종 완료는 500/500입니다.</li>
         </ul>
       </section>
     </main>
@@ -3047,7 +3092,7 @@ PRAGMA busy_timeout = 5000;</code></pre>
 
   <footer>
     <div class="page-shell footer-inner">
-      <span>NEETCODE 500 · EVIDENCE-FIRST LEARNING SYSTEM · DESIGN v2.2</span>
+      <span>NEETCODE 500 · EVIDENCE-FIRST LEARNING SYSTEM · DESIGN v2.3</span>
       <span>Local-first · Python 3.12+ · Asia/Seoul · Offline HTML</span>
     </div>
   </footer>

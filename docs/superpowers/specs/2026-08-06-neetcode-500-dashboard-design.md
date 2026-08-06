@@ -44,6 +44,8 @@ The following decisions are frozen for implementation planning:
 17. Use one declarative animation player with reusable algorithm primitives and a versioned `AnimationSpec` for each problem, not 500 unrelated JavaScript implementations.
 18. Make a current, verified animation package a fail-closed scheduling prerequisite. A broken or uncertified animation can never enter the production learning flow, and a text-only fallback does not satisfy this requirement.
 19. Use the fictional `Evidence-First Composite Staff Interviewer` persona for post-submission Codex review, with high standards inspired by the user-named Jane Street, Google, Anthropic, OpenAI, Hudson River Trading, and Jump Trading environments.
+20. Start production learning with a qualified P001–P080 Array Systems wave instead of waiting for all 500 content packages. All 80 first-wave problems must be qualified before the first production attempt; no unqualified problem is ever scheduled.
+21. Require a version-bound grader calibration certificate before Codex can issue academic recommendations. Calibration uses explicit 0–4 score anchors, a 72-case golden suite, zero false PASS on known-invalid cases, and reproducible acceptance metrics.
 
 ### 2.1 Explicit amendments to the master plan
 
@@ -160,6 +162,10 @@ All component values, the final score, and the reason for inclusion must be stor
 P001–P080 is a connected curriculum covering arrays, hashing, sorting, prefix sums, two pointers, and sliding windows. It is not defined as “the first 80 of the 175 Arrays & Hashing bucket.” Problems are selected from the union of these related families, deduplicated, and ordered by prerequisite.
 
 All eligible but unselected problems in that union enter `Array Depth Queue`. Its size is computed after the authenticated snapshot is deduplicated; it is not hard-coded as 95.
+
+P001–P080 is also the first production content wave. Every one of the 80 problems must have a semantically aligned bilingual card, deterministic tests, canonical answer, qualified animation package, and current qualification certificate before the first real attempt may start. The learner completes the three coached encounters for all 80 in prerequisite order before any new P081 problem is introduced. Due D3-and-later reviews continue on their canonical dates and may overlap later content expansion.
+
+P081–P500 remain frozen from the beginning but do not block Wave 1. After the first 80 complete their coached phase, each later problem becomes introduction-eligible only when its own full content package is qualified and its prerequisite problems are eligible. There is no fixed later-wave size. Final product content completion still requires 500 of 500 qualified packages.
 
 ### 4.5 C-120 selection
 
@@ -324,6 +330,52 @@ Final B, Final C, and any low-confidence or internally inconsistent recommendati
 
 The local application remains the primary grading surface. After the verdict and answer-animation unlock, the user may open the source problem and manually record an external NeetCode result for comparison. The application does not automate submission to NeetCode, and an external result cannot overwrite the immutable local evidence or verdict.
 
+### 9.3 Grader calibration and qualification
+
+The persona description alone is not a grading standard. Academic review is enabled only when the exact grader configuration has a current `GraderQualificationCertificate` produced from a locked golden suite.
+
+Every rubric dimension uses the same anchored 0–4 scale:
+
+| Score | Observable meaning |
+|---:|---|
+| 0 | Missing, non-responsive, or contradicted by the locked evidence |
+| 1 | Major misconception that invalidates the required reasoning |
+| 2 | Partially correct but contains a material gap for the current encounter |
+| 3 | Correct, complete, and interview-ready for the current encounter |
+| 4 | Exceptionally rigorous and concise, with no factual error; never required for PASS |
+
+`RubricVersion` contains an explicit encounter matrix. It maps every academic encounter to one of four profiles and marks each dimension as `REQUIRED`, `SECONDARY`, or `NOT_SCORED`:
+
+- `COMPACT_RECALL`: D3, D14, and compact D365; trigger/approach, invariant or state, stage-required skeleton or counterexample, and complexity are required as applicable to the encounter
+- `FULL_IMPLEMENTATION`: D7, D30, Final B, and full D365; correctness reasoning, invariant/state, complexity, boundary coverage, and explanation are required; code quality and test design are secondary
+- `EXPLANATION_FOLLOWUP`: D60; invariant/state, alternative, likely follow-up, complexity, boundary reasoning, and communication are required
+- `C_VARIATION`: C1, C2, and Final C; variation modeling, transfer of the invariant/state, correctness reasoning, complexity, and explanation are required
+
+Outcome mapping is deterministic after the test and assistance gates:
+
+- `PASS`: all deterministic gates pass, every required dimension is at least 3, every secondary dimension is at least 2, and there is no critical factual contradiction
+- `RETRY`: deterministic correctness gates pass and no critical dimension is 0 or 1, but at least one required dimension is below 3 or one secondary dimension is below 2
+- `FAIL`: a required deterministic correctness gate fails, prohibited assistance invalidates a blind attempt, the core algorithm is materially wrong, or any critical required dimension is scored 0 or 1
+- coached encounters receive the same anchored formative fields where applicable but never map them to an academic outcome
+
+The initial golden suite contains 72 immutable evaluation bundles: 18 per profile, with six expected `PASS`, six expected `RETRY`, and six expected `FAIL`. Across the complete suite it covers Korean and English, Easy/Medium/Hard, every required pattern family, valid alternative solutions, misleading-but-plausible explanations, boundary failures, complexity mismatches, and assistance violations. Each case stores expected dimension ranges, expected outcome, hard-gate facts, and source-cited adjudication notes. Golden bundles are calibration fixtures and never appear as the user's live attempt.
+
+Initial qualification and any configuration change run the complete suite twice. Both runs must satisfy all of the following:
+
+- 100% agreement on deterministic and assistance hard gates
+- zero false `PASS` among golden `FAIL` and assistance-violation cases
+- at least 17 of 18 exact outcomes in each profile
+- quadratic-weighted Cohen's kappa of at least 0.80 against the golden outcomes
+- mean absolute dimension-score error no greater than 0.40 on the 0–4 scale; a score inside the case's accepted range has zero error, otherwise error is its distance to the nearest range boundary
+- at least 95% exact-outcome agreement between the two calibration runs
+- 100% of material findings point to a valid code, test, transcript, or declaration evidence reference
+
+The certificate binds the requested and observable model metadata, Codex CLI version, reviewer prompt hash, output-schema hash, rubric version, evidence-bundle builder version, calibration-suite version, and aggregate metrics. A change to any bound value revokes the certificate and requires full qualification.
+
+To detect drift behind an unchanged model identifier, a rotating 24-case canary runs every 30 days. It must preserve 100% hard-gate accuracy, zero false `PASS`, at least 22 of 24 exact outcomes, and valid evidence citations. A passing canary renews the unchanged configuration for another 30 days but never beyond its 90-day full-requalification deadline. A failed canary immediately revokes the grader certificate and requires the full 72-case qualification. A complete two-run qualification is mandatory every 90 days.
+
+Without a current certificate, Codex may not issue a new academic recommendation. Already locked attempts remain `PENDING_AI_REVIEW`; deterministic test evidence is preserved, and no attempt becomes `FAIL` because calibration is missing or expired. Revocation or expiry blocks future recommendations but never rewrites a historical review that completed while its certificate was valid.
+
 ## 10. Spoken explanations
 
 ### 10.1 Capture and transcription
@@ -375,6 +427,7 @@ Use the approved Midnight Focus design:
 
 - planned and actual minutes
 - holiday status
+- Wave 1 content readiness and grader-certificate status before the first production start
 - priority-sorted queue
 - separate coach, B, C, unseen, and mock items
 - estimated remaining time
@@ -405,6 +458,7 @@ Use the approved Midnight Focus design:
 - selection score and evidence
 - B/C target and current state
 - next review date
+- content qualification state and blocking reason for every problem
 - bilingual card and source links outside blind attempts
 - Array Depth Queue as a separate non-scheduled view
 
@@ -415,6 +469,7 @@ Use the approved Midnight Focus design:
 - controlled unseen reveal
 - mock schedule
 - pending AI-review queue
+- grader qualification, expiry, drift-canary, and full-renewal status
 
 **Analytics**
 
@@ -514,6 +569,8 @@ The master plan's original models remain the base. The implementation adds or se
 - `review_kind: COACH | PRIMARY_POST_SUBMISSION | SHADOW_POST_SUBMISSION`
 - `input_bundle_hash`
 - `schema_version`
+- `rubric_version_id`
+- `grader_qualification_certificate_id` for academic recommendations
 - `codex_thread_id` when emitted
 - `raw_result_json`
 - rubric fields
@@ -528,6 +585,8 @@ B progress and C progress are derived separately from immutable events. They are
 ### 12.8 `ScheduleItem` and `Attempt`
 
 `ScheduleItem` represents work the curriculum requires. It stores `problem_id`, stage, due time in UTC, the Asia/Seoul study date, source, priority tier, current status, and the attempt that created the next item. An overdue item remains overdue; it is never silently moved or replaced.
+
+The scheduler cannot create an introduction item for an unqualified problem. Before the first production attempt it also requires the P001–P080 all-or-nothing Wave 1 gate and a current grader certificate. After Wave 1 begins, reviews for qualified problems continue normally; the new-problem generator blocks P081 until all first-wave problems have completed encounter 3, then applies per-problem content and prerequisite eligibility.
 
 `Attempt` is the central learning-history row. One row is created every time the user actually starts a problem, including coached encounters, blind encounters, recovery work, C certification, D365 maintenance, and optional user-selected drills.
 
@@ -600,6 +659,8 @@ Analytics read from deterministic SQL views rather than asking Codex to invent a
 - `v_open_weaknesses`: latest status, recurrence count, maximum severity, last-seen date, supporting attempts, and recommended drill
 - `v_practice_candidates`: one explainable row per eligible problem with priority tier, reason codes, target weakness, and suggested mode
 - `v_pattern_risk`: unresolved and recurring weaknesses grouped across pattern, difficulty, language, and blind stage
+- `v_content_readiness`: Wave 1 80-of-80 status, first-wave coached completion, later eligible/blocked counts, and final 500-of-500 status
+- `v_grader_health`: active configuration hash, certificate status and expiry, latest canary/full-run metrics, and the exact reason academic review is enabled or blocked
 
 The problem detail page exposes the underlying attempts behind every trend and recommendation. No chart or recommendation is accepted as evidence unless the user can drill down to the source attempt, test failure, transcript rubric, or review observation.
 
@@ -648,13 +709,23 @@ The content package is content-addressed and read-only. It cannot contain execut
 
 `AnimationQualificationCertificate` binds a problem/spec version to its semantic-contract hash, canonical-solution hash, player/runtime version, application build, supported viewport and accessibility matrix, forward/back/detail replay trace hash, test-manifest hash, issue time, and `QUALIFIED | REVOKED` status.
 
-A production learning release is not `READY` until all 500 current packages have valid certificates for the shipped player and application build. Any change to a problem contract, answer, spec, player, browser-runtime compatibility boundary, or relevant application code invalidates the certificate and requires complete requalification.
+Production learning first becomes `WAVE_1_READY` when all P001–P080 packages have valid certificates for the shipped player and application build and the grader has a current qualification certificate. P081–P500 do not block this first start, but an individual later problem remains ineligible until its own package and prerequisites qualify. The final product state `CONTENT_500_COMPLETE` still requires 500 of 500 current packages. Any change to a problem contract, answer, spec, player, browser-runtime compatibility boundary, or relevant application code invalidates the affected certificate and requires complete requalification.
 
 ### 12.16 `ExplanationUnlockEvent` and `AnimationViewSession`
 
 `ExplanationUnlockEvent` records the immutable attempt, academic verdict or `COACHED_COMPLETE`, qualified spec hash, unlock time, and policy version. The backend rejects unlock while the attempt is active, coached feedback is unresolved, review is pending, or the certificate does not match the current contract and runtime.
 
 `AnimationViewSession` records the unlocked attempt and spec version, language, open/close time, furthest main step, detail steps opened, completion, replay count, and active viewing duration. Step actions remain available in the general interaction ledger. These records support explanation-quality analytics but are excluded from academic state transitions.
+
+### 12.17 Grader calibration records
+
+`RubricVersion` stores the immutable 0–4 score anchors, encounter-to-profile matrix, required/secondary dimensions, hard-gate policy, outcome mapping, and content hash.
+
+`CalibrationCase` stores the golden bundle hash, profile, language, difficulty, pattern tags, expected dimension ranges, expected academic result, hard-gate facts, adjudication evidence, and suite version. A case cannot be edited after it participates in a qualification run; correction creates a new suite version.
+
+`CalibrationRun` stores the grader configuration hash, suite or canary version, run kind, start/end times, every case result and evidence-validation result, exact-outcome rate by profile, hard-gate rate, false-PASS count, quadratic-weighted kappa, range-aware dimension-score error, run-to-run stability when applicable, and `PASS | FAIL` status.
+
+`GraderQualificationCertificate` stores all bound version/hash fields, qualifying run IDs, issue time, 30-day expiry, 90-day full-requalification deadline, aggregate metrics, and `QUALIFIED | REVOKED | EXPIRED` status. Every `CodexReview` references the certificate used for that recommendation. Database constraints reject a new academic recommendation with a missing, revoked, expired, or configuration-mismatched certificate while preserving reviews completed under a certificate that was valid at review time.
 
 ## 13. Outcomes and state transitions
 
@@ -713,12 +784,15 @@ No software can promise that storage, the operating system, or browser hardware 
 |---|---|---|
 | Codex unavailable or rate-limited | Review marked pending with retry action | No stage advance; no FAIL |
 | Codex schema violation | One automatic retry, then manual queue | No stage advance; no FAIL |
+| Grader certificate missing, expired, revoked, or mismatched | Academic review controls disabled; calibration action shown | Locked attempt remains `PENDING_AI_REVIEW`; no academic result |
+| Calibration or drift canary below threshold | Grader status turns red and full qualification is required | Certificate revoked; no new academic recommendation |
 | Coach response leaks forbidden content | Response suppressed and incident logged | Check remains available |
 | Python timeout or memory limit | Deterministic failed test with captured reason | Normal rubric applies |
 | Test-runner infrastructure failure | System-error banner and retry | No stage advance; no FAIL |
 | Microphone denied | Typed explanation fallback | `voice_unavailable` recorded |
 | Transcription failure | Replay, rerecord, or typed fallback | No academic penalty |
 | Bilingual contract mismatch | Problem blocked from scheduling | Curator repair required |
+| P001–P080 only partially qualified | Content progress remains visible but production Start is disabled | No real attempt until Wave 1 is 80 of 80 |
 | Interaction ledger not acknowledged | `Recording paused`; persistent local outbox retries idempotently | Lock/finalization blocked; no partial outcome |
 | Animation certificate missing or stale | Problem absent from eligible queue | No attempt can start |
 | Animation package hash or preflight mismatch | Restore last-known-good and requalify; otherwise show operational repair state | New study paused before attempt start; no text fallback and no academic result |
@@ -744,6 +818,9 @@ Implementation follows test-driven development. Required test groups include:
 - NC250 spine contains no duplicates in the extension set
 - every selected item has auditable scoring components
 - P001–P080 satisfies the Array Systems prerequisite graph
+- Wave 1 remains disabled at 79 of 80 qualified and becomes ready only at 80 of 80 with a current grader certificate
+- no P081 introduction is generated before all P001–P080 coached encounters are complete
+- a later problem is never introduced before its content certificate and prerequisite eligibility
 
 ### Bilingual content
 
@@ -818,6 +895,16 @@ Implementation follows test-driven development. Required test groups include:
 - a fresh paired review remains mutually blind, and repeated disagreement produces non-academic `SYSTEM_ERROR` plus the same-stage replacement item
 - coached encounters receive formative feedback but never an academic outcome
 
+### Grader calibration
+
+- all 0–4 anchors and encounter profile assignments are schema-validated and content-addressed
+- the 72-case suite contains exactly 18 cases per profile and six expected outcomes of each class per profile
+- qualification runs compute profile accuracy, hard-gate accuracy, false-PASS count, quadratic-weighted kappa, range-aware dimension-score error, evidence-reference validity, and repeated-run stability from stored case results
+- threshold boundary fixtures prove that 16/18 profile agreement fails while 17/18 passes, any false PASS fails, kappa below 0.80 fails, error above 0.40 fails, and stability below 95% fails
+- certificate binding and invalidation cover model metadata, CLI, prompt, schema, rubric, bundle builder, and calibration suite
+- the 30-day rotating canary and 90-day complete renewal revoke on failure or expiry
+- a missing, expired, revoked, or mismatched certificate cannot create a `CodexReview` academic recommendation and leaves the attempt pending
+
 ### Answer-animation qualification
 
 - all 500 specs pass schema, semantic-contract, canonical-answer, test-manifest, Korean/English parity, and prohibited-content checks
@@ -828,7 +915,7 @@ Implementation follows test-driven development. Required test groups include:
 - specs cannot execute arbitrary JavaScript or reveal canonical data through an active blind endpoint
 - certificate invalidation covers contract, answer, tests, player, application build, and compatibility changes
 - atomic promotion, current-package corruption, last-known-good restoration, and dual-generation failure are exercised
-- no problem can enter an eligible queue without a matching certificate, and production `READY` requires 500 of 500 qualified
+- no problem can enter an eligible queue without a matching certificate; `WAVE_1_READY` requires P001–P080 at 80 of 80, while `CONTENT_500_COMPLETE` requires 500 of 500
 - unlock is rejected before immutable review, permitted after every academic verdict and locked `COACHED_COMPLETE`, and animation viewing never changes mastery or scheduling
 
 ### Browser flows
@@ -850,14 +937,14 @@ Implementation follows test-driven development. Required test groups include:
 
 ## 18. Delivery decomposition
 
-The product is delivered as independently testable slices. Development preview may use fixtures, but the production learning scheduler remains disabled until the full animation qualification gate is satisfied:
+The product is delivered as independently testable slices. Development preview may use fixtures, but production learning remains disabled until P001–P080 reach 80-of-80 content qualification and the grader configuration is qualified:
 
 1. **Foundation:** copy the supplied v2.0 master plan byte-for-byte to repository-root `PLAN.md`, then add repository configuration, calendar, immutable events, SQLite, migrations, and backups.
 2. **Frozen curriculum:** authenticated curator import, scoring, validation, P001–P500, C-120, Array Depth Queue, bilingual cards, canonical answers, and deterministic test contracts.
 3. **Practice evidence:** Midnight Focus UI, scheduler, CodeMirror editor, interaction outbox, checkpoints, reconstruction, and deterministic tests.
-4. **Codex integration:** bounded coach sessions, the composite evidence-first reviewer, blind shadow review, pending-review recovery, leakage enforcement, and PASS/RETRY/FAIL policy.
+4. **Codex integration:** bounded coach sessions, the composite evidence-first reviewer, 0–4 rubrics, golden calibration suite, grader certificates, drift renewal, blind shadow review, pending-review recovery, leakage enforcement, and PASS/RETRY/FAIL policy.
 5. **Voice:** browser capture, local conversion/transcription, transcript confirmation, retention, and fallback.
-6. **Qualified explanations:** reusable animation player and primitives, 500 bilingual specs, qualification certificates, last-known-good recovery, server-side reveal gate, and view analytics.
+6. **Qualified explanations:** reusable animation player and primitives, P001–P080 first-wave certification, later per-problem expansion to all 500, last-known-good recovery, server-side reveal gate, and view analytics.
 7. **Certification and analytics:** B/C workflows, unseen and mocks, weakness analytics, risk projections, budget burn, and exports.
 8. **Long-term maintenance:** D365 queue and second-year maintenance analytics.
 
@@ -873,10 +960,12 @@ The design is implemented when all of the following are demonstrably true:
 - Coach output is bounded, asynchronous, hash-validated, and incapable of appearing during blind stages.
 - Python tests run deterministically and remain the correctness oracle.
 - Codex CLI returns schema-validated, evidence-cited post-submission review without direct API-key configuration, and its recommendation cannot override deterministic gates.
+- Codex academic recommendations remain disabled until the exact grader configuration passes the 72-case qualification thresholds and has a current certificate; version drift or expiry returns locked attempts to pending review without an academic penalty.
 - Final B, Final C, low-confidence, and conflicting cases receive a history-blind independent review; disagreement cannot create an academic result and unresolved repeat disagreement reschedules the same stage as `SYSTEM_ERROR`.
 - Korean and English spoken explanations can be recorded and transcribed locally.
 - Every meaningful practice action is durably ordered, acknowledged, and reconstructable from checkpoints; missing events prevent finalization.
-- All 500 bilingual animation packages are qualified against the shipped application and renderer with zero runtime errors before production is `READY`.
+- P001–P080 reach 80-of-80 bilingual content and animation qualification before the first production attempt, and all 80 complete the coached phase before a new P081 problem is introduced.
+- P081–P500 can expand without blocking the first wave, but each problem remains unschedulable until its own content and prerequisites qualify; final content completion requires 500 of 500.
 - No active blind attempt can fetch answer-animation content, and every finalized verdict can open its pinned click-by-click explanation without changing the result.
 - Current-package corruption restores a verified last-known-good package before study; loss of both qualified generations pauses new study rather than exposing a broken or text-only explanation.
 - D30 and Final B certification gates match the master plan and cannot be bypassed.

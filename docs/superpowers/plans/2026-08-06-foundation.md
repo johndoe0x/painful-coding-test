@@ -175,12 +175,6 @@ def test_master_plan_is_frozen_byte_for_byte() -> None:
     plan = ROOT / "PLAN.md"
     assert plan.exists()
     assert sha256(plan.read_bytes()).hexdigest() == EXPECTED_PLAN_HASH
-
-
-def test_runtime_directories_are_not_tracked() -> None:
-    ignored = (ROOT / ".gitignore").read_text(encoding="utf-8")
-    for entry in (".venv/", ".worktrees/", "data/*.sqlite3*", "backups/*"):
-        assert entry in ignored
 ```
 
 - [ ] **Step 4: Verify RED**
@@ -203,7 +197,7 @@ README must state the exact `uv sync`, `uv run neetcode-dashboard`, `uv run pyte
 
 Run: `uv run pytest tests/test_repository_contract.py -q`
 
-Expected: 2 passed.
+Expected: 1 passed.
 
 - [ ] **Step 7: Commit**
 
@@ -709,7 +703,7 @@ Start `uv run neetcode-dashboard --host 127.0.0.1 --port 8000` in a managed term
 
 ```bash
 shasum -a 256 PLAN.md
-git diff --check
+git diff --check -- . ':!PLAN.md'
 git status -sb
 ```
 

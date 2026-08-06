@@ -8,7 +8,7 @@
 
 ## 1. Product goal
 
-Build a local HTML study application that selects and freezes 500 problems from NeetCode All, teaches them first in Korean and then in English, executes the user's Python solutions, records spoken reasoning, and uses Codex CLI for bounded coaching and post-submission review.
+Build a local HTML study application that selects and freezes 500 problems from NeetCode All, teaches them first in Korean and then in English, executes the user's Python solutions, records spoken reasoning and meaningful practice actions, uses Codex CLI for bounded coaching and evidence-based post-submission review, and teaches every answer through a qualified click-by-click animation.
 
 The application operationalizes the master plan rather than replacing it. The one-year gates remain:
 
@@ -38,6 +38,12 @@ The following decisions are frozen for implementation planning:
 11. Support spoken explanations through browser recording and local transcription.
 12. Use local `whisper.cpp` with a multilingual `small` model by default.
 13. Add D365 maintenance outside the first-year 1,292-hour budget to test one-year retention.
+14. Record every meaningful practice action in an append-only interaction ledger that can reconstruct the attempt without storing noisy pointer movement.
+15. Grade primarily inside this application: deterministic local tests are the correctness oracle, and Codex evaluates the locked reasoning evidence. NeetCode submission is optional and never the primary grader.
+16. Reveal the answer animation only after code, tests, explanation, and review are locked; every academic verdict and completed coached encounter may open it, but watching it never changes the academic result.
+17. Use one declarative animation player with reusable algorithm primitives and a versioned `AnimationSpec` for each problem, not 500 unrelated JavaScript implementations.
+18. Make a current, verified animation package a fail-closed scheduling prerequisite. A broken or uncertified animation can never enter the production learning flow, and a text-only fallback does not satisfy this requirement.
+19. Use the fictional `Evidence-First Composite Staff Interviewer` persona for post-submission Codex review, with high standards inspired by the user-named Jane Street, Google, Anthropic, OpenAI, Hudson River Trading, and Jump Trading environments.
 
 ### 2.1 Explicit amendments to the master plan
 
@@ -64,9 +70,11 @@ Local browser
 Local Python web application
   ├─ scheduler and mastery state machine
   ├─ SQLite repositories and migrations
+  ├─ append-only interaction ledger and reconstruction verifier
   ├─ deterministic Python test runner
   ├─ audio conversion and whisper.cpp adapter
   ├─ Codex CLI coach/reviewer adapter
+  ├─ animation qualification, unlock, and session services
   ├─ export, backup, and restore
   └─ static HTML/CSS/JavaScript assets
               │
@@ -75,6 +83,7 @@ Local data
   ├─ tracker.sqlite3
   ├─ curated problem snapshot
   ├─ bilingual problem cards
+  ├─ content-addressed animation packages and certificates
   ├─ user code submissions
   ├─ retained Final B/C audio
   └─ CSV / JSON / Markdown backups
@@ -274,9 +283,46 @@ The bundle contains:
 - hint, prior-code, AI, and source-view declarations
 - rubric for the current stage
 
-The reviewer returns structured fields for correctness reasoning, invariant/state, complexity, boundary coverage, explanation quality, prohibited assistance, and a recommended `PASS`, `RETRY`, or `FAIL`. The backend owns the final transition and applies deterministic gates before accepting the recommendation.
+The reviewer returns structured fields for correctness reasoning, invariant/state, complexity, boundary coverage, explanation quality, prohibited assistance, and a recommended `PASS`, `RETRY`, or `FAIL`. The backend owns the final transition and applies deterministic gates before accepting the recommendation. A failing deterministic test cannot be overturned by Codex.
 
 If Codex is unavailable, unauthenticated, rate-limited, times out, or returns invalid JSON, the attempt becomes `PENDING_AI_REVIEW`. Its stage does not advance and it does not become `FAIL`. One automatic retry is permitted; further retry is manual.
+
+### 9.1 Evidence-First Composite Staff Interviewer
+
+Post-submission review uses a fictional composite persona named `Evidence-First Composite Staff Interviewer`. It combines the rigorous engineering bar the user wants to associate with Jane Street, Google, Anthropic, OpenAI, Hudson River Trading, and Jump Trading. It does not impersonate an employee, claim inside information, or claim that its rubric is an official hiring process of any named company.
+
+The persona is strict but calibrated. It applies proof, performance, testing, maintainability, epistemic calibration, and concise communication standards at the level appropriate to the problem difficulty and encounter. It does not demand staff-level system design for an Easy algorithm problem and does not penalize a correct alternative merely because it differs from a preferred style.
+
+The primary reviewer receives only the current locked evaluation bundle. It cannot see the user's name, prior attempts, prior grades, open weaknesses, scheduler state, canonical solution, or another reviewer's verdict. This prevents history and expectation bias. Its rules are:
+
+- cite exact code lines, test cases, transcript spans, or declarations for every material claim
+- distinguish observed facts, valid deductions, missing evidence, and uncertainty
+- never infer knowledge that the locked evidence does not demonstrate
+- ignore effort, elapsed study history, and stylistic preference when assigning the academic recommendation
+- assess the stage-specific contract rather than applying one undifferentiated full-code rubric
+- return feedback calmly and concretely in Korean first and English second
+- identify one demonstrated strength, one highest-leverage weakness, and one bounded next drill
+
+The structured response contains the recommendation, deterministic-gate acknowledgement, evidence references, rubric scores for correctness reasoning, invariant/state, complexity, boundary coverage, code quality, test design, and spoken explanation, confidence, uncertainty reasons, the strength, the weakness, and the next drill.
+
+### 9.2 Review decision pipeline
+
+Review proceeds in three logically isolated steps:
+
+1. **Evidence extraction:** index only facts and citations from the locked bundle.
+2. **Rubric evaluation:** apply the versioned rubric for the current problem, difficulty, format, language, and encounter.
+3. **Recommendation:** produce `PASS`, `RETRY`, or `FAIL` with confidence and cited reasons.
+
+The backend then applies deterministic policy:
+
+- required deterministic tests failing, a prohibited-assistance violation, or a materially incorrect core algorithm prevents `PASS`
+- passing tests with a meaningful invariant, complexity, boundary, or explanation deficiency produces `RETRY` when the stage requires that dimension
+- `PASS` requires every hard gate and the stage-specific rubric threshold
+- coached encounters use formative feedback but end only as `COACHED_COMPLETE`; they never receive an academic result
+
+Final B, Final C, and any low-confidence or internally inconsistent recommendation receive an independent blind shadow review. The shadow reviewer uses the same bundle and rubric but cannot see the first verdict. Agreement permits backend finalization. Material disagreement becomes `NEEDS_SECOND_REVIEW`; it never becomes an automatic `FAIL`. From that queue the user may request one fresh paired review whose two reviewers are again isolated from each other and the prior verdicts. If the fresh pair still materially disagrees, the attempt closes as `SYSTEM_ERROR` without an academic result and the same stage is rescheduled from the locked prompt contract.
+
+The local application remains the primary grading surface. After the verdict and answer-animation unlock, the user may open the source problem and manually record an external NeetCode result for comparison. The application does not automate submission to NeetCode, and an external result cannot overwrite the immutable local evidence or verdict.
 
 ## 10. Spoken explanations
 
@@ -341,8 +387,10 @@ Use the approved Midnight Focus design:
 - CodeMirror Python editor
 - user-authored tests and deterministic test results
 - voice recording and transcript confirmation
+- visible `Recording`/`Synced` ledger state without showing noisy event counts
 - coach meter only for encounters 1–3
 - post-lock Codex review and immutable verdict evidence
+- post-verdict answer animation with one logical step per click
 
 **Calendar**
 
@@ -381,6 +429,24 @@ Use the approved Midnight Focus design:
 - budget burn and projected dates
 - unseen and mock results
 - D365 maintenance status after the first year
+
+### 11.3 Post-verdict answer animation
+
+Every frozen problem has a Korean-first and English-capable answer animation. The server never sends its spec, canonical code, pattern metadata, or derived assets to an active blind attempt. The unlock occurs only after the submission, tests, explanation, declarations, and review are immutable. `PASS`, `RETRY`, and `FAIL` may all open the explanation. A coached encounter may open it only after its locked formative review and `COACHED_COMPLETE`. The animation is a learning artifact, not a grading input.
+
+The approved interaction is a focused single-screen progressive reveal:
+
+1. Show the data structure and one short sentence for the current state.
+2. Advance exactly one logical state change when the user selects **Next step** or presses the documented key.
+3. Reveal only the currently relevant code line when the visual concept becomes clear.
+4. Offer **More detail** to expand the current main step into two to four microsteps without changing the main-step count.
+5. Reveal the complete canonical code, complexity, and edge-case summary only at the final main step.
+
+Each problem contains six to ten main conceptual steps. There is no autoplay. Previous, next, restart, language switch, detail expansion, keyboard focus, and reduced-motion behavior are deterministic. The default start is always step 1, even when an open weakness highlights a later related step.
+
+The player is one reusable renderer backed by declarative `AnimationSpec` data. Reusable primitives cover arrays, pointers, hash maps, linked lists, stacks, queues, trees, tries, graphs, union-find, heaps, intervals, matrices, dynamic programming, backtracking, and bit operations. A problem spec may compose primitives and state transitions but may not execute arbitrary JavaScript. Codex may draft a spec, but only reviewed, qualified content is eligible for scheduling.
+
+Watching, skipping, replaying, expanding details, or changing animation language never changes `PASS`, mastery, certification, or the next canonical schedule item. It produces learning analytics only. A later voluntary drill must be created explicitly through `PracticeRequest`.
 
 ## 12. Data model additions
 
@@ -445,7 +511,7 @@ The master plan's original models remain the base. The implementation adds or se
 ### 12.6 `CodexReview`
 
 - `attempt_id`
-- `review_kind: COACH | POST_SUBMISSION`
+- `review_kind: COACH | PRIMARY_POST_SUBMISSION | SHADOW_POST_SUBMISSION`
 - `input_bundle_hash`
 - `schema_version`
 - `codex_thread_id` when emitted
@@ -453,7 +519,7 @@ The master plan's original models remain the base. The implementation adds or se
 - rubric fields
 - `recommended_result`
 - `started_at`, `completed_at`, and `duration_seconds`
-- `status: COMPLETE | PENDING | SYSTEM_ERROR`
+- `status: COMPLETE | PENDING | SYSTEM_ERROR`; disagreement is represented on `Attempt.lifecycle_status`, not on either immutable review row
 
 ### 12.7 State representation
 
@@ -470,7 +536,7 @@ Required fields are:
 - `problem_id`, optional `schedule_item_id`, and optional `practice_request_id`
 - monotonically increasing `sequence_no` per problem
 - encounter, study mode, prompt language, and `FULL | COMPACT` format
-- lifecycle status: `IN_PROGRESS | PENDING_AI_REVIEW | FINALIZED | ABANDONED | SYSTEM_ERROR`
+- lifecycle status: `IN_PROGRESS | PENDING_AI_REVIEW | NEEDS_SECOND_REVIEW | FINALIZED | ABANDONED | SYSTEM_ERROR`
 - academic result when applicable: `PASS | RETRY | FAIL`; it remains `NULL` for coached encounters, whose completion is recorded by `CoachSession.status = COACHED_COMPLETE`
 - start, lock, and finalization timestamps in UTC plus the Asia/Seoul study date
 - active duration, assistance declaration, assistance-violation flag, and semantic-contract hash
@@ -548,6 +614,48 @@ The problem detail page exposes the underlying attempts behind every trend and r
 - Use Alembic migrations and record the application/schema version in every export manifest.
 - Run `PRAGMA integrity_check` during verified backup/restore. Back up the database with the SQLite backup API so committed WAL-backed state, the retained-audio manifest, and content hashes form one consistent snapshot.
 
+### 12.14 `InteractionEvent`, `EditorCheckpoint`, and reconstruction
+
+Every meaningful action inside a practice attempt is appended to `InteractionEvent`. The server assigns a monotonic `event_seq` per attempt and stores the client monotonic elapsed time, server UTC receipt time, event type, versioned payload, and relevant before/after content hashes. The event taxonomy includes:
+
+- editor insert, delete, replace, paste, cut, undo, and redo operations
+- run request, user-test creation/change, test result view, and runtime error view
+- timer start, pause, resume, and expiry
+- window focus, blur, reconnect, and idle boundary
+- voice record, stop, replay, transcript confirmation, and correction
+- coach request, stale response, accepted response, and suppression
+- declaration change, lock request, submission, review receipt, and verdict acknowledgement
+- answer unlock request, animation open, main-step navigation, detail expansion, language change, restart, and completion
+- source-link open and manually recorded external result after verdict
+
+Raw pointer coordinates, mouse movement, hover noise, scrolling pixels, and every physical keydown are not retained. Editor changes are semantic document operations. Transport may batch a burst, but the batch preserves every ordered operation and its offset/text payload. Sensitive browser or operating-system activity outside the practice page is never collected.
+
+`EditorCheckpoint` stores a complete code snapshot at attempt start, every accepted run, focus loss, submission lock, and at least every 30 active seconds. Each checkpoint records the last included event sequence and its code hash. Replaying editor operations from the preceding checkpoint must reproduce the next checkpoint byte-for-byte.
+
+The browser maintains a persistent local outbox until the server acknowledges an event watermark. Finalization is blocked while the outbox has unacknowledged events. A ledger interruption shows `Recording paused`, preserves the attempt locally, and resumes idempotently; it never silently drops actions or produces an academic outcome from a partial history.
+
+### 12.15 `AnimationSpec` and `AnimationQualificationCertificate`
+
+`AnimationSpec` is a versioned declarative document containing:
+
+- `problem_id`, spec version, semantic-contract hash, and canonical-solution hash
+- Korean and English title, narration, complexity, and edge-case content
+- six to ten ordered main scenes and optional two-to-four-step detail expansions
+- primitive instances, visual state, allowed transitions, emphasis, code references, and weakness tags
+- final canonical code references and reduced-motion/accessibility annotations
+
+The content package is content-addressed and read-only. It cannot contain executable script, external URLs, or runtime network dependencies. The player validates the schema again before rendering even though only certified packages should reach it.
+
+`AnimationQualificationCertificate` binds a problem/spec version to its semantic-contract hash, canonical-solution hash, player/runtime version, application build, supported viewport and accessibility matrix, forward/back/detail replay trace hash, test-manifest hash, issue time, and `QUALIFIED | REVOKED` status.
+
+A production learning release is not `READY` until all 500 current packages have valid certificates for the shipped player and application build. Any change to a problem contract, answer, spec, player, browser-runtime compatibility boundary, or relevant application code invalidates the certificate and requires complete requalification.
+
+### 12.16 `ExplanationUnlockEvent` and `AnimationViewSession`
+
+`ExplanationUnlockEvent` records the immutable attempt, academic verdict or `COACHED_COMPLETE`, qualified spec hash, unlock time, and policy version. The backend rejects unlock while the attempt is active, coached feedback is unresolved, review is pending, or the certificate does not match the current contract and runtime.
+
+`AnimationViewSession` records the unlocked attempt and spec version, language, open/close time, furthest main step, detail steps opened, completion, replay count, and active viewing duration. Step actions remain available in the general interaction ledger. These records support explanation-quality analytics but are excluded from academic state transitions.
+
 ## 13. Outcomes and state transitions
 
 - Coach sessions never emit `PASS`, `RETRY`, or `FAIL`.
@@ -559,6 +667,8 @@ The problem detail page exposes the underlying attempts behind every trend and r
 - Any hint, source view, alternate-language reveal, prior-code view, or live AI assistance during a blind attempt prevents PASS.
 - System errors never advance or academically fail an attempt.
 - Missed events remain overdue and are never silently shifted or deleted.
+- Answer-animation unlock requires a finalized academic verdict or locked `COACHED_COMPLETE` review and a matching current qualification certificate.
+- Animation viewing is downstream of the immutable review and never mutates academic state or the canonical schedule.
 
 ## 14. One-year and longer maintenance
 
@@ -587,6 +697,14 @@ D365 results are reported separately as `MAINTAINED_COMPACT`, `MAINTAINED_FULL`,
 - Store the speech model outside Git and verify its hash.
 - Back up the SQLite database, retained certification audio, cards, and manifest atomically.
 - Verify restore into a fresh temporary directory before marking a backup valid.
+- Build animation packages in a staging area, qualify them completely, then promote the package index atomically. Partial content is never visible to the scheduler.
+- Retain the current and last-known-good qualified package generations. On corruption or hash mismatch, restore the last-known-good generation and re-run qualification before enabling study.
+- Before a problem is eligible, an isolated renderer preflight verifies its pinned package against the current player, application build, browser-runtime compatibility boundary, and semantic contract without sending canonical content to the active blind page.
+- Pin the qualified spec hash to the attempt before it starts so later content deployment cannot change the explanation attached to that attempt.
+- Fail closed: if neither the current nor last-known-good package qualifies, pause new study before an attempt begins and require repair. Do not offer a text-only completion path for missing animation.
+
+No software can promise that storage, the operating system, or browser hardware will never fail. The enforceable guarantee is stronger than a best-effort fallback: an unqualified or damaged explanation is never represented as `READY`, never starts a production attempt, never counts as completed learning, and never causes an academic result.
+
 - A public or multi-user deployment requires a separate threat model and a real untrusted-code sandbox; it is outside this design.
 
 ## 16. Error handling
@@ -601,6 +719,10 @@ D365 results are reported separately as `MAINTAINED_COMPACT`, `MAINTAINED_FULL`,
 | Microphone denied | Typed explanation fallback | `voice_unavailable` recorded |
 | Transcription failure | Replay, rerecord, or typed fallback | No academic penalty |
 | Bilingual contract mismatch | Problem blocked from scheduling | Curator repair required |
+| Interaction ledger not acknowledged | `Recording paused`; persistent local outbox retries idempotently | Lock/finalization blocked; no partial outcome |
+| Animation certificate missing or stale | Problem absent from eligible queue | No attempt can start |
+| Animation package hash or preflight mismatch | Restore last-known-good and requalify; otherwise show operational repair state | New study paused before attempt start; no text fallback and no academic result |
+| Shadow-review disagreement | Evidence and both review IDs shown; one fresh isolated pair is available | `NEEDS_SECOND_REVIEW`; repeat disagreement becomes non-academic `SYSTEM_ERROR` and reschedules the same stage |
 | Backup verification failure | Red operational alert | Completion gate remains false |
 
 ## 17. Verification strategy
@@ -658,6 +780,15 @@ Implementation follows test-driven development. Required test groups include:
 - derived views reproduce the same result after export, restore, and migration
 - foreign-key, uniqueness, CHECK-constraint, WAL backup, and integrity-check paths are tested
 
+### Interaction ledger and reconstruction
+
+- every defined editor, test, timer, focus, voice, coach, submit, review, reveal, animation, and post-verdict source action produces the correct versioned event
+- raw pointer movement and activity outside the practice page are never captured
+- batched editor operations preserve order and replay exactly across insert, delete, paste, undo, and redo
+- reconstruction from each checkpoint reaches the next checkpoint's byte-identical code hash
+- reconnect and duplicate delivery remain idempotent and event sequences have no silent gaps
+- unacknowledged outbox events survive browser reload and block finalization until synchronized
+
 ### Code runner
 
 - syntax errors, runtime errors, wrong answers, timeouts, output overflow, and successful tests
@@ -680,6 +811,25 @@ Implementation follows test-driven development. Required test groups include:
 - JSON Schema parsing
 - timeout, nonzero exit, rate limit, malformed result, pending retry, and successful review
 - evaluation bundle excludes secrets and canonical solutions
+- the primary and shadow reviewers receive no history, weakness labels, user identity, or prior verdict
+- every material rubric finding has a resolvable code, test, transcript, or declaration evidence reference
+- deterministic-test failure and assistance gates cannot be overridden by the recommendation
+- stage-specific fixtures distinguish correct `PASS`, conceptually incomplete `RETRY`, incorrect `FAIL`, and low-confidence `NEEDS_SECOND_REVIEW`
+- a fresh paired review remains mutually blind, and repeated disagreement produces non-academic `SYSTEM_ERROR` plus the same-stage replacement item
+- coached encounters receive formative feedback but never an academic outcome
+
+### Answer-animation qualification
+
+- all 500 specs pass schema, semantic-contract, canonical-answer, test-manifest, Korean/English parity, and prohibited-content checks
+- every main step and detail step replays deterministically forward, backward, restart, and language-switch paths
+- every step performs one declared logical transition; complete code appears only in the final main step
+- renderer traces and screenshots pass at 360, 768, and 1440 CSS-pixel widths, keyboard-only navigation, reduced motion, and screen-reader labeling
+- the complete 500-spec sweep produces zero uncaught exceptions, console errors, missing assets, overflow failures, and external network requests
+- specs cannot execute arbitrary JavaScript or reveal canonical data through an active blind endpoint
+- certificate invalidation covers contract, answer, tests, player, application build, and compatibility changes
+- atomic promotion, current-package corruption, last-known-good restoration, and dual-generation failure are exercised
+- no problem can enter an eligible queue without a matching certificate, and production `READY` requires 500 of 500 qualified
+- unlock is rejected before immutable review, permitted after every academic verdict and locked `COACHED_COMPLETE`, and animation viewing never changes mastery or scheduling
 
 ### Browser flows
 
@@ -689,6 +839,8 @@ Implementation follows test-driven development. Required test groups include:
 - blind reveal protections
 - microphone and typed fallback paths
 - immutable submission lock and verdict display
+- interaction-ledger sync and `Recording paused` recovery
+- post-verdict animation progression, detail expansion, previous/restart, language switch, keyboard navigation, and final-code reveal
 
 ### Backup and restore
 
@@ -698,15 +850,16 @@ Implementation follows test-driven development. Required test groups include:
 
 ## 18. Delivery decomposition
 
-The product is delivered as independently testable slices:
+The product is delivered as independently testable slices. Development preview may use fixtures, but the production learning scheduler remains disabled until the full animation qualification gate is satisfied:
 
 1. **Foundation:** copy the supplied v2.0 master plan byte-for-byte to repository-root `PLAN.md`, then add repository configuration, calendar, immutable events, SQLite, migrations, and backups.
-2. **Frozen curriculum:** authenticated curator import, scoring, validation, P001–P500, C-120, Array Depth Queue, and bilingual card schema.
-3. **Blind practice:** Midnight Focus UI, scheduler, CodeMirror editor, deterministic tests, and PASS/RETRY/FAIL transitions.
-4. **Codex integration:** bounded coach sessions, post-submission structured review, pending-review recovery, and leakage enforcement.
+2. **Frozen curriculum:** authenticated curator import, scoring, validation, P001–P500, C-120, Array Depth Queue, bilingual cards, canonical answers, and deterministic test contracts.
+3. **Practice evidence:** Midnight Focus UI, scheduler, CodeMirror editor, interaction outbox, checkpoints, reconstruction, and deterministic tests.
+4. **Codex integration:** bounded coach sessions, the composite evidence-first reviewer, blind shadow review, pending-review recovery, leakage enforcement, and PASS/RETRY/FAIL policy.
 5. **Voice:** browser capture, local conversion/transcription, transcript confirmation, retention, and fallback.
-6. **Certification and analytics:** B/C workflows, unseen and mocks, risk projections, budget burn, and exports.
-7. **Long-term maintenance:** D365 queue and second-year maintenance analytics.
+6. **Qualified explanations:** reusable animation player and primitives, 500 bilingual specs, qualification certificates, last-known-good recovery, server-side reveal gate, and view analytics.
+7. **Certification and analytics:** B/C workflows, unseen and mocks, weakness analytics, risk projections, budget burn, and exports.
+8. **Long-term maintenance:** D365 queue and second-year maintenance analytics.
 
 The implementation-planning phase should produce one detailed plan per slice or tightly coupled group of slices. Each slice must leave a runnable, tested application state.
 
@@ -719,8 +872,13 @@ The design is implemented when all of the following are demonstrably true:
 - The user can complete three coached encounters and six server-enforced blind encounters.
 - Coach output is bounded, asynchronous, hash-validated, and incapable of appearing during blind stages.
 - Python tests run deterministically and remain the correctness oracle.
-- Codex CLI returns schema-validated post-submission review without direct API-key configuration.
+- Codex CLI returns schema-validated, evidence-cited post-submission review without direct API-key configuration, and its recommendation cannot override deterministic gates.
+- Final B, Final C, low-confidence, and conflicting cases receive a history-blind independent review; disagreement cannot create an academic result and unresolved repeat disagreement reschedules the same stage as `SYSTEM_ERROR`.
 - Korean and English spoken explanations can be recorded and transcribed locally.
+- Every meaningful practice action is durably ordered, acknowledged, and reconstructable from checkpoints; missing events prevent finalization.
+- All 500 bilingual animation packages are qualified against the shipped application and renderer with zero runtime errors before production is `READY`.
+- No active blind attempt can fetch answer-animation content, and every finalized verdict can open its pinned click-by-click explanation without changing the result.
+- Current-package corruption restores a verified last-known-good package before study; loss of both qualified generations pauses new study rather than exposing a broken or text-only explanation.
 - D30 and Final B certification gates match the master plan and cannot be bypassed.
 - Today, Calendar, Problems, Certification, and Analytics expose debt, failures, and budget risk without hiding them.
 - Every problem exposes its complete attempt timeline, comparable progress deltas, and evidence-backed open/resolved weakness history.
@@ -735,7 +893,10 @@ The design is implemented when all of the following are demonstrably true:
 - Public hosting or multi-user accounts
 - Executing untrusted third-party code safely
 - Live per-keystroke Codex calls
+- Recording raw pointer movement, operating-system activity, or unrelated browser behavior
 - AI hints during blind certification
+- Automated submission to NeetCode or treating an external NeetCode result as the local academic oracle
+- Shipping 500 independent executable animation scripts or accepting text-only fallback for an unqualified animation
 - Copying or redistributing NeetCode's protected explanations, videos, or test corpus
 - Guaranteeing employment or guaranteeing human memory outcomes
 - Adding a universal D120 full-code review

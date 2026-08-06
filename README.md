@@ -10,7 +10,7 @@
 - [uv](https://docs.astral.sh/uv/)
 - macOS 또는 SQLite WAL을 지원하는 로컬 환경
 
-## 설치 및 실행
+## 소스 checkout 설치 및 실행
 
 ```bash
 uv sync
@@ -24,7 +24,7 @@ uv run neetcode-dashboard --host 127.0.0.1 --port 8000
 curl -fsS http://127.0.0.1:8000/api/health
 ```
 
-서버는 `127.0.0.1` 또는 `localhost`에만 바인딩할 수 있습니다. `0.0.0.0`과 외부 주소는 설정 검증 단계에서 거부됩니다.
+지원하는 `neetcode-dashboard` CLI는 `127.0.0.1` 또는 `localhost`에만 바인딩하며, `0.0.0.0`과 외부 주소는 설정 검증 단계에서 거부합니다. 직접 Uvicorn으로 ASGI 앱을 공개 주소에 바인딩하는 방식은 지원하지 않으며, 실수로 그렇게 실행해도 애플리케이션 미들웨어가 비루프백 클라이언트 요청을 거부합니다.
 
 ## 데이터 위치
 
@@ -37,7 +37,7 @@ curl -fsS http://127.0.0.1:8000/api/health
 | 고정 공휴일 원본 | `data/holidays.json` |
 | 고정 마스터 플랜 | `PLAN.md` |
 
-테스트나 격리 실행에서는 `NEETCODE_PROJECT_ROOT`로 **런타임 DB와 백업 위치만** 옮길 수 있습니다. 공휴일 원본과 `PLAN.md` 계약은 소스 checkout 또는 설치된 wheel의 불변 리소스에 고정됩니다. 앱의 programmatic migration과 일반 Alembic CLI 모두 같은 환경변수를 따릅니다.
+테스트나 격리 실행에서는 `NEETCODE_PROJECT_ROOT`로 **런타임 DB와 백업 위치만** 옮길 수 있습니다. 공휴일 원본과 `PLAN.md` 계약은 소스 checkout 또는 설치된 wheel의 불변 리소스에 고정됩니다. 앱의 programmatic migration과 소스 checkout에서 실행하는 Alembic CLI 모두 같은 환경변수를 따릅니다.
 
 ```bash
 NEETCODE_PROJECT_ROOT=/private/tmp/neetcode-foundation \
@@ -45,6 +45,8 @@ NEETCODE_PROJECT_ROOT=/private/tmp/neetcode-foundation \
 ```
 
 이 경우 DB는 `/private/tmp/neetcode-foundation/data/tracker.sqlite3`, 백업은 `/private/tmp/neetcode-foundation/backups/`에 생성됩니다.
+
+설치된 wheel은 `neetcode-dashboard` 시작 시 번들된 설정과 migration으로 DB를 자동 업그레이드합니다. 빈 디렉터리의 일반 `alembic` 실행 파일은 설정 파일을 자동 발견하지 못하므로, 위 `uv run alembic ...` 명령과 아래 `alembic check`는 소스 checkout 전용입니다.
 
 ## 백업과 복원
 

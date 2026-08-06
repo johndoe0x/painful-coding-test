@@ -77,3 +77,25 @@ def test_cli_uses_environment_when_flags_are_omitted(
 
     assert invocation["host"] == "localhost"
     assert invocation["port"] == 8_124
+
+
+def test_explicit_cli_flag_overrides_invalid_environment(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    invocation: dict[str, object] = {}
+
+    def fake_run(application: str, **options: object) -> None:
+        invocation["application"] = application
+        invocation.update(options)
+
+    monkeypatch.setattr(uvicorn, "run", fake_run)
+    monkeypatch.setenv("NEETCODE_HOST", "0.0.0.0")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["neetcode-dashboard", "--host", "127.0.0.1"],
+    )
+
+    main()
+
+    assert invocation["host"] == "127.0.0.1"

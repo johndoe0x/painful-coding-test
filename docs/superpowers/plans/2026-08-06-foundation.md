@@ -92,7 +92,7 @@ The package boundary is deliberate: `calendar_engine.py` is pure and knows no da
 - Consumes: supplied v2.0 master-plan file and the approved design spec.
 - Produces: installable package `neetcode_dashboard`, command `neetcode-dashboard`, locked dependencies, and immutable `PLAN.md` contract.
 
-- [ ] **Step 1: Add only static project configuration required to execute tests**
+- [x] **Step 1: Add only static project configuration required to execute tests**
 
 Configuration files are the TDD bootstrap exception. Set `.python-version` to `3.13` and create `pyproject.toml` with this executable contract:
 
@@ -150,7 +150,7 @@ packages = ["neetcode_dashboard"]
 
 Add `.venv/`, Python caches, coverage artifacts, `.worktrees/`, `data/*.sqlite3*`, `backups/*`, and retained local media to `.gitignore`, while keeping `data/holidays.json` tracked.
 
-- [ ] **Step 2: Lock and install dependencies**
+- [x] **Step 2: Lock and install dependencies**
 
 Run:
 
@@ -161,7 +161,7 @@ uv sync
 
 Expected: `uv.lock` and `.venv` exist, and dependency resolution supports Python 3.12+.
 
-- [ ] **Step 3: Write the failing repository-contract test**
+- [x] **Step 3: Write the failing repository-contract test**
 
 ```python
 from hashlib import sha256
@@ -177,13 +177,13 @@ def test_master_plan_is_frozen_byte_for_byte() -> None:
     assert sha256(plan.read_bytes()).hexdigest() == EXPECTED_PLAN_HASH
 ```
 
-- [ ] **Step 4: Verify RED**
+- [x] **Step 4: Verify RED**
 
 Run: `uv run pytest tests/test_repository_contract.py -q`
 
 Expected: FAIL because repository-root `PLAN.md` does not exist.
 
-- [ ] **Step 5: Copy the supplied plan byte-for-byte and add the package marker**
+- [x] **Step 5: Copy the supplied plan byte-for-byte and add the package marker**
 
 Use a byte-preserving copy from the exact supplied absolute path, then verify with `shasum -a 256 PLAN.md`. Set `src/neetcode_dashboard/__init__.py` to:
 
@@ -193,13 +193,13 @@ __version__ = "0.1.0"
 
 README must state the exact `uv sync`, `uv run neetcode-dashboard`, `uv run pytest`, `uv run ruff check .`, and `uv run mypy` commands and clearly label the application as Foundation-only.
 
-- [ ] **Step 6: Verify GREEN**
+- [x] **Step 6: Verify GREEN**
 
 Run: `uv run pytest tests/test_repository_contract.py -q`
 
 Expected: 1 passed.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add .gitignore .python-version pyproject.toml uv.lock README.md PLAN.md src/neetcode_dashboard/__init__.py tests/test_repository_contract.py
@@ -220,7 +220,7 @@ git commit -m "chore: bootstrap dashboard project"
 - Consumes: environment variables prefixed `NEETCODE_`.
 - Produces: `Settings`, `ensure_runtime_directories(settings)`, `utc_now()`, and `study_date(datetime)`.
 
-- [ ] **Step 1: Write failing settings and time tests**
+- [x] **Step 1: Write failing settings and time tests**
 
 ```python
 from datetime import UTC, datetime
@@ -252,23 +252,23 @@ def test_study_date_is_derived_in_asia_seoul() -> None:
     assert study_date(instant).isoformat() == "2026-08-06"
 ```
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
 
 Run: `uv run pytest tests/test_config.py -q`
 
 Expected: collection error because `config` and `time` modules do not exist.
 
-- [ ] **Step 3: Implement the minimal typed boundary**
+- [x] **Step 3: Implement the minimal typed boundary**
 
 `Settings` must use `SettingsConfigDict(env_prefix="NEETCODE_", extra="forbid")`, accept only `Literal["127.0.0.1", "localhost"]`, constrain the port to `1..65535`, derive `data_dir`, `database_path`, and `backup_dir` from `project_root`, and allow explicit path overrides for tests. `utc_now()` returns an aware UTC value; `study_date()` rejects naive datetimes and converts through `ZoneInfo("Asia/Seoul")`.
 
-- [ ] **Step 4: Verify GREEN**
+- [x] **Step 4: Verify GREEN**
 
 Run: `uv run pytest tests/test_config.py -q`
 
 Expected: 3 passed.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/neetcode_dashboard/config.py src/neetcode_dashboard/time.py tests/conftest.py tests/test_config.py
@@ -288,7 +288,7 @@ git commit -m "feat: add local runtime configuration"
 - Consumes: the 22 frozen holiday records in `data/holidays.json`.
 - Produces: `HolidayRule`, `CalendarDay`, `CalendarSummary`, `load_holiday_rules(path)`, `planned_minutes(day, holidays)`, and `summarize_plan(holidays)`.
 
-- [ ] **Step 1: Write failing calendar contract tests**
+- [x] **Step 1: Write failing calendar contract tests**
 
 ```python
 from datetime import date
@@ -324,13 +324,13 @@ def test_monthly_adjusted_hours_match_master_plan(holiday_path) -> None:
     }
 ```
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
 
 Run: `uv run pytest tests/test_calendar_engine.py -q`
 
 Expected: collection error because `calendar_engine` does not exist.
 
-- [ ] **Step 3: Encode the exact holiday dataset**
+- [x] **Step 3: Encode the exact holiday dataset**
 
 Create 22 JSON objects for these exact dates:
 
@@ -344,17 +344,17 @@ Create 22 JSON objects for these exact dates:
 
 Each object contains `date`, `kind`, `name_ko`, `name_en`, `planned_minutes: 180`, `source`, `source_as_of`, and `active: true`, using names and classifications exactly from `PLAN.md` section 1.6.
 
-- [ ] **Step 4: Implement the pure calendar engine**
+- [x] **Step 4: Implement the pure calendar engine**
 
 Use `PLAN_START = date(2026, 8, 6)` and `PLAN_END = date(2027, 8, 5)`. Base minutes are 240 Monday–Friday, 180 Saturday, and 120 Sunday. Active date overrides win. Reject duplicate dates, out-of-range planned minutes, missing bilingual names, and any plan interval not equal to 365 inclusive days. Return frozen dataclasses so callers cannot mutate a computed result.
 
-- [ ] **Step 5: Verify GREEN**
+- [x] **Step 5: Verify GREEN**
 
 Run: `uv run pytest tests/test_calendar_engine.py -q`
 
 Expected: 3 passed.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add data/holidays.json src/neetcode_dashboard/calendar_engine.py tests/test_calendar_engine.py tests/conftest.py
@@ -382,7 +382,7 @@ git commit -m "feat: add deterministic study calendar"
 - Consumes: `Settings.database_path` and `Sequence[HolidayRule]`.
 - Produces: `Base`, `CalendarException`, `create_sqlite_engine(path)`, `session_factory(engine)`, `upgrade_database(path)`, `current_revision(engine)`, `database_health(engine)`, and `sync_holiday_rules(engine, rules)`.
 
-- [ ] **Step 1: Write failing database tests**
+- [x] **Step 1: Write failing database tests**
 
 ```python
 from sqlalchemy import text
@@ -412,27 +412,27 @@ def test_migration_and_holiday_seed_are_idempotent(database_path, holiday_rules)
     assert health.holiday_count == 22
 ```
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
 
 Run: `uv run pytest tests/test_database.py -q`
 
 Expected: collection error because `neetcode_dashboard.db` does not exist.
 
-- [ ] **Step 3: Implement engine configuration and metadata**
+- [x] **Step 3: Implement engine configuration and metadata**
 
 `create_sqlite_engine()` creates the parent directory, uses `sqlite+pysqlite:///...`, `connect_args={"autocommit": False, "check_same_thread": False}`, and a SQLAlchemy `connect` listener that executes the four required PRAGMAs. `Base` extends `DeclarativeBase`. `CalendarException` normalizes filterable fields into columns and enforces one active record per date through a unique date constraint.
 
-- [ ] **Step 4: Implement explicit Alembic migration and seed**
+- [x] **Step 4: Implement explicit Alembic migration and seed**
 
 The revision creates `calendar_exceptions` with a `CHECK(planned_minutes > 0 AND planned_minutes <= 1440)` constraint and indexes `date` and `active`. `upgrade_database(path)` uses Alembic's programmatic `Config`, points `script_location` at repository `migrations`, sets the escaped SQLite URL, and runs `command.upgrade(config, "head")`. `sync_holiday_rules()` inserts missing rows and updates only static source fields when the JSON source changed; it never deletes historical manual overrides.
 
-- [ ] **Step 5: Verify GREEN**
+- [x] **Step 5: Verify GREEN**
 
 Run: `uv run pytest tests/test_database.py -q`
 
 Expected: 2 passed.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add alembic.ini migrations src/neetcode_dashboard/db tests/test_database.py tests/conftest.py
@@ -453,7 +453,7 @@ git commit -m "feat: add SQLite migration foundation"
 - Consumes: a migrated SQLAlchemy `Engine` and `EventToAppend`.
 - Produces: `EventToAppend`, `StoredEvent`, `EventStore.append(event)`, and `EventStore.read_stream(stream_id)`.
 
-- [ ] **Step 1: Write failing event-store tests**
+- [x] **Step 1: Write failing event-store tests**
 
 ```python
 from datetime import UTC, datetime
@@ -485,21 +485,21 @@ def test_database_rejects_event_update_and_delete(migrated_engine) -> None:
             connection.execute(text("DELETE FROM system_events WHERE id=:id"), {"id": event.id})
 ```
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
 
 Run: `uv run pytest tests/test_event_store.py -q`
 
 Expected: collection error because `event_store` does not exist.
 
-- [ ] **Step 3: Add the event schema and append-only triggers**
+- [x] **Step 3: Add the event schema and append-only triggers**
 
 Migration `0002_system_events` creates normalized columns `id`, `stream_id`, `event_seq`, `event_type`, `schema_version`, `payload_json`, `payload_sha256`, `previous_event_sha256`, `event_sha256`, `occurred_at_utc`, `received_at_utc`, and `study_date`. Add unique constraints on `(stream_id, event_seq)` and `event_sha256`, plus indexes on stream/sequence, type, UTC instant, and study date. Create `BEFORE UPDATE` and `BEFORE DELETE` triggers that execute `RAISE(ABORT, 'system_events are append-only')`.
 
-- [ ] **Step 4: Implement canonical append semantics**
+- [x] **Step 4: Implement canonical append semantics**
 
 `EventToAppend` and `StoredEvent` are frozen dataclasses. Validate a non-empty stream/type, positive schema version, aware timestamp, and JSON-serializable payload. Canonical payload bytes use `json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))`. `EventStore.append()` opens `BEGIN IMMEDIATE`, reads the latest event, assigns the next sequence, derives Asia/Seoul date, computes payload/event hashes, inserts once, commits, and returns the stored value. `read_stream()` orders strictly by `event_seq` and verifies the hash chain before returning.
 
-- [ ] **Step 5: Verify GREEN and migration head**
+- [x] **Step 5: Verify GREEN and migration head**
 
 Run:
 
@@ -511,7 +511,7 @@ uv run alembic current
 
 Expected: 2 passed and revision `0002_system_events (head)`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/neetcode_dashboard/db/models.py migrations/versions/0002_system_events.py src/neetcode_dashboard/event_store.py tests/test_event_store.py tests/conftest.py
@@ -530,7 +530,7 @@ git commit -m "feat: add append-only event store"
 - Consumes: source database path, backup directory, application/schema versions.
 - Produces: `BackupManifest`, `BackupArtifact`, `create_verified_backup()`, `verify_backup()`, and `restore_verified_backup()`.
 
-- [ ] **Step 1: Write failing backup tests**
+- [x] **Step 1: Write failing backup tests**
 
 ```python
 from pathlib import Path
@@ -558,27 +558,27 @@ def test_tampered_backup_is_rejected(populated_database, tmp_path: Path) -> None
         verify_backup(artifact)
 ```
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
 
 Run: `uv run pytest tests/test_backup.py -q`
 
 Expected: collection error because `backup` does not exist.
 
-- [ ] **Step 3: Implement atomic backup and verification**
+- [x] **Step 3: Implement atomic backup and verification**
 
 Use `sqlite3.Connection.backup()` from a read connection to a temporary destination. Run `PRAGMA integrity_check`, read `alembic_version`, count events and holiday rows, close both connections, SHA-256 the resulting database, and write a canonical JSON manifest containing format version, app version, schema revision, UTC creation time, source plan hash, database hash, integrity result, and row counts. `fsync` each temporary file and its directory, then `os.replace` into final timestamped names. `verify_backup()` recomputes every value and rejects mismatches.
 
-- [ ] **Step 4: Implement fail-closed restore**
+- [x] **Step 4: Implement fail-closed restore**
 
 `restore_verified_backup()` verifies the artifact first, copies into a sibling temporary file, reruns integrity/hash/revision checks on the temporary file, creates the destination parent, and atomically replaces the destination. It refuses to restore when the destination has `-wal` or `-shm` siblings, which signals an active or unclean database.
 
-- [ ] **Step 5: Verify GREEN**
+- [x] **Step 5: Verify GREEN**
 
 Run: `uv run pytest tests/test_backup.py -q`
 
 Expected: 2 passed.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/neetcode_dashboard/backup.py tests/test_backup.py tests/conftest.py
@@ -601,7 +601,7 @@ git commit -m "feat: add verified database backups"
 - Consumes: `Settings`, migration/seed services, calendar summary, and database health.
 - Produces: `create_app(settings=None) -> FastAPI`, `GET /`, `GET /api/health`, and CLI `neetcode-dashboard`.
 
-- [ ] **Step 1: Write failing app tests**
+- [x] **Step 1: Write failing app tests**
 
 ```python
 from fastapi.testclient import TestClient
@@ -631,31 +631,31 @@ def test_foundation_page_is_local_and_honest(settings) -> None:
     assert "http://" not in response.text
 ```
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
 
 Run: `uv run pytest tests/test_app.py -q`
 
 Expected: collection error because `app` does not exist.
 
-- [ ] **Step 3: Implement lifespan and typed health response**
+- [x] **Step 3: Implement lifespan and typed health response**
 
 Use an `@asynccontextmanager` lifespan. Before yielding, ensure runtime directories, upgrade the database, seed holiday rules, compute the calendar summary, and store engine/summary on `app.state`; after yielding, dispose the engine. The health route returns Pydantic response models with no secrets or filesystem paths. A failed migration, seed, integrity check, or calendar contract prevents startup instead of reporting `ok`.
 
-- [ ] **Step 4: Implement the offline Midnight Focus shell**
+- [x] **Step 4: Implement the offline Midnight Focus shell**
 
 Mount package-local static assets at `/static` and render Jinja2 templates. Show the five eventual navigation areas as disabled previews, exact 365/1,292/22 foundation facts, DB revision/integrity, and a prominent `학습 시작 잠김 · FOUNDATION_ONLY` gate. Use semantic HTML, visible keyboard focus, responsive CSS at 820px and 520px, reduced-motion rules, and no JavaScript or external URLs in Foundation.
 
-- [ ] **Step 5: Implement the CLI**
+- [x] **Step 5: Implement the CLI**
 
 `main()` parses optional `--host` and `--port`, validates them by constructing `Settings`, and calls `uvicorn.run("neetcode_dashboard.app:create_app", factory=True, host=settings.host, port=settings.port)`. Public bind addresses are rejected by the same Pydantic boundary.
 
-- [ ] **Step 6: Verify GREEN**
+- [x] **Step 6: Verify GREEN**
 
 Run: `uv run pytest tests/test_app.py -q`
 
 Expected: 2 passed.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/neetcode_dashboard/app.py src/neetcode_dashboard/__main__.py src/neetcode_dashboard/templates src/neetcode_dashboard/static tests/test_app.py tests/conftest.py
@@ -674,7 +674,7 @@ git commit -m "feat: add runnable foundation dashboard"
 - Consumes: all Foundation tasks.
 - Produces: reproducible setup/run/verify/backup instructions and a clean quality gate.
 
-- [ ] **Step 1: Add exact operator commands to README**
+- [x] **Step 1: Add exact operator commands to README**
 
 Document:
 
@@ -691,15 +691,15 @@ uv run alembic check
 
 Explain where the local database/backups live, how `NEETCODE_PROJECT_ROOT` redirects all runtime state for testing, that restore must occur while the app is stopped, and that Foundation does not yet schedule or grade problems.
 
-- [ ] **Step 2: Run the complete verification suite**
+- [x] **Step 2: Run the complete verification suite**
 
 Run every command above except the long-running server. Expected: zero test failures, coverage at least 90%, no lint/format/type errors, and no pending Alembic operations.
 
-- [ ] **Step 3: Run a real process smoke test**
+- [x] **Step 3: Run a real process smoke test**
 
 Start `uv run neetcode-dashboard --host 127.0.0.1 --port 8000` in a managed terminal, wait for startup, request `/api/health`, assert HTTP 200 and `FOUNDATION_ONLY`, request `/`, then stop the process gracefully. Verify `data/tracker.sqlite3` exists, `PRAGMA integrity_check` returns `ok`, and the process emitted no traceback.
 
-- [ ] **Step 4: Verify the frozen plan and clean diff**
+- [x] **Step 4: Verify the frozen plan and clean diff**
 
 ```bash
 shasum -a 256 PLAN.md
@@ -709,7 +709,7 @@ git status -sb
 
 Expected plan hash: `1c0cb3c548ffdb5ddd521ef20d0a17489d7148bb3613e024b88bec21b6e91d96`.
 
-- [ ] **Step 5: Commit documentation-only adjustments**
+- [x] **Step 5: Commit documentation-only adjustments**
 
 ```bash
 git add README.md

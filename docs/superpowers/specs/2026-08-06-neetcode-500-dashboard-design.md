@@ -1,9 +1,10 @@
 # NeetCode 500 Bilingual Recall Dashboard Design
 
-**Status:** Approved design, pending written-spec review
+**Status:** Revised design, pending user review
 **Decision date:** 2026-08-06
 **Primary plan:** `/Users/devan/Desktop/neetcode_500_bilingual_master_plan_2026-08-06_v2.0.md`
 **Product mode:** Local-first, single user, Python 3.12+, Asia/Seoul
+**Readable HTML:** `docs/superpowers/specs/2026-08-06-neetcode-500-dashboard-design.html`
 
 ## 1. Product goal
 
@@ -370,6 +371,9 @@ Use the approved Midnight Focus design:
 **Analytics**
 
 - progress funnels
+- per-problem attempt timelines with like-for-like deltas between comparable attempts
+- evidence-backed weakness history and user-controlled weakness confirmation or dismissal
+- explainable problem and weakness filters for manual cherry-picking
 - pass rates by pattern, difficulty, language, and encounter
 - coach-direction distribution and subsequent blind performance
 - failure categories and Red Queue
@@ -408,7 +412,7 @@ The master plan's original models remain the base. The implementation adds or se
 
 ### 12.3 `CoachSession`
 
-- `problem_id`
+- `attempt_id`
 - `encounter: INTRO | D0_COACHED | D1_COACHED`
 - `content_hash`
 - `requested_at`
@@ -454,6 +458,95 @@ The master plan's original models remain the base. The implementation adds or se
 ### 12.7 State representation
 
 B progress and C progress are derived separately from immutable events. They are not represented by a single mutable enum that forces C1/C2 to occur after B certification. Cached status fields may exist for display, but event history remains the source of truth.
+
+### 12.8 `ScheduleItem` and `Attempt`
+
+`ScheduleItem` represents work the curriculum requires. It stores `problem_id`, stage, due time in UTC, the Asia/Seoul study date, source, priority tier, current status, and the attempt that created the next item. An overdue item remains overdue; it is never silently moved or replaced.
+
+`Attempt` is the central learning-history row. One row is created every time the user actually starts a problem, including coached encounters, blind encounters, recovery work, C certification, D365 maintenance, and optional user-selected drills.
+
+Required fields are:
+
+- `problem_id`, optional `schedule_item_id`, and optional `practice_request_id`
+- monotonically increasing `sequence_no` per problem
+- encounter, study mode, prompt language, and `FULL | COMPACT` format
+- lifecycle status: `IN_PROGRESS | PENDING_AI_REVIEW | FINALIZED | ABANDONED | SYSTEM_ERROR`
+- academic result when applicable: `PASS | RETRY | FAIL`; it remains `NULL` for coached encounters, whose completion is recorded by `CoachSession.status = COACHED_COMPLETE`
+- start, lock, and finalization timestamps in UTC plus the Asia/Seoul study date
+- active duration, assistance declaration, assistance-violation flag, and semantic-contract hash
+
+The attempt may change while it is in progress. Once finalized, its academic fields and locked artifacts are append-only. A correction creates an audit event instead of rewriting the historical record. Database constraints reject duplicate `(problem_id, sequence_no)` values, blind PASS with an assistance violation, an academic result on a coached encounter, and an academic result on a system-error attempt.
+
+### 12.9 `AttemptMetrics`
+
+`AttemptMetrics` is a one-to-one, query-friendly summary of an attempt. Query-critical metrics are normal columns rather than opaque JSON:
+
+- pattern-recognition, coding, debugging, and speaking seconds
+- tests passed, tests total, first-run pass, and deterministic-run count
+- submission count, code-edit count, and syntax/runtime/wrong-answer counts
+- explanation scores for approach, invariant, complexity, and edge cases
+
+Blind-pass streak and other cross-attempt values are derived by SQL views rather than stored in this row. The analytics UI never presents a compact attempt as if it were directly faster than a full-code attempt. Time deltas use the previous comparable attempt and label format, language, and coached/blind mode. Raw history remains visible even when a summarized trend is shown.
+
+### 12.10 `WeaknessType`, `WeaknessObservation`, and `WeaknessStatusEvent`
+
+Weaknesses are evidence-backed observations, not a single mutable label on a problem.
+
+`WeaknessType` defines the stable taxonomy and the recommended drill. The initial taxonomy is:
+
+- pattern recognition
+- data-structure choice
+- invariant reasoning
+- complexity analysis
+- boundary cases
+- implementation accuracy
+- test design
+- English comprehension
+- time management
+- explanation clarity
+
+`WeaknessObservation` records `attempt_id`, `problem_id`, type, severity from 1 to 3, source, confidence, a compact evidence reference, and the recommended drill. Sources are `TEST_RUN`, `CODEX_REVIEW`, `SELF_CHECK`, `TIMER`, or `RULE_ENGINE`. Flexible supporting details may use JSON, but evidence needed for filtering stays normalized.
+
+`WeaknessStatusEvent` appends `CONFIRMED`, `DISMISSED`, `IMPROVING`, `RESOLVED`, or `REOPENED` events. It records the responsible attempt or user action and never deletes the original observation. This allows the UI to show when a weakness first appeared, how often it recurred, which attempt resolved it, and whether it later returned.
+
+Codex may propose a weakness, but the UI identifies its source and confidence. Deterministic tests remain the correctness oracle, and the user can dismiss an inaccurate AI observation without destroying the audit trail.
+
+### 12.11 `PracticeRequest` for cherry-picking
+
+The user can filter and select a problem or one of its open weaknesses to create a `PracticeRequest`. It stores the selected problem, target weakness, requested language, requested format, requested drill, creation time, and completion state. The resulting attempt links back to the request.
+
+A manual request does not alter the canonical nine-encounter schedule or erase review debt. Queue ordering is explainable and stable:
+
+1. required due and overdue work
+2. Red Queue and recent FAIL recovery
+3. unresolved severe or recurring weaknesses
+4. measured regression
+5. voluntary user cherry-picks
+
+When there is no required debt, a voluntary request can be started immediately. Suggested drills are weakness-specific: trigger recall for pattern recognition, a two-minute invariant explanation, boundary-test design, full implementation, complexity analysis, or English prompt paraphrasing.
+
+### 12.12 Derived SQLite views
+
+Analytics read from deterministic SQL views rather than asking Codex to invent a mastery score:
+
+- `v_attempt_timeline`: every attempt, artifact status, metrics, and deltas from the previous comparable attempt
+- `v_problem_progress`: latest stage/result, next due item, blind pass rate and streak, first-versus-latest comparable timing, and open weakness count
+- `v_open_weaknesses`: latest status, recurrence count, maximum severity, last-seen date, supporting attempts, and recommended drill
+- `v_practice_candidates`: one explainable row per eligible problem with priority tier, reason codes, target weakness, and suggested mode
+- `v_pattern_risk`: unresolved and recurring weaknesses grouped across pattern, difficulty, language, and blind stage
+
+The problem detail page exposes the underlying attempts behind every trend and recommendation. No chart or recommendation is accepted as evidence unless the user can drill down to the source attempt, test failure, transcript rubric, or review observation.
+
+### 12.13 SQLite durability and transaction rules
+
+- Enable `foreign_keys=ON`, `journal_mode=WAL`, `synchronous=FULL`, and a 5-second busy timeout for every application connection.
+- Store timestamps in UTC and store the derived Asia/Seoul study date separately for calendar queries.
+- Normalize fields used for filters and constraints. Use JSON only for versioned rubrics, per-test payloads, and compact supporting evidence.
+- Index schedule due/status, attempts by problem/sequence and study date, weakness type/status lookup, and practice-request state.
+- Finalize one attempt in a single `BEGIN IMMEDIATE` transaction: lock the submission, attach the accepted test run and transcript, store the Codex review, append weakness observations/status events, assign the outcome, and create the next schedule item.
+- If Codex review is unavailable, first preserve the already locked artifacts in a short transaction and set `PENDING_AI_REVIEW` without an academic outcome. A later successful retry performs the atomic academic-finalization transaction; it does not rerun or rewrite the user's submission.
+- Use Alembic migrations and record the application/schema version in every export manifest.
+- Run `PRAGMA integrity_check` during verified backup/restore. Back up the database with the SQLite backup API so committed WAL-backed state, the retained-audio manifest, and content hashes form one consistent snapshot.
 
 ## 13. Outcomes and state transitions
 
@@ -554,6 +647,17 @@ Implementation follows test-driven development. Required test groups include:
 - C1, C2, and Final C gates remain separate from B state
 - RETRY, FAIL, Red Queue, overdue ordering, and pause-new rules match the master plan
 
+### SQLite history and weakness analytics
+
+- finalizing an attempt is atomic and a forced failure leaves no partial academic outcome
+- finalized attempts and locked artifacts cannot be overwritten through normal repositories
+- correction, dismissal, resolution, and reopening actions append audit events
+- timeline deltas compare only explicitly labeled, comparable attempts
+- every weakness recommendation drills down to at least one source observation and attempt
+- a manual cherry-pick never deletes, delays, or outranks required overdue work
+- derived views reproduce the same result after export, restore, and migration
+- foreign-key, uniqueness, CHECK-constraint, WAL backup, and integrity-check paths are tested
+
 ### Code runner
 
 - syntax errors, runtime errors, wrong answers, timeouts, output overflow, and successful tests
@@ -619,6 +723,9 @@ The design is implemented when all of the following are demonstrably true:
 - Korean and English spoken explanations can be recorded and transcribed locally.
 - D30 and Final B certification gates match the master plan and cannot be bypassed.
 - Today, Calendar, Problems, Certification, and Analytics expose debt, failures, and budget risk without hiding them.
+- Every problem exposes its complete attempt timeline, comparable progress deltas, and evidence-backed open/resolved weakness history.
+- The user can filter by weakness, pattern, difficulty, language, stage, last result, and due state, then create an auditable manual practice request.
+- Every practice recommendation explains its priority and links to the attempts or observations that produced it.
 - Export, backup, restore, and retained-audio verification pass.
 - D365 maintenance is scheduled outside the first-year budget.
 - The full automated test, type-check, lint, and browser-smoke suites pass with fresh output.

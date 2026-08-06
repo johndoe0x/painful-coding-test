@@ -35,8 +35,8 @@ def test_migration_and_holiday_seed_are_idempotent(
     health = database_health(engine)
 
     assert health.integrity == "ok"
-    assert health.revision == "0001_calendar_exceptions"
-    assert current_revision(engine) == "0001_calendar_exceptions"
+    assert health.revision == "0002_system_events"
+    assert current_revision(engine) == "0002_system_events"
     assert health.holiday_count == 22
     engine.dispose()
 

@@ -35,20 +35,23 @@ def create_sqlite_engine(path: Path) -> Engine:
     ) -> None:
         if not isinstance(dbapi_connection, sqlite3.Connection):
             raise TypeError("dashboard persistence requires sqlite3 connections")
-
-        previous_autocommit = dbapi_connection.autocommit
-        dbapi_connection.autocommit = True
-        try:
-            cursor = dbapi_connection.cursor()
-            cursor.execute("PRAGMA foreign_keys=ON")
-            cursor.execute("PRAGMA journal_mode=WAL")
-            cursor.execute("PRAGMA synchronous=FULL")
-            cursor.execute("PRAGMA busy_timeout=5000")
-            cursor.close()
-        finally:
-            dbapi_connection.autocommit = previous_autocommit
+        apply_sqlite_pragmas(dbapi_connection)
 
     return engine
+
+
+def apply_sqlite_pragmas(connection: sqlite3.Connection) -> None:
+    previous_autocommit = connection.autocommit
+    connection.autocommit = True
+    try:
+        cursor = connection.cursor()
+        cursor.execute("PRAGMA foreign_keys=ON")
+        cursor.execute("PRAGMA journal_mode=WAL")
+        cursor.execute("PRAGMA synchronous=FULL")
+        cursor.execute("PRAGMA busy_timeout=5000")
+        cursor.close()
+    finally:
+        connection.autocommit = previous_autocommit
 
 
 def session_factory(engine: Engine) -> sessionmaker[Session]:

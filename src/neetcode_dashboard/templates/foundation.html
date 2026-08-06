@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Foundation · NeetCode 500{% endblock %}
+
+{% block body %}
+<div class="app-shell">
+  <aside class="sidebar" aria-label="대시보드 탐색">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">N5</span>
+      <span>
+        <strong>NeetCode 500</strong>
+        <small>Evidence-first mastery</small>
+      </span>
+    </div>
+
+    <div class="foundation-label">
+      <span class="status-dot" aria-hidden="true"></span>
+      Foundation online
+    </div>
+
+    <nav aria-label="예정 기능">
+      <p class="nav-heading">Workspace</p>
+      <ul class="nav-list">
+        <li><span class="nav-item" aria-disabled="true"><span>01</span>오늘의 학습<small>잠김</small></span></li>
+        <li><span class="nav-item" aria-disabled="true"><span>02</span>문제 라이브러리<small>잠김</small></span></li>
+        <li><span class="nav-item" aria-disabled="true"><span>03</span>코딩 스튜디오<small>잠김</small></span></li>
+        <li><span class="nav-item" aria-disabled="true"><span>04</span>기억·복습<small>잠김</small></span></li>
+        <li><span class="nav-item" aria-disabled="true"><span>05</span>성장 분석<small>잠김</small></span></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-foot">
+      <span>Local only</span>
+      <strong>{{ mode }}</strong>
+    </div>
+  </aside>
+
+  <main class="main-content" id="main-content" tabindex="-1">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">SYSTEM / FOUNDATION</p>
+        <p class="breadcrumb">Dashboard <span>/</span> Readiness</p>
+      </div>
+      <div class="health-pill"><span aria-hidden="true"></span> 모든 기반 검사 통과</div>
+    </header>
+
+    <section class="hero" aria-labelledby="foundation-title">
+      <div class="hero-copy">
+        <p class="section-kicker">READY FOR THE NEXT SLICE</p>
+        <h1 id="foundation-title">Foundation ready<span>.</span></h1>
+        <p class="hero-description">
+          1년 학습 계획과 서울 기준 달력, 변경 불가 이벤트 기록, 검증형 SQLite 기반이
+          준비되었습니다. 문제 풀이 기능은 콘텐츠와 채점 보정이 끝날 때까지 정직하게 잠겨 있습니다.
+        </p>
+      </div>
+      <button class="locked-action" type="button" disabled aria-disabled="true">
+        <span class="lock-icon" aria-hidden="true"></span>
+        <span>학습 시작 잠김<small>{{ mode }}</small></span>
+      </button>
+    </section>
+
+    <section class="metric-grid" aria-label="Foundation 핵심 수치">
+      <article class="metric-card">
+        <p>학습 기간</p>
+        <strong>365<span>일</span></strong>
+        <small>2026.08.06 — 2027.08.05</small>
+      </article>
+      <article class="metric-card accent-card">
+        <p>공휴일 반영 시간</p>
+        <strong aria-label="1,292시간">1,292<span>시간</span></strong>
+        <small>기본 1,304시간에서 검증된 조정</small>
+      </article>
+      <article class="metric-card">
+        <p>고정 공휴일 규칙</p>
+        <strong>{{ holiday_count }}<span>개</span></strong>
+        <small>요일보다 180분 override 우선</small>
+      </article>
+      <article class="metric-card">
+        <p>데이터베이스</p>
+        <strong class="status-word">정상</strong>
+        <small>{{ database.revision }}</small>
+      </article>
+    </section>
+
+    <div class="content-grid">
+      <section class="panel" aria-labelledby="ready-title">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">VERIFIED</p>
+            <h2 id="ready-title">지금 보장되는 것</h2>
+          </div>
+          <span class="count-badge">04</span>
+        </div>
+        <ul class="readiness-list">
+          <li><span class="check" aria-hidden="true"></span><div><strong>마스터 플랜 고정</strong><small>원본 SHA-256 계약으로 무단 변경 차단</small></div></li>
+          <li><span class="check" aria-hidden="true"></span><div><strong>달력 계산 재현</strong><small>서울 시간대 · 365일 · 공휴일 22개</small></div></li>
+          <li><span class="check" aria-hidden="true"></span><div><strong>증거 이벤트 보존</strong><small>append-only 트리거와 SHA-256 체인</small></div></li>
+          <li><span class="check" aria-hidden="true"></span><div><strong>복구 가능성 검증</strong><small>무결성·revision·content hash 기반 백업</small></div></li>
+        </ul>
+      </section>
+
+      <section class="panel evidence-panel" aria-labelledby="evidence-title">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">LIVE EVIDENCE</p>
+            <h2 id="evidence-title">런타임 상태</h2>
+          </div>
+          <span class="live-badge"><span aria-hidden="true"></span>LIVE</span>
+        </div>
+        <dl class="evidence-list">
+          <div><dt>Mode</dt><dd>{{ mode }}</dd></div>
+          <div><dt>Integrity</dt><dd class="good">{{ database.integrity }}</dd></div>
+          <div><dt>Schema</dt><dd>{{ database.revision }}</dd></div>
+          <div><dt>Calendar</dt><dd>{{ calendar.days }} days / {{ calendar.adjusted_minutes // 60 }}h</dd></div>
+          <div><dt>Network</dt><dd>Loopback only</dd></div>
+        </dl>
+        <p class="evidence-note">파일 경로와 비밀값은 상태 응답에 노출되지 않습니다.</p>
+      </section>
+    </div>
+
+    <section class="next-gate" aria-labelledby="next-title">
+      <span class="gate-index">NEXT</span>
+      <div>
+        <h2 id="next-title">P001–P080 콘텐츠와 채점 보정</h2>
+        <p>한국어 우선 문제, 첫 3회 AI 코치, 6회 블라인드 반복을 실제 학습 화면에 연결하는 다음 자격 단계입니다.</p>
+      </div>
+      <span class="gate-state">LOCKED</span>
+    </section>
+
+    <footer class="footer">
+      <span>NeetCode 500 local dashboard</span>
+      <span>기반이 증명되기 전에는 학습 완료를 주장하지 않습니다.</span>
+    </footer>
+  </main>
+</div>
+{% endblock %}

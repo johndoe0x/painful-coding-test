@@ -1,5 +1,6 @@
 import json
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 
 import pytest
@@ -26,7 +27,7 @@ def test_backup_and_restore_preserve_committed_rows(
     assert manifest.holiday_count == 22
     restored = tmp_path / "restored" / "tracker.sqlite3"
     restore_verified_backup(artifact, restored)
-    with sqlite3.connect(restored) as connection:
+    with closing(sqlite3.connect(restored)) as connection:
         assert connection.execute("SELECT COUNT(*) FROM system_events").fetchone() == (2,)
         assert connection.execute("SELECT COUNT(*) FROM calendar_exceptions").fetchone() == (22,)
 
@@ -70,3 +71,35 @@ def test_restore_refuses_destination_with_sqlite_sidecar(
         restore_verified_backup(artifact, destination)
 
     assert not destination.exists()
+
+
+def test_missing_source_database_is_rejected(tmp_path: Path) -> None:
+    with pytest.raises(BackupVerificationError, match="source database does not exist"):
+        create_verified_backup(tmp_path / "missing.sqlite3", tmp_path / "backups")
+
+
+def test_invalid_or_unsupported_manifest_is_rejected(
+    populated_database: Path,
+    tmp_path: Path,
+) -> None:
+    artifact = create_verified_backup(populated_database, tmp_path / "backups")
+    artifact.manifest_path.write_text("{", encoding="utf-8")
+    with pytest.raises(BackupVerificationError, match="unable to read"):
+        verify_backup(artifact)
+
+    artifact = create_verified_backup(populated_database, tmp_path / "backups")
+    manifest = json.loads(artifact.manifest_path.read_text(encoding="utf-8"))
+    manifest["format_version"] = 99
+    artifact.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(BackupVerificationError, match="unsupported"):
+        verify_backup(artifact)
+
+
+def test_restore_cannot_overwrite_backup_artifact(
+    populated_database: Path,
+    tmp_path: Path,
+) -> None:
+    artifact = create_verified_backup(populated_database, tmp_path / "backups")
+
+    with pytest.raises(BackupVerificationError, match="cannot overwrite"):
+        restore_verified_backup(artifact, artifact.database_path)

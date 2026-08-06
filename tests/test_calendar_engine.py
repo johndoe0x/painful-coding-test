@@ -107,6 +107,12 @@ def test_loaded_rules_and_summary_are_immutable(holiday_path: Path) -> None:
         ("planned_minutes", 0, "planned_minutes"),
         ("name_ko", "", "bilingual"),
         ("name_en", "", "bilingual"),
+        ("date", "not-a-date", "invalid date"),
+        ("date", "2028-01-01", "outside the plan interval"),
+        ("kind", "unknown", "invalid kind"),
+        ("source", "", "source"),
+        ("source_as_of", "not-a-date", "source_as_of"),
+        ("active", 1, "boolean"),
     ],
 )
 def test_invalid_holiday_records_are_rejected(
@@ -132,4 +138,26 @@ def test_duplicate_holiday_dates_are_rejected(tmp_path: Path, holiday_path: Path
     invalid_path.write_text(json.dumps(records), encoding="utf-8")
 
     with pytest.raises(CalendarDataError, match="duplicate"):
+        load_holiday_rules(invalid_path)
+
+
+def test_non_array_and_invalid_json_sources_are_rejected(tmp_path: Path) -> None:
+    object_path = tmp_path / "object.json"
+    object_path.write_text("{}", encoding="utf-8")
+    invalid_path = tmp_path / "invalid.json"
+    invalid_path.write_text("[", encoding="utf-8")
+
+    with pytest.raises(CalendarDataError, match="JSON array"):
+        load_holiday_rules(object_path)
+    with pytest.raises(CalendarDataError, match="unable to load"):
+        load_holiday_rules(invalid_path)
+
+
+def test_missing_holiday_field_is_rejected(tmp_path: Path, holiday_path: Path) -> None:
+    records = json.loads(holiday_path.read_text(encoding="utf-8"))
+    del records[0]["name_en"]
+    invalid_path = tmp_path / "missing-field.json"
+    invalid_path.write_text(json.dumps(records), encoding="utf-8")
+
+    with pytest.raises(CalendarDataError, match="invalid fields"):
         load_holiday_rules(invalid_path)

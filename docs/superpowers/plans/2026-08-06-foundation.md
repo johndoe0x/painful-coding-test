@@ -736,5 +736,6 @@ The implementation received an independent evidence-focused review after Task 8.
 - [x] Health and the Foundation page recompute DB readiness, event chains, and event guards on every request and fail closed with a path-free 503 response.
 - [x] An application middleware rejects non-loopback clients even if Uvicorn is invoked outside the validated wrapper CLI.
 - [x] The source-checkout Alembic CLI follows `NEETCODE_PROJECT_ROOT`, while explicit programmatic database paths retain precedence; installed wheels migrate through the package CLI startup path.
+- [x] The package CLI validates settings once and passes the configured FastAPI instance to Uvicorn, so explicit loopback flags override stale environment values without the app factory rereading them.
 - [x] The wheel bundles `PLAN.md`, the full holiday source, Alembic configuration, and all migrations; an isolated install was exercised through startup, health, and verified backup.
 - [x] The full holiday-record source is pinned by SHA-256, and the disabled navigation labels match Today, Calendar, Problems, Certification, and Analytics.

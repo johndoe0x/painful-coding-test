@@ -3,16 +3,17 @@ from collections.abc import Callable
 
 import pytest
 import uvicorn
+from fastapi import FastAPI
 
 from neetcode_dashboard.__main__ import main
 
 
-def test_cli_runs_validated_loopback_factory(
+def test_cli_runs_validated_loopback_application(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     invocation: dict[str, object] = {}
 
-    def fake_run(application: str, **options: object) -> None:
+    def fake_run(application: object, **options: object) -> None:
         invocation["application"] = application
         invocation.update(options)
 
@@ -25,9 +26,9 @@ def test_cli_runs_validated_loopback_factory(
 
     main()
 
-    assert invocation == {
-        "application": "neetcode_dashboard.app:create_app",
-        "factory": True,
+    assert isinstance(invocation["application"], FastAPI)
+    assert invocation | {"application": None} == {
+        "application": None,
         "host": "localhost",
         "port": 8_123,
         "log_level": "info",
@@ -64,7 +65,7 @@ def test_cli_uses_environment_when_flags_are_omitted(
 ) -> None:
     invocation: dict[str, object] = {}
 
-    def fake_run(application: str, **options: object) -> None:
+    def fake_run(application: object, **options: object) -> None:
         invocation["application"] = application
         invocation.update(options)
 
@@ -84,7 +85,7 @@ def test_explicit_cli_flag_overrides_invalid_environment(
 ) -> None:
     invocation: dict[str, object] = {}
 
-    def fake_run(application: str, **options: object) -> None:
+    def fake_run(application: object, **options: object) -> None:
         invocation["application"] = application
         invocation.update(options)
 
@@ -98,4 +99,5 @@ def test_explicit_cli_flag_overrides_invalid_environment(
 
     main()
 
+    assert isinstance(invocation["application"], FastAPI)
     assert invocation["host"] == "127.0.0.1"

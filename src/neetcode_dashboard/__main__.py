@@ -6,6 +6,7 @@ from typing import Literal, TypedDict, cast
 import uvicorn
 from pydantic import ValidationError
 
+from neetcode_dashboard.app import create_app
 from neetcode_dashboard.config import Settings
 
 
@@ -30,8 +31,7 @@ def main() -> None:
         parser.error(str(error))
 
     uvicorn.run(
-        "neetcode_dashboard.app:create_app",
-        factory=True,
+        create_app(settings),
         host=settings.host,
         port=settings.port,
         log_level="info",

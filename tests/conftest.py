@@ -8,6 +8,8 @@ from neetcode_dashboard.calendar_engine import HolidayRule, load_holiday_rules
 from neetcode_dashboard.db.engine import create_sqlite_engine
 from neetcode_dashboard.db.migrations import upgrade_database
 from neetcode_dashboard.db.seed import sync_holiday_rules
+from neetcode_dashboard.event_store import EventStore, EventToAppend
+from neetcode_dashboard.time import utc_now
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -37,3 +39,18 @@ def migrated_engine(
     sync_holiday_rules(engine, holiday_rules)
     yield engine
     engine.dispose()
+
+
+@pytest.fixture
+def populated_database(
+    database_path: Path,
+    holiday_rules: tuple[HolidayRule, ...],
+) -> Path:
+    upgrade_database(database_path)
+    engine = create_sqlite_engine(database_path)
+    sync_holiday_rules(engine, holiday_rules)
+    store = EventStore(engine)
+    store.append(EventToAppend("system", "APP_STARTED", {"mode": "FOUNDATION_ONLY"}, utc_now()))
+    store.append(EventToAppend("system", "CALENDAR_READY", {"days": 365}, utc_now()))
+    engine.dispose()
+    return database_path

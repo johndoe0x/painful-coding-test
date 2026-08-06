@@ -6,6 +6,7 @@ from sqlalchemy import Engine, text
 from sqlalchemy.exc import DatabaseError
 
 from neetcode_dashboard.event_store import (
+    EventIntegrityError,
     EventStore,
     EventToAppend,
     EventValidationError,
@@ -116,3 +117,79 @@ def test_database_rejects_event_update_and_delete(migrated_engine: Engine) -> No
             text("DELETE FROM system_events WHERE id=:id"),
             {"id": event.id},
         )
+
+
+def test_database_rejects_insert_or_replace_of_existing_event(
+    migrated_engine: Engine,
+) -> None:
+    store = EventStore(migrated_engine)
+    event = store.append(
+        EventToAppend("system", "APP_STARTED", {}, datetime(2026, 8, 6, tzinfo=UTC))
+    )
+
+    with (
+        pytest.raises(DatabaseError, match="append-only"),
+        migrated_engine.begin() as connection,
+    ):
+        connection.execute(text("PRAGMA recursive_triggers=OFF"))
+        connection.execute(
+            text(
+                """
+                INSERT OR REPLACE INTO system_events (
+                    id, stream_id, event_seq, event_type, schema_version,
+                    payload_json, payload_sha256, previous_event_sha256,
+                    event_sha256, occurred_at_utc, received_at_utc, study_date
+                )
+                SELECT id, stream_id, event_seq, 'CHANGED', schema_version,
+                       payload_json, payload_sha256, previous_event_sha256,
+                       event_sha256, occurred_at_utc, received_at_utc, study_date
+                FROM system_events WHERE id = :id
+                """
+            ),
+            {"id": event.id},
+        )
+
+
+def test_database_rejects_upsert_mutation_of_existing_event(
+    migrated_engine: Engine,
+) -> None:
+    store = EventStore(migrated_engine)
+    event = store.append(
+        EventToAppend("system", "APP_STARTED", {}, datetime(2026, 8, 6, tzinfo=UTC))
+    )
+
+    with (
+        pytest.raises(DatabaseError, match="append-only"),
+        migrated_engine.begin() as connection,
+    ):
+        connection.execute(
+            text(
+                """
+                INSERT INTO system_events (
+                    id, stream_id, event_seq, event_type, schema_version,
+                    payload_json, payload_sha256, previous_event_sha256,
+                    event_sha256, occurred_at_utc, received_at_utc, study_date
+                )
+                SELECT id, stream_id, event_seq, event_type, schema_version,
+                       payload_json, payload_sha256, previous_event_sha256,
+                       event_sha256, occurred_at_utc, received_at_utc, study_date
+                FROM system_events WHERE id = :id
+                ON CONFLICT(id) DO UPDATE SET event_type = 'CHANGED'
+                """
+            ),
+            {"id": event.id},
+        )
+
+
+def test_read_stream_rejects_payload_hash_corruption(migrated_engine: Engine) -> None:
+    store = EventStore(migrated_engine)
+    store.append(EventToAppend("system", "READY", {}, datetime(2026, 8, 6, tzinfo=UTC)))
+    with migrated_engine.begin() as connection:
+        connection.execute(text("DROP TRIGGER system_events_reject_update"))
+        connection.execute(
+            text("UPDATE system_events SET payload_json = :payload"),
+            {"payload": '{"changed":true}'},
+        )
+
+    with pytest.raises(EventIntegrityError, match="payload hash mismatch"):
+        store.read_stream("system")

@@ -190,6 +190,14 @@ class EventStore:
         _verify_hash_chain(normalized_stream_id, events)
         return events
 
+    def verify_all(self) -> int:
+        connection = self._connect()
+        try:
+            verify_event_guards(connection)
+            return verify_all_event_chains(connection)
+        finally:
+            connection.close()
+
     def _connect(self) -> sqlite3.Connection:
         connection = sqlite3.connect(
             self._database_path,
@@ -204,6 +212,59 @@ class EventStore:
         except BaseException:
             connection.close()
             raise
+
+
+def verify_all_event_chains(connection: sqlite3.Connection) -> int:
+    """Verify every persisted event stream and return the checked row count."""
+    previous_row_factory = connection.row_factory
+    connection.row_factory = sqlite3.Row
+    try:
+        rows = connection.execute(
+            """
+            SELECT id, stream_id, event_seq, event_type, schema_version,
+                   payload_json, payload_sha256, previous_event_sha256,
+                   event_sha256, occurred_at_utc, received_at_utc, study_date
+            FROM system_events
+            ORDER BY stream_id ASC, event_seq ASC
+            """
+        ).fetchall()
+        streams: dict[str, list[StoredEvent]] = {}
+        for row in rows:
+            try:
+                event = _stored_event_from_row(row)
+            except EventIntegrityError:
+                raise
+            except (KeyError, TypeError, ValueError) as error:
+                raise EventIntegrityError("stored event row is malformed") from error
+            streams.setdefault(event.stream_id, []).append(event)
+        for stream_id, events in streams.items():
+            _verify_hash_chain(stream_id, tuple(events))
+        return len(rows)
+    finally:
+        connection.row_factory = previous_row_factory
+
+
+def verify_event_guards(connection: sqlite3.Connection) -> None:
+    rows = connection.execute(
+        """
+        SELECT name
+        FROM sqlite_master
+        WHERE type = 'trigger' AND tbl_name = 'system_events'
+        """
+    ).fetchall()
+    names: set[str] = set()
+    for row in rows:
+        value = cast(object, row[0])
+        if not isinstance(value, str):
+            raise EventIntegrityError("append-only event guard name is invalid")
+        names.add(value)
+    expected = {
+        "system_events_reject_update",
+        "system_events_reject_delete",
+        "system_events_reject_insert_collision",
+    }
+    if not expected.issubset(names):
+        raise EventIntegrityError("append-only event guards are missing")
 
 
 def _required_identifier(field: str, value: object) -> str:
@@ -303,6 +364,8 @@ def _verify_hash_chain(stream_id: str, events: tuple[StoredEvent, ...]) -> None:
         expected_payload_sha256 = sha256(canonical_payload.encode("utf-8")).hexdigest()
         if expected_payload_sha256 != event.payload_sha256:
             raise EventIntegrityError(f"payload hash mismatch for stream {stream_id}")
+        if event.study_date != study_date(event.occurred_at_utc):
+            raise EventIntegrityError(f"study date mismatch for stream {stream_id}")
 
         expected_event_sha256 = _event_sha256(
             stream_id=event.stream_id,

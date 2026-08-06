@@ -1,6 +1,8 @@
 from dataclasses import replace
 from pathlib import Path
 
+from alembic import command
+from alembic.config import Config
 from sqlalchemy import text
 
 from neetcode_dashboard.calendar_engine import HolidayRule
@@ -18,8 +20,25 @@ def test_every_connection_has_required_pragmas(database_path: Path) -> None:
             assert str(connection.scalar(text("PRAGMA journal_mode"))).lower() == "wal"
             assert connection.scalar(text("PRAGMA synchronous")) == 2
             assert connection.scalar(text("PRAGMA busy_timeout")) == 5_000
+            assert connection.scalar(text("PRAGMA recursive_triggers")) == 1
 
     engine.dispose()
+
+
+def test_plain_alembic_cli_honors_runtime_project_root(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repository_root = Path(__file__).resolve().parents[1]
+    runtime_root = tmp_path / "runtime"
+    fallback_database = tmp_path / "data" / "tracker.sqlite3"
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("NEETCODE_PROJECT_ROOT", str(runtime_root))
+
+    command.upgrade(Config(str(repository_root / "alembic.ini")), "head")
+
+    assert (runtime_root / "data" / "tracker.sqlite3").is_file()
+    assert not fallback_database.exists()
 
 
 def test_migration_and_holiday_seed_are_idempotent(
@@ -35,8 +54,8 @@ def test_migration_and_holiday_seed_are_idempotent(
     health = database_health(engine)
 
     assert health.integrity == "ok"
-    assert health.revision == "0002_system_events"
-    assert current_revision(engine) == "0002_system_events"
+    assert health.revision == "0003_event_invariants"
+    assert current_revision(engine) == "0003_event_invariants"
     assert health.holiday_count == 22
     engine.dispose()
 

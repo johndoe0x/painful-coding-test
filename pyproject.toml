@@ -32,6 +32,12 @@ dev = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/neetcode_dashboard"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"PLAN.md" = "neetcode_dashboard/_bundled/PLAN.md"
+"alembic.ini" = "neetcode_dashboard/_bundled/alembic.ini"
+"data/holidays.json" = "neetcode_dashboard/_bundled/holidays.json"
+"migrations" = "neetcode_dashboard/_bundled/migrations"
+
 [tool.pytest.ini_options]
 addopts = "-ra --strict-markers --strict-config"
 testpaths = ["tests"]

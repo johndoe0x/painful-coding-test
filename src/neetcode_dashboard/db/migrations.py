@@ -6,7 +6,7 @@ from alembic.runtime.migration import MigrationContext
 from sqlalchemy import Engine
 from sqlalchemy.engine import URL
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+from neetcode_dashboard.resources import resource_path
 
 
 def upgrade_database(path: Path) -> None:
@@ -21,8 +21,9 @@ def current_revision(engine: Engine) -> str | None:
 
 
 def _alembic_config(database_path: Path) -> Config:
-    config = Config(str(PROJECT_ROOT / "alembic.ini"))
-    config.set_main_option("script_location", str(PROJECT_ROOT / "migrations"))
+    config = Config(str(resource_path("alembic.ini")))
+    config.set_main_option("script_location", str(resource_path("migrations")))
+    config.attributes["database_path"] = database_path
     url = URL.create("sqlite+pysqlite", database=str(database_path)).render_as_string(
         hide_password=False
     )

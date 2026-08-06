@@ -28,7 +28,7 @@ curl -fsS http://127.0.0.1:8000/api/health
 
 ## 데이터 위치
 
-기본 실행 위치는 저장소 루트입니다.
+소스 checkout에서는 기본 실행 위치가 저장소 루트이고, 설치된 wheel에서는 실행한 현재 디렉터리가 기본 런타임 루트입니다. 공휴일 원본, 마스터 플랜, Alembic 설정과 migration은 wheel 안에도 함께 번들됩니다.
 
 | 항목 | 기본 경로 |
 |---|---|
@@ -37,7 +37,7 @@ curl -fsS http://127.0.0.1:8000/api/health
 | 고정 공휴일 원본 | `data/holidays.json` |
 | 고정 마스터 플랜 | `PLAN.md` |
 
-테스트나 격리 실행에서는 `NEETCODE_PROJECT_ROOT`로 **런타임 DB와 백업 위치만** 옮길 수 있습니다. 공휴일 원본과 `PLAN.md` 계약은 저장소에 고정됩니다.
+테스트나 격리 실행에서는 `NEETCODE_PROJECT_ROOT`로 **런타임 DB와 백업 위치만** 옮길 수 있습니다. 공휴일 원본과 `PLAN.md` 계약은 소스 checkout 또는 설치된 wheel의 불변 리소스에 고정됩니다. 앱의 programmatic migration과 일반 Alembic CLI 모두 같은 환경변수를 따릅니다.
 
 ```bash
 NEETCODE_PROJECT_ROOT=/private/tmp/neetcode-foundation \
@@ -54,7 +54,7 @@ NEETCODE_PROJECT_ROOT=/private/tmp/neetcode-foundation \
 uv run python -c 'from neetcode_dashboard.backup import create_verified_backup; from neetcode_dashboard.config import Settings; s=Settings(); print(create_verified_backup(s.database_path, s.backup_dir))'
 ```
 
-각 백업은 `.sqlite3`와 `.manifest.json` 한 쌍입니다. manifest에는 앱 버전, Alembic revision, 생성 시각, `PLAN.md` SHA-256, DB SHA-256, 무결성 결과, 이벤트·공휴일 행 수가 기록됩니다.
+각 백업은 `.sqlite3`와 `.manifest.json` 한 쌍입니다. manifest에는 앱 버전, Alembic revision, 생성 시각, `PLAN.md` SHA-256, DB SHA-256, 무결성 결과, 이벤트·공휴일 행 수가 기록됩니다. 발행과 복원 전에 모든 이벤트 스트림의 순서, canonical payload, payload hash, 이전/event hash, UTC 시각, 서울 기준 학습일을 다시 검증합니다.
 
 복원할 때는 반드시 앱을 먼저 종료합니다. 아래의 두 경로를 실제 백업 파일명으로 바꿉니다.
 
@@ -67,6 +67,7 @@ uv run python -c 'from pathlib import Path; from neetcode_dashboard.backup impor
 - DB 또는 manifest의 SHA-256·revision·행 수·무결성 결과가 불일치
 - 백업 파일 옆에 `-wal` 또는 `-shm` sidecar가 존재
 - 복원 대상 DB 옆에 `-wal` 또는 `-shm` sidecar가 존재
+- 실행 중인 앱이 복원 대상 DB의 프로세스 잠금을 보유
 - 복원 대상으로 백업 원본 자체를 지정
 
 ## 전체 검증
@@ -93,11 +94,14 @@ git diff --check -- . ':!PLAN.md'
 
 - 2026-08-06부터 2027-08-05까지 정확히 365일
 - 기본 1,304시간, 공휴일 22개 적용 후 1,292시간
-- 모든 앱 SQLite 연결에 `foreign_keys=ON`, WAL, `synchronous=FULL`, 5초 busy timeout
-- raw SQL도 이벤트 UPDATE/DELETE를 차단하는 DB trigger
+- 모든 앱 SQLite 연결에 `foreign_keys=ON`, WAL, `synchronous=FULL`, 5초 busy timeout, `recursive_triggers=ON`
+- raw SQL의 이벤트 UPDATE/DELETE뿐 아니라 `INSERT OR REPLACE`·UPSERT 충돌도 차단하는 DB trigger
 - 스트림별 연속 번호와 canonical JSON 기반 SHA-256 이벤트 체인
-- SQLite backup API, `integrity_check`, revision·행 수·content hash를 통과한 백업만 복원
-- health 응답에 파일 경로나 비밀값을 노출하지 않는 loopback-only FastAPI UI
+- SQLite backup API, `integrity_check`, revision·행 수·content hash·전체 이벤트 체인을 통과한 백업만 복원
+- 앱과 복원 작업 사이의 interprocess lock 및 교체 직전 SQLite sidecar 재검사
+- 요청마다 DB 상태와 이벤트 체인을 다시 검사하고 파일 경로나 비밀값을 노출하지 않는 loopback-only FastAPI UI
+- 직접 ASGI 실행으로 외부 주소에 잘못 바인딩해도 비루프백 클라이언트 요청은 애플리케이션에서 거부
+- 소스 checkout 밖에 설치한 wheel에서도 migration, startup, health, 백업 실행 가능
 
 ## 아직 보장하지 않는 것
 

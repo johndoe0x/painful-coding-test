@@ -8,7 +8,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 def _default_project_root() -> Path:
-    return Path(__file__).resolve().parents[2]
+    source_root = Path(__file__).resolve().parents[2]
+    if (source_root / "PLAN.md").is_file():
+        return source_root
+    return Path.cwd().resolve()
 
 
 class Settings(BaseSettings):

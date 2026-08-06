@@ -724,3 +724,17 @@ Skip this commit only if Task 1's README already matches the final verified comm
 - Placeholder scan: the plan contains no implementation placeholders; all required dates, totals, states, paths, commands, and interfaces are fixed.
 - Type consistency: `Settings`, calendar value types, engine/migration functions, event dataclasses/store, backup artifacts, and `create_app()` retain the same names across producer and consumer tasks.
 - Scope: curriculum import, attempts, deterministic solution runner, Codex, voice, qualified animations, and learning certification are not stubbed; Foundation reports them locked.
+
+## Post-Review Hardening Amendment
+
+The implementation received an independent evidence-focused review after Task 8. The original task sequence above remains the TDD execution record; the following completed changes are the authoritative final Foundation state:
+
+- [x] Migration head is `0003_event_invariants`, which adds a persistent insert-collision trigger; every application connection also enables `recursive_triggers=ON`.
+- [x] Raw `INSERT OR REPLACE`, UPSERT, UPDATE, and DELETE mutation paths have regression coverage.
+- [x] Backup creation, verification, and restore verify every event stream plus the required append-only guards.
+- [x] The running application and restore operation coordinate through an interprocess database lock; restore rechecks SQLite sidecars immediately before atomic replacement.
+- [x] Health and the Foundation page recompute DB readiness, event chains, and event guards on every request and fail closed with a path-free 503 response.
+- [x] An application middleware rejects non-loopback clients even if Uvicorn is invoked outside the validated wrapper CLI.
+- [x] Alembic CLI follows `NEETCODE_PROJECT_ROOT`, while explicit programmatic database paths retain precedence.
+- [x] The wheel bundles `PLAN.md`, the full holiday source, Alembic configuration, and all migrations; an isolated install was exercised through startup, health, and verified backup.
+- [x] The full holiday-record source is pinned by SHA-256, and the disabled navigation labels match Today, Calendar, Problems, Certification, and Analytics.

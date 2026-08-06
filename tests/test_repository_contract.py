@@ -1,3 +1,4 @@
+import tomllib
 from hashlib import sha256
 from pathlib import Path
 
@@ -10,3 +11,15 @@ def test_master_plan_is_frozen_byte_for_byte() -> None:
 
     assert plan.exists()
     assert sha256(plan.read_bytes()).hexdigest() == EXPECTED_PLAN_HASH
+
+
+def test_wheel_declares_all_non_package_runtime_resources() -> None:
+    configuration = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    force_include = configuration["tool"]["hatch"]["build"]["targets"]["wheel"]["force-include"]
+
+    assert force_include == {
+        "PLAN.md": "neetcode_dashboard/_bundled/PLAN.md",
+        "alembic.ini": "neetcode_dashboard/_bundled/alembic.ini",
+        "data/holidays.json": "neetcode_dashboard/_bundled/holidays.json",
+        "migrations": "neetcode_dashboard/_bundled/migrations",
+    }

@@ -15,11 +15,17 @@ from typing import cast
 
 from neetcode_dashboard import __version__
 from neetcode_dashboard.db.engine import apply_sqlite_pragmas
+from neetcode_dashboard.event_store import (
+    EventIntegrityError,
+    verify_all_event_chains,
+    verify_event_guards,
+)
+from neetcode_dashboard.resources import resource_path
+from neetcode_dashboard.runtime_lock import DatabaseLockError, acquire_database_runtime_lock
 from neetcode_dashboard.time import utc_now
 
 BACKUP_FORMAT_VERSION = 1
 EXPECTED_PLAN_SHA256 = "1c0cb3c548ffdb5ddd521ef20d0a17489d7148bb3613e024b88bec21b6e91d96"
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_FIELDS = frozenset(
     {
         "format_version",
@@ -164,45 +170,55 @@ def restore_verified_backup(artifact: BackupArtifact, destination: Path) -> Path
     target = destination.expanduser().resolve()
     if source == target:
         raise BackupVerificationError("restore destination cannot overwrite the backup artifact")
-    _reject_sqlite_sidecars(target, "restore destination")
-    target.parent.mkdir(parents=True, exist_ok=True)
-    temporary_destination = _temporary_path(target.parent, f".{target.name}.restore.tmp")
-
     try:
-        shutil.copyfile(source, temporary_destination)
-        _fsync_file(temporary_destination)
-        if _file_sha256(temporary_destination) != manifest.database_sha256:
-            raise BackupVerificationError("restore candidate SHA-256 mismatch")
-        snapshot = _inspect_database(temporary_destination)
-        if _file_sha256(temporary_destination) != manifest.database_sha256:
-            raise BackupVerificationError("restore candidate SHA-256 changed during verification")
-        _verify_snapshot(manifest, snapshot)
+        runtime_lock = acquire_database_runtime_lock(target)
+    except DatabaseLockError as error:
+        raise BackupVerificationError("restore destination is locked by a running app") from error
+    with runtime_lock:
+        _reject_sqlite_sidecars(target, "restore destination")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temporary_destination = _temporary_path(target.parent, f".{target.name}.restore.tmp")
 
-        os.replace(temporary_destination, target)
-        _fsync_directory(target.parent)
-        return target
-    except BaseException:
-        _remove_generated_file(temporary_destination)
-        _remove_sqlite_sidecars(temporary_destination)
-        raise
+        try:
+            shutil.copyfile(source, temporary_destination)
+            _fsync_file(temporary_destination)
+            if _file_sha256(temporary_destination) != manifest.database_sha256:
+                raise BackupVerificationError("restore candidate SHA-256 mismatch")
+            snapshot = _inspect_database(temporary_destination)
+            if _file_sha256(temporary_destination) != manifest.database_sha256:
+                raise BackupVerificationError(
+                    "restore candidate SHA-256 changed during verification"
+                )
+            _verify_snapshot(manifest, snapshot)
+            _reject_sqlite_sidecars(target, "restore destination")
+
+            os.replace(temporary_destination, target)
+            _fsync_directory(target.parent)
+            return target
+        except BaseException:
+            _remove_generated_file(temporary_destination)
+            _remove_sqlite_sidecars(temporary_destination)
+            raise
 
 
 def _copy_with_sqlite_backup(source: Path, destination: Path) -> None:
     source_connection = _open_existing_database(source)
-    destination_connection = sqlite3.connect(
-        destination,
-        timeout=5.0,
-        autocommit=True,
-        check_same_thread=False,
-    )
+    destination_connection: sqlite3.Connection | None = None
     try:
+        destination_connection = sqlite3.connect(
+            destination,
+            timeout=5.0,
+            autocommit=True,
+            check_same_thread=False,
+        )
         apply_sqlite_pragmas(destination_connection)
         source_connection.backup(destination_connection)
         destination_connection.execute("PRAGMA wal_checkpoint(TRUNCATE)").close()
     except sqlite3.Error as error:
         raise BackupVerificationError(f"SQLite backup failed: {error}") from error
     finally:
-        destination_connection.close()
+        if destination_connection is not None:
+            destination_connection.close()
         source_connection.close()
     _remove_sqlite_sidecars(destination)
 
@@ -219,6 +235,10 @@ def _inspect_database(path: Path) -> _DatabaseSnapshot:
         schema_revision = _row_text(revision_row, 0, "schema_revision")
         event_count = _query_count(connection, "SELECT COUNT(*) FROM system_events")
         holiday_count = _query_count(connection, "SELECT COUNT(*) FROM calendar_exceptions")
+        verify_all_event_chains(connection)
+        verify_event_guards(connection)
+    except EventIntegrityError as error:
+        raise BackupVerificationError(f"event chain verification failed: {error}") from error
     except sqlite3.Error as error:
         raise BackupVerificationError(f"database inspection failed: {error}") from error
     finally:
@@ -327,7 +347,10 @@ def _read_manifest(path: Path) -> BackupManifest:
 
 
 def _verified_plan_sha256() -> str:
-    plan_path = PROJECT_ROOT / "PLAN.md"
+    try:
+        plan_path = resource_path("PLAN.md")
+    except RuntimeError as error:
+        raise BackupVerificationError("frozen PLAN.md resource is missing") from error
     if not plan_path.is_file():
         raise BackupVerificationError("repository PLAN.md is missing")
     digest = _file_sha256(plan_path)

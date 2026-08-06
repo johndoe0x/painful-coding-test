@@ -57,3 +57,23 @@ def test_cli_rejects_public_bind_address(
     assert error.value.code == 2
     assert "0.0.0.0" in capsys.readouterr().err
     assert called == []
+
+
+def test_cli_uses_environment_when_flags_are_omitted(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    invocation: dict[str, object] = {}
+
+    def fake_run(application: str, **options: object) -> None:
+        invocation["application"] = application
+        invocation.update(options)
+
+    monkeypatch.setattr(uvicorn, "run", fake_run)
+    monkeypatch.setenv("NEETCODE_HOST", "localhost")
+    monkeypatch.setenv("NEETCODE_PORT", "8124")
+    monkeypatch.setattr(sys, "argv", ["neetcode-dashboard"])
+
+    main()
+
+    assert invocation["host"] == "localhost"
+    assert invocation["port"] == 8_124

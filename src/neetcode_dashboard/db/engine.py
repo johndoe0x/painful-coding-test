@@ -49,6 +49,7 @@ def apply_sqlite_pragmas(connection: sqlite3.Connection) -> None:
         cursor.execute("PRAGMA journal_mode=WAL")
         cursor.execute("PRAGMA synchronous=FULL")
         cursor.execute("PRAGMA busy_timeout=5000")
+        cursor.execute("PRAGMA recursive_triggers=ON")
         cursor.close()
     finally:
         connection.autocommit = previous_autocommit

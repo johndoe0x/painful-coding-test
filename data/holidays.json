@@ -1,0 +1,222 @@
+[
+  {
+    "date": "2026-08-15",
+    "kind": "named_public_holiday",
+    "name_ko": "광복절",
+    "name_en": "Liberation Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2026 Calendar Essentials",
+    "source_as_of": "2025-06-30",
+    "active": true
+  },
+  {
+    "date": "2026-08-17",
+    "kind": "substitute_holiday",
+    "name_ko": "광복절 대체공휴일",
+    "name_en": "Substitute holiday for Liberation Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2026 Calendar Essentials",
+    "source_as_of": "2025-06-30",
+    "active": true
+  },
+  {
+    "date": "2026-09-24",
+    "kind": "holiday_period",
+    "name_ko": "추석 연휴",
+    "name_en": "Chuseok holiday",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2026 Calendar Essentials",
+    "source_as_of": "2025-06-30",
+    "active": true
+  },
+  {
+    "date": "2026-09-25",
+    "kind": "named_public_holiday",
+    "name_ko": "추석",
+    "name_en": "Chuseok",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2026 Calendar Essentials",
+    "source_as_of": "2025-06-30",
+    "active": true
+  },
+  {
+    "date": "2026-09-26",
+    "kind": "holiday_period",
+    "name_ko": "추석 연휴",
+    "name_en": "Chuseok holiday",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2026 Calendar Essentials",
+    "source_as_of": "2025-06-30",
+    "active": true
+  },
+  {
+    "date": "2026-10-03",
+    "kind": "named_public_holiday",
+    "name_ko": "개천절",
+    "name_en": "National Foundation Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2026 Calendar Essentials",
+    "source_as_of": "2025-06-30",
+    "active": true
+  },
+  {
+    "date": "2026-10-05",
+    "kind": "substitute_holiday",
+    "name_ko": "개천절 대체공휴일",
+    "name_en": "Substitute holiday for National Foundation Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2026 Calendar Essentials",
+    "source_as_of": "2025-06-30",
+    "active": true
+  },
+  {
+    "date": "2026-10-09",
+    "kind": "named_public_holiday",
+    "name_ko": "한글날",
+    "name_en": "Hangeul Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2026 Calendar Essentials",
+    "source_as_of": "2025-06-30",
+    "active": true
+  },
+  {
+    "date": "2026-12-25",
+    "kind": "named_public_holiday",
+    "name_ko": "기독탄신일",
+    "name_en": "Christmas Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2026 Calendar Essentials",
+    "source_as_of": "2025-06-30",
+    "active": true
+  },
+  {
+    "date": "2027-01-01",
+    "kind": "named_public_holiday",
+    "name_ko": "신정",
+    "name_en": "New Year's Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-02-06",
+    "kind": "holiday_period",
+    "name_ko": "설날 연휴",
+    "name_en": "Seollal holiday",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-02-07",
+    "kind": "named_public_holiday",
+    "name_ko": "설날",
+    "name_en": "Seollal",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-02-08",
+    "kind": "holiday_period",
+    "name_ko": "설날 연휴",
+    "name_en": "Seollal holiday",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-02-09",
+    "kind": "substitute_holiday",
+    "name_ko": "설날 대체공휴일",
+    "name_en": "Substitute holiday for Seollal",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-03-01",
+    "kind": "named_public_holiday",
+    "name_ko": "3·1절",
+    "name_en": "Independence Movement Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-05-01",
+    "kind": "named_public_holiday",
+    "name_ko": "노동절",
+    "name_en": "Labor Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-05-03",
+    "kind": "substitute_holiday",
+    "name_ko": "노동절 대체공휴일",
+    "name_en": "Substitute holiday for Labor Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-05-05",
+    "kind": "named_public_holiday",
+    "name_ko": "어린이날",
+    "name_en": "Children's Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-05-13",
+    "kind": "named_public_holiday",
+    "name_ko": "부처님오신날",
+    "name_en": "Buddha's Birthday",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-06-06",
+    "kind": "named_public_holiday",
+    "name_ko": "현충일",
+    "name_en": "Memorial Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-07-17",
+    "kind": "named_public_holiday",
+    "name_ko": "제헌절",
+    "name_en": "Constitution Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  },
+  {
+    "date": "2027-07-19",
+    "kind": "substitute_holiday",
+    "name_ko": "제헌절 대체공휴일",
+    "name_en": "Substitute holiday for Constitution Day",
+    "planned_minutes": 180,
+    "source": "Korea AeroSpace Administration, 2027 Calendar Essentials and Notice 2026-0078",
+    "source_as_of": "2026-06-29",
+    "active": true
+  }
+]

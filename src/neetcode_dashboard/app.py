@@ -25,6 +25,7 @@ from neetcode_dashboard.db.seed import sync_holiday_rules
 FOUNDATION_MODE: Literal["FOUNDATION_ONLY"] = "FOUNDATION_ONLY"
 EXPECTED_REVISION = "0002_system_events"
 PACKAGE_ROOT = Path(__file__).resolve().parent
+HOLIDAY_SOURCE_PATH = Path(__file__).resolve().parents[2] / "data" / "holidays.json"
 
 
 class DatabaseStatus(BaseModel):
@@ -59,8 +60,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
         ensure_runtime_directories(runtime_settings)
-        holiday_path = runtime_settings.project_root / "data" / "holidays.json"
-        holiday_rules = load_holiday_rules(holiday_path)
+        holiday_rules = load_holiday_rules(HOLIDAY_SOURCE_PATH)
         calendar_summary = summarize_plan(holiday_rules)
         _require_calendar_contract(calendar_summary, len(holiday_rules))
         upgrade_database(runtime_settings.database_path)

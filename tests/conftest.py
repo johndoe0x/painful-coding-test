@@ -1,6 +1,5 @@
 from collections.abc import Generator
 from pathlib import Path
-from shutil import copyfile
 
 import pytest
 from sqlalchemy import Engine
@@ -33,11 +32,7 @@ def holiday_rules(holiday_path: Path) -> tuple[HolidayRule, ...]:
 
 @pytest.fixture
 def settings(tmp_path: Path) -> Settings:
-    project_root = tmp_path / "dashboard"
-    holiday_destination = project_root / "data" / "holidays.json"
-    holiday_destination.parent.mkdir(parents=True)
-    copyfile(ROOT / "data" / "holidays.json", holiday_destination)
-    return Settings(project_root=project_root)
+    return Settings(project_root=tmp_path / "dashboard")
 
 
 @pytest.fixture

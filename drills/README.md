@@ -1,15 +1,16 @@
 # Python Coding Drills
 
-Python 문법과 알고리즘을 연습하는 한국어 문제은행입니다.
+Python 문법과 코딩테스트용 Python 도구를 자동화하는 한국어 문제은행입니다.
 
 - Python Basic: 820개 문법·기초 자료구조 드릴
-- Python Coding: 800개 드릴. 동일 반복은 선택 복습으로 구분합니다.
-- 중복 슬롯 48개를 연결 리스트, 트리, trie, 그래프, DP, 백트래킹,
-  그리디, 비트 연산 등 다양한 연결 학습 문제로 교체했습니다.
+- Python Coding: 800개 사용법 변형·반복 드릴
+- 목적을 벗어났던 48개를 정렬 key, 복사/alias, deque, Counter,
+  heapq, bisect 등의 150~300초 Python 사용법 문제로 교정했습니다.
+- 알고리즘 패턴 학습과 C 레벨 인증은 후속 NeetCode 250의 역할입니다.
 - 각 문제 파일은 스타터 코드와 공개 테스트를 제공합니다.
 
 먼저 [학습 경로](STUDY_PATH.md)를 읽으세요.
-[재평가 보고서](docs/reviews/2026-09-05-problem-bank-review.md)와
+[목적 교정 보고서](docs/reviews/2026-09-05-python-coding-purpose-correction.md)와
 [1,620개 전체 검사 결과](docs/reviews/2026-09-05-problem-bank.json)도 제공합니다.
 문제 수는 서로 다른 알고리즘 수나 면접 준비 완료의 증거가 아닙니다.
 

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-05T04:09:58.070112Z",
+  "generated_at_utc": "2026-09-05T05:53:23.972524Z",
   "problems": {
     "CI0001": {
       "contract_sha256": "4e6ed5452c54361167b2f6b583254b1e4c75d36fb8faa709ef21949b4c7454ae",
@@ -128,40 +128,40 @@
       "starter_sha256": "8e38d3c78f629bdb03f8fd8434e2d6ca5650a9b7aa192c8407bd7466bd86dab1"
     },
     "CI0022": {
-      "contract_sha256": "38a72fb35843c990214453c3056744e95a9936a191590dc77db1491ebfe9eb62",
-      "path": "01_sorting/CI0022_sorting_bridge_interval_schedule_v02.py",
+      "contract_sha256": "704b9d2647b0f637fdb6e2c804d7439fe2d2cfa4a6de2e38412ee811976c2373",
+      "path": "01_sorting/CI0022_sorting_fluency_stable_descending_key_v02.py",
       "scaffold_version": 1,
-      "starter_sha256": "0c96875134a6c4afd0d7c0f31c9a3cb816ff08f5c888e8ab822f5b8207e08f9a"
+      "starter_sha256": "f130410803fa6d924d73e76b0c241567812ccef348e1cf2274e9c3336ba2cc06"
     },
     "CI0023": {
-      "contract_sha256": "7c0c24c520f82e008d98bf24a40b92a1946f47328523ccb9de622fafc6c6bb78",
-      "path": "01_sorting/CI0023_sorting_bridge_closed_interval_arrows_v03.py",
+      "contract_sha256": "71ab3832d333f238bf4000606eb925007b32d7f3ea609ad503cce4ab8438b0f1",
+      "path": "01_sorting/CI0023_sorting_fluency_casefold_sort_v03.py",
       "scaffold_version": 1,
-      "starter_sha256": "fda0650d12e58d4d735e245ab4cdc16f0f2e10886b4a12a90a599731b152c2ed"
+      "starter_sha256": "ce10cc0c4c4e99a4be623c512d9e242222735c53cf74a7cc4b0c00230dab1272"
     },
     "CI0024": {
-      "contract_sha256": "c250bc4df4d04b5cb32c85b392e7b416f41042e81a98687a9156951739af6c3e",
-      "path": "01_sorting/CI0024_sorting_bridge_partition_labels_v04.py",
+      "contract_sha256": "5284c8f0fbd75859d4f2ab0c19bae4e86c956d352a8716848e761955f5ff6f7a",
+      "path": "01_sorting/CI0024_sorting_fluency_none_last_sort_v04.py",
       "scaffold_version": 1,
-      "starter_sha256": "3e462bafd6a2fef52ff0316747e7493b189521e88a1ecb6a74ef6f55631257b5"
+      "starter_sha256": "0f64ffe846e43c3172692bc62a75643daebba1931a8f45225ad015f4cad43103"
     },
     "CI0025": {
-      "contract_sha256": "b210f15704f8f9351394c4045853e54da6b29f788611e6b5229b65022cb0bf07",
-      "path": "01_sorting/CI0025_sorting_bridge_minimum_jumps_v05.py",
+      "contract_sha256": "6211ff290beb37bbc37e02c4544033152936917ff5806baf32d06fbe89e8b977",
+      "path": "01_sorting/CI0025_sorting_fluency_itemgetter_two_fields_v05.py",
       "scaffold_version": 1,
-      "starter_sha256": "794cb48ecd907a8f59f5906c6b1e2cdab28c60668d56a562b5b50f6b5ca4a014"
+      "starter_sha256": "50aefde4883bd40a0c529060dfff841833d9fba6acafafbb3c97dc968aa647e5"
     },
     "CI0026": {
-      "contract_sha256": "f3e5357079dc6bba1ece42bccd20c879d06f1ae9f479e65d9b547cee31425152",
-      "path": "01_sorting/CI0026_sorting_bridge_minimum_candy_v06.py",
+      "contract_sha256": "12d41eb6529b125655e4b6204faee949148d942e864acaa23a64538b8c9347c4",
+      "path": "01_sorting/CI0026_sorting_fluency_sort_in_place_v06.py",
       "scaffold_version": 1,
-      "starter_sha256": "a060d2a0dcb6ba891fdaa45579448f8458d765d497152af99a1cf4909df2fbd7"
+      "starter_sha256": "99fce3b23f22d98a7311631e2662e5679ecbea00e641477a8582356d6f981794"
     },
     "CI0027": {
-      "contract_sha256": "d7b8350b6192998b657fe384dcb5a7ed71817643c990c9fc28a85b0c38c927d3",
-      "path": "01_sorting/CI0027_sorting_bridge_rescue_boats_v07.py",
+      "contract_sha256": "4ad456a9a1c58ebfd57a1249b6349fe4659d075db47a01142d0b9e3071a91e0b",
+      "path": "01_sorting/CI0027_sorting_fluency_sorted_indices_v07.py",
       "scaffold_version": 1,
-      "starter_sha256": "78fcd10cb9edfa6b09b76a6aa7d0083d734fbf7b0da0ccc09904f89e33d7dcba"
+      "starter_sha256": "d345e29b43a6c49526e4378148e1809a502f1db643ab013eaef202cbd335c91a"
     },
     "CI0028": {
       "contract_sha256": "6f49ae93945f8faa1a55f6904f7f03c062d0a5675c055e73cda6b0c7db167eac",
@@ -728,40 +728,40 @@
       "starter_sha256": "20fff9a66eb0ac1e4d3795e44734b830f61e4d28b646c6aeec6dcaf02ae1655c"
     },
     "CI0122": {
-      "contract_sha256": "eebb15966d61b85849ccfc13880f4f803a6ed8bdb9efc8341d2a99df3e08b300",
-      "path": "02_pythonic_code/CI0122_pythonic_bridge_single_unpaired_v02.py",
+      "contract_sha256": "9f222fbff128c4a4e72064b8d7c43aa3f97ae09a906d287d0266c20c1f2447ae",
+      "path": "02_pythonic_code/CI0122_pythonic_fluency_enumerate_offset_v02.py",
       "scaffold_version": 1,
-      "starter_sha256": "b06e842a440d8aefc6c9df73e1a71df55c58c10d1cd6598c3ed69b8caa489c59"
+      "starter_sha256": "901109f83d3e426e0df5dde6838ff368bda2a0446323a7d2e66beebf8b70998b"
     },
     "CI0123": {
-      "contract_sha256": "096749bef8cd0922f9a6aa477fe2f26ea046355d37d83e1d470e2d8181af6b94",
-      "path": "02_pythonic_code/CI0123_pythonic_bridge_two_unpaired_v03.py",
+      "contract_sha256": "bc9ab9ffeec10fb28c3d5405310445c618b2b9cafeace08e1094c7b8c26e8934",
+      "path": "02_pythonic_code/CI0123_pythonic_fluency_zip_longest_fill_v03.py",
       "scaffold_version": 1,
-      "starter_sha256": "c095db31f1687a85536987bbc289263849d8758440fb3828d6d799c8747cc8b5"
+      "starter_sha256": "173d81a490d3742543da705fb63edb2cf137d6920c58f07bdbc2ef12c0718420"
     },
     "CI0124": {
-      "contract_sha256": "be0cd7be011180ae021da6b15776994c1c0b3904c6fcf1c71458cac68bc0b07d",
-      "path": "02_pythonic_code/CI0124_pythonic_bridge_reverse_fixed_bits_v04.py",
+      "contract_sha256": "6388390d8c071f0f5565b7c32250f07ab02a0508e8818f4f626b5f43fb92952b",
+      "path": "02_pythonic_code/CI0124_pythonic_fluency_starred_unpack_v04.py",
       "scaffold_version": 1,
-      "starter_sha256": "eafe5f123336bc41fa11eb9c28fd34d24a976ee3d01a4f2a884b45fc3e803d03"
+      "starter_sha256": "7ad13fedb746d028a0e936e2fe2f82d6f198b6bd7475a24b10e93691aa88098e"
     },
     "CI0125": {
-      "contract_sha256": "36b9f61cd7429d1f909515f5eb95d09319b3133abeb2c70ee61c7681e52ea048",
-      "path": "02_pythonic_code/CI0125_pythonic_bridge_range_bitwise_and_v05.py",
+      "contract_sha256": "75b1c332ac7f43b4d3dc0a2997857cdc06400623a0d4e1d128a0665514cd2032",
+      "path": "02_pythonic_code/CI0125_pythonic_fluency_zip_to_mapping_v05.py",
       "scaffold_version": 1,
-      "starter_sha256": "5c6981c5e08b12dc6bb111232a52758c463d1a5003d9298a8abb0a3e4ad4c14b"
+      "starter_sha256": "5631ffe647c451817c190931f6b8a553d1dacca3714f3ac3654c205437d5caad"
     },
     "CI0126": {
-      "contract_sha256": "01a615a2018fb1f5bfa10462db7408e68b2e61c79975ed75ca95d13231c2423b",
-      "path": "02_pythonic_code/CI0126_pythonic_bridge_total_hamming_distance_v06.py",
+      "contract_sha256": "1edd2ed2fd2b3ee7778a9e42f0e46922c83a798d2b62e9380153135e56974415",
+      "path": "02_pythonic_code/CI0126_pythonic_fluency_yield_even_squares_v06.py",
       "scaffold_version": 1,
-      "starter_sha256": "638715ae17d68f2ecfd8e5a1896fcb3191236bdd354053f1719eae268e45ccc6"
+      "starter_sha256": "cd762e7bc80ef7821c941caaab784bfc7fabc6cc95ca07e53a797004c2786cd8"
     },
     "CI0127": {
-      "contract_sha256": "b282f33ed225d1d6b845ed1dabcab4681ea6008e5549965576afed740170676a",
-      "path": "02_pythonic_code/CI0127_pythonic_bridge_bit_count_table_v07.py",
+      "contract_sha256": "9b7072a07291f7d4b24484631405b15c0617f5a98cc9a5e1a9c1131cbbf49c2a",
+      "path": "02_pythonic_code/CI0127_pythonic_fluency_next_with_default_v07.py",
       "scaffold_version": 1,
-      "starter_sha256": "df958dc5b21e87c6a10e7e0beab3492160bf657a6063f0c4b4bb7b90132ed9dc"
+      "starter_sha256": "73de93aab8acde5c7b73cb0c4f771b251b682a736f220f4da213d10b9f5bfcd2"
     },
     "CI0128": {
       "contract_sha256": "8068442b1e7c68b70e9a5124f6d9ca0c85b8707e56c116e2321f6569a9270df3",
@@ -1448,40 +1448,40 @@
       "starter_sha256": "6c0d908f959f2e28808b3fd650feed7e9336c32e60f9cfede3428253791005b7"
     },
     "CI0242": {
-      "contract_sha256": "9d2546d9d3c7d2a0c5cd1c3c2c5ca7fa9d70f089a6c9525b9fe90cab7789b0fb",
-      "path": "03_lists/CI0242_lists_bridge_linked_reverse_v02.py",
+      "contract_sha256": "6f14d0e7b7cbf38fe11b3943f55832ec945f79952960644ff0faaaca2fbd127c",
+      "path": "03_lists/CI0242_lists_fluency_slice_replace_in_place_v02.py",
       "scaffold_version": 1,
-      "starter_sha256": "fd258279dea0b7422b9d6c116348792f8657ec816c10d0638e85669f09470444"
+      "starter_sha256": "9ad02c97bf447318a7250a526ea900c92f173397547af82386e25c4dd5ab4f0b"
     },
     "CI0243": {
-      "contract_sha256": "c938e0b225d26c9dac14f70bfb3b17e43b71758b6a11c95572c16270ff1de3aa",
-      "path": "03_lists/CI0243_lists_bridge_linked_remove_nth_v03.py",
+      "contract_sha256": "2e50ad70b8d4ddd622638e74ed64778af443940006b2068bdd1e3fadcc480f41",
+      "path": "03_lists/CI0243_lists_fluency_shallow_outer_copy_v03.py",
       "scaffold_version": 1,
-      "starter_sha256": "bd642ba550ba8715b6e62b270cdec0cafd518b300e56e5c837a9a8946a951232"
+      "starter_sha256": "98955a4bd1b5c0dc6842c1c72d33c925b6141ce30d9958a2f26cac8be0298d50"
     },
     "CI0244": {
-      "contract_sha256": "892cff38c89cff03c181ffafbe9fae268aa2382d048e8fdd6177cec9506f08d9",
-      "path": "03_lists/CI0244_lists_bridge_linked_middle_v04.py",
+      "contract_sha256": "2eec2506530b9bef3a5d9c3e858ac1ad078331951c8cf890dce6fa4899c14947",
+      "path": "03_lists/CI0244_lists_fluency_independent_row_copy_v04.py",
       "scaffold_version": 1,
-      "starter_sha256": "b4bc360661cf7c2cbdeab162d07c897d7278d9d11b0838d84d060ff5cd93e544"
+      "starter_sha256": "31296ae47a163caf19798ab1057962b9cc177a6942f26984525373618d1a1efc"
     },
     "CI0245": {
-      "contract_sha256": "2f17a4f68ee0775f28743f9db6ad85430223edff3af02df1a7737158c01f791c",
-      "path": "03_lists/CI0245_lists_bridge_linked_cycle_entry_v05.py",
+      "contract_sha256": "8a282702db2a7ade7f81e63f4fef4b00a7790a11485532095f17d1b885e1d5ef",
+      "path": "03_lists/CI0245_lists_fluency_pop_copy_index_v05.py",
       "scaffold_version": 1,
-      "starter_sha256": "70bd4e72400ab8af2f98e147df0efa2953939a50652187f9a7a006b287771fd5"
+      "starter_sha256": "374715aa8a8cd4562c3043a4a4c379d064c12da25e47e02580f1833be32f1314"
     },
     "CI0246": {
-      "contract_sha256": "5702c5b28e39e89d155fad97ad86764da83cb299da61edb6315eaaff0eec19d5",
-      "path": "03_lists/CI0246_lists_bridge_linked_intersection_v06.py",
+      "contract_sha256": "8b79a2d5416cb1980ec89b7167a8f9ff34655acd14f631b5a4c087864846b464",
+      "path": "03_lists/CI0246_lists_fluency_extended_slice_assignment_v06.py",
       "scaffold_version": 1,
-      "starter_sha256": "3235a9c6f74e09762cfb28b09653d788e6725877bc472f8f94b22a6b3f6d0d40"
+      "starter_sha256": "76ba9e736fce74e610b5811016dbcc50e89d29eb2321bd66551f3f9f42d7ee08"
     },
     "CI0247": {
-      "contract_sha256": "c7a161e0ae01d1fda82d0e95a8377a6795a9a5c940040d7de7cad780876eef68",
-      "path": "03_lists/CI0247_lists_bridge_linked_reorder_v07.py",
+      "contract_sha256": "ae99c2691eec5a109860296fddaee2b0b00ea95fe088afe972512e77a70321d1",
+      "path": "03_lists/CI0247_lists_fluency_dict_order_deduplicate_v07.py",
       "scaffold_version": 1,
-      "starter_sha256": "afeb0321961f1db3e66add8bf6f8ed68a19e727c053f1ed0a5f5cfeebf19a7fa"
+      "starter_sha256": "033a907dc73155e79cb998ee57dbb880ed468cee4d2e26fe1f1f6e6712a8cd3b"
     },
     "CI0248": {
       "contract_sha256": "d89d6a19fa4659372c5dc877248070acef6cd5cbcfa20776b75dd5c8a873d5c5",
@@ -2168,40 +2168,40 @@
       "starter_sha256": "31aaaf6d5d7c8c4430bbc746b9683549e5c03d7dd8685d4cfe55796705605649"
     },
     "CI0362": {
-      "contract_sha256": "d929c25e64389d835f8842cd396309166dbdf0b7820f5e7fa8c79f2d73090379",
-      "path": "04_stacks_queues/CI0362_stack_queue_bridge_tree_preorder_v02.py",
+      "contract_sha256": "69f8be03df626dae0e366e888f976fc67daceb897f4f22f62368f5f9fad3af4a",
+      "path": "04_stacks_queues/CI0362_stack_queue_fluency_deque_until_stop_v02.py",
       "scaffold_version": 1,
-      "starter_sha256": "0e7a225c0f92471ca35dc2c86ff79e3959294db510b123d7bb00671dfe7c6b79"
+      "starter_sha256": "b475b59d587876944f72069cf351e7be984c3d6445c1ea74349f8293fdcef74a"
     },
     "CI0363": {
-      "contract_sha256": "65f376ffd3b3a6bbde4293548528bbec15bce7fafca2f50bbc1b55be2998e0a0",
-      "path": "04_stacks_queues/CI0363_stack_queue_bridge_tree_levels_v03.py",
+      "contract_sha256": "5665162d38c24290726040ca7f40be2f913f3452bf12596f994557fef11ca754",
+      "path": "04_stacks_queues/CI0363_stack_queue_fluency_deque_maxlen_v03.py",
       "scaffold_version": 1,
-      "starter_sha256": "cea1c0d32566aaaf0ab2bcbdeb792fc88783cc77ebcf909fa8df021b6ca4998a"
+      "starter_sha256": "0a2aa48fa10c8e716f0dd9f2a2df4b6bcb9f7cbee39c02dfaba89ac653168d21"
     },
     "CI0364": {
-      "contract_sha256": "96383aaed8678245a9b5a21adc0b7f9c201d1438af89ffed0c976f6b132597ea",
-      "path": "04_stacks_queues/CI0364_stack_queue_bridge_validate_bst_v04.py",
+      "contract_sha256": "99aaf469901d44d3c41457d0f9de3594488c4d6e674fd6f7e491c24b4d9fa8eb",
+      "path": "04_stacks_queues/CI0364_stack_queue_fluency_deque_rotate_pop_v04.py",
       "scaffold_version": 1,
-      "starter_sha256": "716c15d4d17c4e7248c161145d31f876042f21d3ce18b957181f8a07e6fdfdbc"
+      "starter_sha256": "efef47d36eb54e873a774bcc2cfa89e400e06e62c7b1a6cf060904930bce6549"
     },
     "CI0365": {
-      "contract_sha256": "f6bf452d74338278fd60553e94c4aa115c186f2a792149f1cdc1f0a9005bcbef",
-      "path": "04_stacks_queues/CI0365_stack_queue_bridge_tree_balanced_v05.py",
+      "contract_sha256": "51a6107336302fe65e7dccc7a703bbd234a8c9a36649f7e42e153d867de16077",
+      "path": "04_stacks_queues/CI0365_stack_queue_fluency_deque_extendleft_v05.py",
       "scaffold_version": 1,
-      "starter_sha256": "51e6ef606037c5f2ff408424bb0446a8c8dd7eb7f159d249870575d849e4a90e"
+      "starter_sha256": "7a3753c1ae18c20693353935b9d7fcee949d5ee7d7d72ba589508e3959bc215c"
     },
     "CI0366": {
-      "contract_sha256": "e5c5b9004c6dc93a9f74c2ccca1ebfff785237c5dcd6a66dbca9d6008fe2924a",
-      "path": "04_stacks_queues/CI0366_stack_queue_bridge_tree_diameter_v06.py",
+      "contract_sha256": "2d884d0b4803c908737bf2926ba97cda328a6437dd6fbe37e365f753121bf8d9",
+      "path": "04_stacks_queues/CI0366_stack_queue_fluency_stack_push_pop_batch_v06.py",
       "scaffold_version": 1,
-      "starter_sha256": "0939b1236d83b6f85414ba8a36b8eca459945a94eeba4c4bb27e3894a1656404"
+      "starter_sha256": "5648b2e53cc5ec781035170368f1256ebcc48e022759f49ebdf3f45803c0bf66"
     },
     "CI0367": {
-      "contract_sha256": "b47eff56842a5066d22824da69fcc2f0679673bcc1f68fb7e34f6383af80cdcb",
-      "path": "04_stacks_queues/CI0367_stack_queue_bridge_tree_target_paths_v07.py",
+      "contract_sha256": "83f8b3bdba7b48d1e5313825ef92bba19662e6911736bb903d818b80a49a89e5",
+      "path": "04_stacks_queues/CI0367_stack_queue_fluency_queue_take_v07.py",
       "scaffold_version": 1,
-      "starter_sha256": "aff7860913e279eaef522e23fbeb1ed74a24db6e58ff64e46a492f2c05f48abe"
+      "starter_sha256": "b25cc3ad63234d03e46ff1224110c315bb6aa6cbe5576b76756d9ac2a94c4f8d"
     },
     "CI0368": {
       "contract_sha256": "cf59e3479d6f7f745a35eecb9a16587a39f42b3f407fea0c13465b20ba26f4fc",
@@ -2528,40 +2528,40 @@
       "starter_sha256": "6e4d3fdb2a4c888e54edee487747b37db7fc058b0d62b267f4b1c7a8e75460c7"
     },
     "CI0422": {
-      "contract_sha256": "9defc38e792fb2530ef3f3e38e7c6e7d39afa5f26a5406438f1145de4e242e6c",
-      "path": "05_2d_lists/CI0422_grid_bridge_obstacle_path_count_v02.py",
+      "contract_sha256": "6c0a512d35e41a40a9299b693c920ebd802dadaf4b259ff0b0c336e615adbc7e",
+      "path": "05_2d_lists/CI0422_grid_fluency_enumerate_cells_v02.py",
       "scaffold_version": 1,
-      "starter_sha256": "61c8055dcf34c67a2e954241a2775b8dcfbc42d8f062ef6b02f2898c14d19f39"
+      "starter_sha256": "eba0f05bebf361b6285d0f9b6f78ca9c9a321dc4cd745ca4b0699453a4f1a8e1"
     },
     "CI0423": {
-      "contract_sha256": "68fb0c37a77ecdab3b8228ded7769319d7d24ed5bb7d96f9fc758fd7ac4f9627",
-      "path": "05_2d_lists/CI0423_grid_bridge_edit_distance_v03.py",
+      "contract_sha256": "d1b91c93d1ce6ff002055aa4c4c901bbbcfb4976ee482b3746724129a0412e54",
+      "path": "05_2d_lists/CI0423_grid_fluency_copy_update_cell_v03.py",
       "scaffold_version": 1,
-      "starter_sha256": "0e9a925b92928c2c06fa6866fd633f319fcb99e0cdec1461cef80624e6b3e35d"
+      "starter_sha256": "4c900dad09b85276dff2aa6d8b11cdddc1764b58358f846474a0e9e44d810a28"
     },
     "CI0424": {
-      "contract_sha256": "bb956654a2efd70f78b8e6bcb555db056805f5d17de5df434eeaa039274edd1b",
-      "path": "05_2d_lists/CI0424_grid_bridge_maximal_square_v04.py",
+      "contract_sha256": "96dd49b006cdf39ba694666c8c8b748d04903fe826790ce65a383c4bbaed23fa",
+      "path": "05_2d_lists/CI0424_grid_fluency_zip_transpose_rows_v04.py",
       "scaffold_version": 1,
-      "starter_sha256": "51c5a9739c14cbc97acfca92bd2823b308a585fb7fad1d5abe7aaaf8d229c1ab"
+      "starter_sha256": "c2e9b506c7bbb4d6ae2db5963c08cd11fa29b6083869059d87968d874a5157f0"
     },
     "CI0425": {
-      "contract_sha256": "cc4eaf6c210fa947fa3a128d3d11ed0d6e72a6b435861675246940c944c20373",
-      "path": "05_2d_lists/CI0425_grid_bridge_word_search_v05.py",
+      "contract_sha256": "c0e9361114b30d747f9b913b2a12c7f8fc0ce2d2a1db288a317603ed3f9914ad",
+      "path": "05_2d_lists/CI0425_grid_fluency_shared_row_identity_v05.py",
       "scaffold_version": 1,
-      "starter_sha256": "a6a377df444be4f7e2890a4ce1a072658fb7b3040cb0a0b3e1e16ec5750de828"
+      "starter_sha256": "142b1f6fe7d10101f1c577696f6e1f4ced1d162bd80329ca70c4bf5a998b814d"
     },
     "CI0426": {
-      "contract_sha256": "782ad0a1c1293b1356a96eb2952f8356d30bef1e6b0182cf5bcc651820e8ee26",
-      "path": "05_2d_lists/CI0426_grid_bridge_n_queens_v06.py",
+      "contract_sha256": "88c6dcbc0ab93dcf8e7a6292c7bf74a304072c42cacb04d9e3b629abc32499e5",
+      "path": "05_2d_lists/CI0426_grid_fluency_chain_flatten_v06.py",
       "scaffold_version": 1,
-      "starter_sha256": "a5d6c11df7cebdf933d9763b4be972d42de4269bab2e0b49105cdc4ee07d0ea9"
+      "starter_sha256": "a136e3d4cb1cd79a1659b2afa2766710bb115a4e6d953683a01e854af893e642"
     },
     "CI0427": {
-      "contract_sha256": "02a5a230bab3531628dff8306051aafb2397040cdb73797090490bfe236057dd",
-      "path": "05_2d_lists/CI0427_grid_bridge_longest_increasing_grid_path_v07.py",
+      "contract_sha256": "d9a53a9fa2477bbbd1b716ec8b7e09ca4f15b83030b1aece1a341640dbf7342f",
+      "path": "05_2d_lists/CI0427_grid_fluency_independent_checkerboard_v07.py",
       "scaffold_version": 1,
-      "starter_sha256": "18794adaacf1168007bbbdc1a5c56119e304ad2af206bdb9ea5f15769facf237"
+      "starter_sha256": "07882a104cb12a7dffe19dcd266a0c5fb0b288e574c20aee14b70f8bfdee89dd"
     },
     "CI0428": {
       "contract_sha256": "8c19aa7a6cf1f34a364f49e2b397d3431feb4829663b3a4264ade89098551748",
@@ -2888,40 +2888,40 @@
       "starter_sha256": "13fb4c1238e5e61b28cae222f2eb650c9e617ed5759a2d765820e9083619a29a"
     },
     "CI0482": {
-      "contract_sha256": "4ae682ed908b65de015c966a81eba7aa83b3f96205e37d50c41a52a26e435dc8",
-      "path": "06_hashmaps_hashsets/CI0482_hashing_bridge_trie_prefix_counts_v02.py",
+      "contract_sha256": "f2a652b4afe4b7253a15bfb26365a6c7bb0bb72cac87dc8e70cc3e80daddef5f",
+      "path": "06_hashmaps_hashsets/CI0482_hashing_fluency_counter_signed_subtract_v02.py",
       "scaffold_version": 1,
-      "starter_sha256": "d6326cfffc6358b842c760e985d6f05eeccd222e1c0013784d23115b03ecccae"
+      "starter_sha256": "54c9e71df33bf4583a76ad5acee32e875f58c22f7be7c73addca5313e035100b"
     },
     "CI0483": {
-      "contract_sha256": "465aa5328e5e892994d2434ce7266b6a2a2ef61f9d3ff14b75f581b6de00ee19",
-      "path": "06_hashmaps_hashsets/CI0483_hashing_bridge_shortest_unique_prefixes_v03.py",
+      "contract_sha256": "7864d6922fa2d60607804a224011f5e493857cfb1f2bc88838603bc8e3c31dde",
+      "path": "06_hashmaps_hashsets/CI0483_hashing_fluency_counter_intersection_v03.py",
       "scaffold_version": 1,
-      "starter_sha256": "d132c868843740a227c5dc1833d74aa8f8d1632b6bae8aa2f7b25fa729402008"
+      "starter_sha256": "eb1c13c872a25e8f46c07a6bb6a56d16c76fc081fc53497388605a5f909bc0ad"
     },
     "CI0484": {
-      "contract_sha256": "c3ab9931745d5539089f5bd4c122643bde4f55997f26e54475e3cd63bd6f756b",
-      "path": "06_hashmaps_hashsets/CI0484_hashing_bridge_trie_wildcard_matches_v04.py",
+      "contract_sha256": "c5344051c49ddd771c5e92e5d9e9ac5a6fc32d2aed72c61b7e508395272893c1",
+      "path": "06_hashmaps_hashsets/CI0484_hashing_fluency_defaultdict_unique_groups_v04.py",
       "scaffold_version": 1,
-      "starter_sha256": "4d6262b312025e15a756c1d15c0094dc5df0d5c0635073712fd0af90dc790c5f"
+      "starter_sha256": "5021aa96504e068b1e0857a74afb648089da155e8cb0557a9cb90f8b3d8671ca"
     },
     "CI0485": {
-      "contract_sha256": "53bb87c0efa438b8e7eb497de09d1617cf84533969e693e8786edb6a973fa2ba",
-      "path": "06_hashmaps_hashsets/CI0485_hashing_bridge_graph_bipartite_v05.py",
+      "contract_sha256": "c34e695660d315495dd1df5e1343dee1905766f4560094248fbe86b66a338885",
+      "path": "06_hashmaps_hashsets/CI0485_hashing_fluency_mapping_missing_vs_none_v05.py",
       "scaffold_version": 1,
-      "starter_sha256": "e73f3a1e9ea0849d2543b489d2a56e46115f796bb404c11c54578b1ecae8d525"
+      "starter_sha256": "fc6a05f2f1637804315b8db72ffdf930467a5192b5ff5d343a56decd48e9d215"
     },
     "CI0486": {
-      "contract_sha256": "498f9503a37f1b3e23ee865d9611fa2ed2e454d1dae22cab0ed77fa75179fd1b",
-      "path": "06_hashmaps_hashsets/CI0486_hashing_bridge_connectivity_queries_v06.py",
+      "contract_sha256": "8cd3f50bbcb45b5f918241cfc205a6b0420ee3270f7114a09c710a18def67775",
+      "path": "06_hashmaps_hashsets/CI0486_hashing_fluency_mapping_pop_presence_v06.py",
       "scaffold_version": 1,
-      "starter_sha256": "87d7b88793499bd37585b173633028770500388b378156325795231995ad4e4e"
+      "starter_sha256": "2cf528a14d30ad8fec8a185b2b2c8d77e558262f413ca76ea96bd35a87a22b77"
     },
     "CI0487": {
-      "contract_sha256": "c1e15bd00d362df19bfc846ed0e134cd94f0ab4b1741ba89c50c181a7cb72b7d",
-      "path": "06_hashmaps_hashsets/CI0487_hashing_bridge_graph_bfs_distances_v07.py",
+      "contract_sha256": "37d7da7497a1a188ebd61cf83a038fcf98703db9fb6a3e18b342247cf77a03fd",
+      "path": "06_hashmaps_hashsets/CI0487_hashing_fluency_set_symmetric_difference_v07.py",
       "scaffold_version": 1,
-      "starter_sha256": "80cf569697c80c2bf299b4cc932d42ddb5df1540803c4be304a337699e9def77"
+      "starter_sha256": "d20161a2a5fe5aa811ff593c62306f40c77ca8e76ed40a62fe27b52b02524cdd"
     },
     "CI0488": {
       "contract_sha256": "5cd1d6cb5451705b710ed1dd10b3ac481baeeea8851affe8f621d6f4669a9ec9",
@@ -3848,40 +3848,40 @@
       "starter_sha256": "d329e86003df7039310477514fbccaef376354d9e53b9eae02dfcfaa2a284351"
     },
     "CI0642": {
-      "contract_sha256": "82484f5f3dbba471f1346dc4731da05142b4e9cf5c707161dad0dc4f55eeb13e",
-      "path": "07_heaps_priority_queues/CI0642_heap_bridge_dijkstra_distances_v02.py",
+      "contract_sha256": "ab3cb5e5e57142bbb61664933ff5159f89e75ddfa357eb993f226abf6d3eb725",
+      "path": "07_heaps_priority_queues/CI0642_heap_fluency_heap_pushpop_contract_v02.py",
       "scaffold_version": 1,
-      "starter_sha256": "bd77e835af06de01512969a45c25259ff2b3b368682aa61965d49921bf145112"
+      "starter_sha256": "bf4a597076dcb6ca1ab5035dc85fa80f5eea7f4f813b18cca741b763a5a005af"
     },
     "CI0643": {
-      "contract_sha256": "b9e37482b72893f5e8937e9d18587727b702872357eef720d0009281901f7f3f",
-      "path": "07_heaps_priority_queues/CI0643_heap_bridge_lexicographic_toposort_v03.py",
+      "contract_sha256": "bc8b7290d09172e863f9ed212ce700ad182176deba041e6780a574af0a4dd6d4",
+      "path": "07_heaps_priority_queues/CI0643_heap_fluency_heap_replace_contract_v03.py",
       "scaffold_version": 1,
-      "starter_sha256": "2c53d88dd1bd88d31369679e0f121668bc21a5f289b9bf2abeea94fdcec0f37c"
+      "starter_sha256": "343a462fbd89c2018015a9eca40f5bc73990831af0323a61a0192d90ddaea654"
     },
     "CI0644": {
-      "contract_sha256": "589c77222456c8d6ad670597f6b044f8af976fd1039a13d5caa359942dab8451",
-      "path": "07_heaps_priority_queues/CI0644_heap_bridge_bounded_flight_cost_v04.py",
+      "contract_sha256": "6da34f3cb744debba72ce06e3184e650f865301113dd59802a6a0d9f0b4a962f",
+      "path": "07_heaps_priority_queues/CI0644_heap_fluency_nsmallest_records_v04.py",
       "scaffold_version": 1,
-      "starter_sha256": "6e3721bd3793fb191de315e54829278b44c2b6d198291255c090e3f1bfe3e806"
+      "starter_sha256": "5be03b5572ad7711f65c75fd96c1dbd212ea37f385761bed081a1ab6675a9f59"
     },
     "CI0645": {
-      "contract_sha256": "5ee3321ca6f3c3fbf248d3cc69ba234365ab8b2801fb5d8afafa2cffab34a7e2",
-      "path": "07_heaps_priority_queues/CI0645_heap_bridge_minimum_spanning_tree_v05.py",
+      "contract_sha256": "bde54fa488b778ca56c78544157afa840550b5ff643b2611ee4aaae5d3f9ee2e",
+      "path": "07_heaps_priority_queues/CI0645_heap_fluency_nlargest_word_lengths_v05.py",
       "scaffold_version": 1,
-      "starter_sha256": "6b1c0e956a5ce3ba1df06876cc0fb00481ec0f338c62075d3b811da26d7b9361"
+      "starter_sha256": "73d67e3b22a219275f7392a5049aae5eb35b85715f4e1ce0718ccd1d4b1ede57"
     },
     "CI0646": {
-      "contract_sha256": "7a0ab111dab9cc071a9dcd06aed05304f919b054c49985a253f2e644229b5ed1",
-      "path": "07_heaps_priority_queues/CI0646_heap_bridge_minimum_effort_grid_v06.py",
+      "contract_sha256": "39b1bfef21ed87fc88b5510d214398fd9ef133722da37a59aa91b5d4d6b57493",
+      "path": "07_heaps_priority_queues/CI0646_heap_fluency_merge_islice_prefix_v06.py",
       "scaffold_version": 1,
-      "starter_sha256": "3e21c35e5848624602b0be15f95478b9544f4670c97dee117edb49652383e1d6"
+      "starter_sha256": "236ca365c3510689b87f9676381f8f9e68d537d054a993ab5b4a73573a3243ca"
     },
     "CI0647": {
-      "contract_sha256": "40445d13847d67928a33cddf4ba08b79bb696d1c6bcb12ec4072eb9be4fa3f45",
-      "path": "07_heaps_priority_queues/CI0647_heap_bridge_single_cpu_order_v07.py",
+      "contract_sha256": "d36766c5d2c8ad29799e9ce4073e127ab8836a719d0c1165daa55f086fdbfec0",
+      "path": "07_heaps_priority_queues/CI0647_heap_fluency_heap_commands_v07.py",
       "scaffold_version": 1,
-      "starter_sha256": "84042e83de8c3381d16b0e7434cfbd6d590d391561d60e86a6db0f809d8d5f58"
+      "starter_sha256": "a64a7e586c1d8b944e31e05767e5a99b221687c23175c03162e30c5d5fe7c256"
     },
     "CI0648": {
       "contract_sha256": "5f0aab040f2aa67facf50ac4b4d8e40662408d174c241d0de080ca6fab4bc870",
@@ -4688,40 +4688,40 @@
       "starter_sha256": "32ae20930a8eeab3dbef3bb405d1635ef64f0ec6c9e97ed13b7d6023751def91"
     },
     "CI0782": {
-      "contract_sha256": "02a629da1082d0a750690523848dd8327e479551c925b56d6da2998ecd01280e",
-      "path": "08_sorted_dicts_sets/CI0782_sorted_structure_bridge_weighted_interval_profit_v02.py",
+      "contract_sha256": "48a16bf2da25a1156c2923e7cf9105213732caf43a46c8853a025c16281fb644",
+      "path": "08_sorted_dicts_sets/CI0782_sorted_structure_fluency_bisect_subrange_v02.py",
       "scaffold_version": 1,
-      "starter_sha256": "7fdb4abfd52f3f36ce6bc738b9875100207183ac8efc96e3ebd1964c52ed8d83"
+      "starter_sha256": "d69485b12d1de8cf512d7749277bb7a017f4d4aca43fdcf6240aa074d69f0a68"
     },
     "CI0783": {
-      "contract_sha256": "e3472d6d22b1ad012a23bfe57a1233a34eb4b67380b8c3ab8fe230ce90db1277",
-      "path": "08_sorted_dicts_sets/CI0783_sorted_structure_bridge_minimum_coins_v03.py",
+      "contract_sha256": "726bf1135e443d204fbc89cb625080e5bd630fd0d20ae7c68e4292aa3d24b7cc",
+      "path": "08_sorted_dicts_sets/CI0783_sorted_structure_fluency_insort_right_key_v03.py",
       "scaffold_version": 1,
-      "starter_sha256": "75a29fe538e6fd8b7612fd75352a213d791a9dd8985f238f91c9fd2329b93f91"
+      "starter_sha256": "8430de498ed09368b649940d26ec70ddbee74f3d0d99c98aa4529b94d45a260b"
     },
     "CI0784": {
-      "contract_sha256": "a9893abeebdc09d7730ef534a5fcd3b0793e0a19d4bf08ee03c82e2ce6ad6dbd",
-      "path": "08_sorted_dicts_sets/CI0784_sorted_structure_bridge_coin_combination_count_v04.py",
+      "contract_sha256": "9c487f05c2a4a17b252d8ccf9dbf5532ebe9d0f31d08696d380c4ff39cdb58a1",
+      "path": "08_sorted_dicts_sets/CI0784_sorted_structure_fluency_bisect_remove_all_v04.py",
       "scaffold_version": 1,
-      "starter_sha256": "fb98cafcc54136d5741de6540c69f3c9455abbd08083ac0c0d5dc9b44a89a562"
+      "starter_sha256": "f74f8514d5d4cc122d0f87e6c211001dd80ad8559e58488c9595b56fa3ac6274"
     },
     "CI0785": {
-      "contract_sha256": "015cfd861c22963b17f5e8c4b0761a1366b56734210ad1bb7c5c73c3a2d9a287",
-      "path": "08_sorted_dicts_sets/CI0785_sorted_structure_bridge_equal_subset_partition_v05.py",
+      "contract_sha256": "8e3e2123bef03185e0fb70c936c0e71f2e7809fb024bfe16127c65121869f4a2",
+      "path": "08_sorted_dicts_sets/CI0785_sorted_structure_fluency_bisect_ceiling_queries_v05.py",
       "scaffold_version": 1,
-      "starter_sha256": "bbcccf4559f46a7f5418061f258da04b953c261f11824338832be7bdc988a095"
+      "starter_sha256": "64681656366df9a4377e5c57ce3086a5facd742902fa4d93cc29e007f1445192"
     },
     "CI0786": {
-      "contract_sha256": "f4578f7d7352371cbdaa5f7367996adb481f77ff111e4f3d25401df21de7d2d4",
-      "path": "08_sorted_dicts_sets/CI0786_sorted_structure_bridge_unique_permutations_v06.py",
+      "contract_sha256": "34396074f0ddb6ca848b49860571e26e2e1281c8220f8c2d4acfe777d3f699c4",
+      "path": "08_sorted_dicts_sets/CI0786_sorted_structure_fluency_bisect_record_key_v06.py",
       "scaffold_version": 1,
-      "starter_sha256": "4bf88091495c1837cf3211f8db600d30f91819c51c146a32665563a4315930ba"
+      "starter_sha256": "5fd0b8a2e329080243241d2d7f46ded7433a870501e6839237c54a75e0a13bcd"
     },
     "CI0787": {
-      "contract_sha256": "c29b9929e596d94c6c5e834150cd9e19be45e63a9c5d26ef7b8a1fbc3e38cc78",
-      "path": "08_sorted_dicts_sets/CI0787_sorted_structure_bridge_single_use_combination_sum_v07.py",
+      "contract_sha256": "579b5ecefb633a0563bd8fc04fc9615d05f600a8df43584f35e833d2efa60e52",
+      "path": "08_sorted_dicts_sets/CI0787_sorted_structure_fluency_bisect_three_slices_v07.py",
       "scaffold_version": 1,
-      "starter_sha256": "2f43c8c07c9602ebed448201da02a1303613e85d26fa0ded7e1a681b495d32e0"
+      "starter_sha256": "32c972562fc4511c2c59990f1a90224ebb37c5f31c054e90d213418fe245b8e6"
     },
     "CI0788": {
       "contract_sha256": "733dc553f30d1b2d39931d639b273eeb4111c7bf681495c50cea0e6d4d5f8381",

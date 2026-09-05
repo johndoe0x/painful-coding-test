@@ -192,7 +192,7 @@ class CodingContractTests(unittest.TestCase):
         self.assertIn('progress = "learner work"', action.source)
 
     def test_replacement_rename_refuses_intervening_learner_edit(self):
-        build = next(build for build in build_catalog() if "_bridge_" in build.exercise.slug)
+        build = next(build for build in build_catalog() if "_fluency_" in build.exercise.slug)
         old_path = CODING_ROOT / build.relative_path.parent / f"{build.problem_id}_old.py"
         pristine, partial = "old starter", "old starter\n# learner note"
         manifest = {"problems": {build.problem_id: {"starter_sha256": digest(pristine)}}}

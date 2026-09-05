@@ -126,13 +126,9 @@ def collect() -> dict:
         groups = defaultdict(list)
         for row in rows:
             groups[row["learning_group_sha256"]].append(row["id"])
-        representatives = {ids[0] for ids in groups.values()}
         for row in rows:
             row["review_of"] = groups[row["learning_group_sha256"]][0]
-            row["study_role"] = (
-                "practice" if prefix == "PB" else
-                "core" if row["id"] in representatives else "optional_recall"
-            )
+            row["study_role"] = "automation_drill"
         extras = sorted(str(path.relative_to(ROOT)) for path in (ROOT / bank_name).rglob(prefix + "*.py")
                         if "_preserved_answers" not in path.parts and path not in paths.values())
         banks[prefix] = {
@@ -142,7 +138,8 @@ def collect() -> dict:
             "normalized_test_suites": len({row["normalized_test_sha256"] for row in rows}),
             "learning_groups": len(groups),
             "repeated_test_entries": len(rows) - len({row["normalized_test_sha256"] for row in rows}),
-            "optional_recall_entries": len(rows) - len(groups) if prefix == "CI" else 0,
+            "repeated_learning_entries": len(rows) - len(groups),
+            "optional_recall_entries": 0,
             "call_error_problems": [row["id"] for row in rows if row["call_errors"]],
             "syntax_error_problems": [row["id"] for row in rows if row["user_syntax_error"]],
             "chapter_counts": dict(Counter(row["chapter"] for row in rows)),
@@ -176,27 +173,26 @@ def protected_snapshot() -> dict:
 
 def write_study_index(report: dict) -> None:
     lines = ["# 문제은행 학습 경로", "",
-             "2026-09-05 재평가. 파일 이름을 바꾼 동일 테스트는 신규 알고리즘으로 세지 않습니다.", "",
-             "Python Basic은 문법 자동화 훈련입니다. 각 주제의 v01로 먼저 진단하고, 막힌 주제의 변형을 풉니다.",
-             "함수·조건·반복·자료구조를 아직 배우지 않았다면 해당 설명을 먼저 학습하세요.",
-             "[Basic 전체 820개](python_basic/INDEX.md)", "",
-             "아래 Coding 핵심 경로는 문제 계약·정규화 테스트·필수 구현 방식이 모두 같은 반복을 한 번씩 선택합니다.",
-             "이는 서로 다른 알고리즘 개수가 아니며, 서로 다른 테스트가 같은 알고리즘을 다룰 수도 있습니다.",
-             "시간 제한은 복습 시 목표입니다. 처음 배우는 그래프·DP 문제는 해설과 함께 충분히 학습하세요.", ""]
+             "Python Basic은 문법, Python Coding은 코딩테스트용 Python 도구를 빈 화면에서 빠르게 쓰는 훈련입니다.",
+             "알고리즘 패턴·트리·그래프·DP 학습과 C 레벨 인증은 후속 NeetCode 250에서 진행합니다.", "",
+             "[Python Coding 목적 교정](docs/reviews/2026-09-05-python-coding-purpose-correction.md)",
+             "[Basic 전체 820개](python_basic/INDEX.md) · [Coding 전체 800개](python_coding/INDEX.md)", "",
+             "## 연습 방법", "",
+             "1. 배운 Python 문법·API를 기준으로 현재 챕터의 문제를 10개씩 풉니다.",
+             "2. 빈 화면 구현 → 공개 테스트 → 틀린 연산 기록 → 자료를 닫고 재작성합니다.",
+             "3. Coding은 기본 150초, 조합 연습은 최대 300초를 복습 목표로 사용합니다.",
+             "4. 최초 통과율 85%, 무작위 cold audit 90%와 문서 검색 없이 도구를 쓰는지를 확인합니다.",
+             "5. 숫자나 이름이 같은 반복도 인출 훈련에 사용합니다. 문제 수를 새 알고리즘 수로 해석하지 않습니다.", "",
+             "이전의 '핵심 240개 + 선택 560개' 분류는 철회했습니다. 아래는 800개 전체 훈련 경로입니다.",
+             "동일한 테스트·계약은 복습 대응 ID만 표시하며, 그 이유만으로 선택 문제로 제외하지 않습니다.", ""]
     rows = report["banks"]["CI"]["problems"]
     chapter = None
     for row in rows:
-        if row["study_role"] != "core":
-            continue
         if row["chapter"] != chapter:
             chapter = row["chapter"]
             lines.extend([f"## {chapter}", ""])
-        lines.append(f'- [{row["id"]} — {row["title"]}]({row["path"]})')
-    lines.extend(["", "## 선택 복습", "",
-                  "아래 항목은 대응 핵심 문제의 계약·테스트·필수 구현 방식이 같습니다. 시간이 지난 후 빈 화면 복습에 사용하세요.", ""])
-    for row in rows:
-        if row["study_role"] == "optional_recall":
-            lines.append(f'- [{row["id"]}]({row["path"]}) → {row["review_of"]} 복습')
+        repetition = f' — {row["review_of"]}와 같은 계약 복습' if row["review_of"] != row["id"] else ""
+        lines.append(f'- [{row["id"]} — {row["title"]}]({row["path"]}){repetition}')
     (ROOT / "STUDY_PATH.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

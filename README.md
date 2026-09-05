@@ -4,11 +4,12 @@
 
 - Python Basic 820개와 Python Coding 800개, 총 1,620개
 - 148개 문제 개선: Basic 37개, Coding 111개
-- Coding 핵심 계약 240개와 선택 복습 560개
-- 새 연결 학습 문제 48개, 재현 가능한 회귀 테스트 43개
+- Python Coding 800개를 Python 도구 자동화 훈련으로 운영
+- 목적을 벗어났던 알고리즘 48개를 150~300초 Python 사용법 드릴로 교정
+- 재현 가능한 회귀 테스트 36개
 
 **[학습 경로](drills/STUDY_PATH.md)** ·
-**[문제은행 리뷰](drills/docs/reviews/2026-09-05-problem-bank-review.md)** ·
+**[목적 교정 보고서](drills/docs/reviews/2026-09-05-python-coding-purpose-correction.md)** ·
 **[전체 검사 결과](drills/docs/reviews/2026-09-05-problem-bank.json)**
 
 ```bash

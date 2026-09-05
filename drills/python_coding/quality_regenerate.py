@@ -20,7 +20,7 @@ if str(WORKSPACE_ROOT) not in sys.path:
 from generate_bank import CHAPTERS, ROOT, SEEDS, Seed
 from python_basic.source_checks import CHECK_DESCRIPTIONS
 from quality_catalog import BASELINE_SOURCE_CHECKS, TEMPLATES, ChallengeTemplate
-from diversity_catalog import REPLACEMENTS
+from fluency_catalog import REPLACEMENTS
 from regenerate_variants import TESTS
 
 
@@ -146,7 +146,7 @@ def template_exercise(
 def replacement_exercise(original: Exercise, template: ChallengeTemplate) -> Exercise:
     """Keep the problem ID while giving a new concept a descriptive entry point."""
     chapter_prefix = function_name(original.signature).split("_r", 1)[0]
-    target_name = f"{chapter_prefix}_bridge_{template.slug}"
+    target_name = f"{chapter_prefix}_fluency_{template.slug}"
     return Exercise(
         slug=target_name,
         title=template.title,
@@ -544,7 +544,7 @@ def render_report(builds: list[ProblemBuild], actions: list[WriteAction]) -> str
         f"- Unique test suites: {len({build.exercise.tests for build in builds})}",
         f"- Exact normalized test-suite shapes: {len(normalized_shapes)} (not a count of unique algorithms)",
         f"- Repeated test-suite slots: {len(builds) - len(normalized_shapes)}",
-        f"- Diverse replacement slots: {len(REPLACEMENTS)}",
+        f"- Purpose-corrected Python tool drills: {len(REPLACEMENTS)}",
         f"- Required asserts: {len(builds) * 3}",
         f"- Source-checked problems: {sum(bool(build.exercise.source_checks) for build in builds)} (instructional checks, not correctness or complexity proof)",
         "",

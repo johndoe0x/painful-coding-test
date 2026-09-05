@@ -1,0 +1,833 @@
+# 문제은행 학습 경로
+
+2026-09-05 재평가. 파일 이름을 바꾼 동일 테스트는 신규 알고리즘으로 세지 않습니다.
+
+Python Basic은 문법 자동화 훈련입니다. 각 주제의 v01로 먼저 진단하고, 막힌 주제의 변형을 풉니다.
+함수·조건·반복·자료구조를 아직 배우지 않았다면 해당 설명을 먼저 학습하세요.
+[Basic 전체 820개](python_basic/INDEX.md)
+
+아래 Coding 핵심 경로는 문제 계약·정규화 테스트·필수 구현 방식이 모두 같은 반복을 한 번씩 선택합니다.
+이는 서로 다른 알고리즘 개수가 아니며, 서로 다른 테스트가 같은 알고리즘을 다룰 수도 있습니다.
+시간 제한은 복습 시 목표입니다. 처음 배우는 그래프·DP 문제는 해설과 함께 충분히 학습하세요.
+
+## 01_sorting
+
+- [CI0001 — Sort Ascending — 기본 계약](python_coding/01_sorting/CI0001_baseline_v01.py)
+- [CI0002 — 경계값 정렬 — 반복 세트 1](python_coding/01_sorting/CI0002_sorting_r01_edge_values_v02.py)
+- [CI0003 — 원본 보존 정렬 — 반복 세트 1](python_coding/01_sorting/CI0003_sorting_r01_preserve_input_v03.py)
+- [CI0004 — 안정적인 우선순위 정렬 — 반복 세트 1](python_coding/01_sorting/CI0004_sorting_r01_stable_priorities_v04.py)
+- [CI0005 — itemgetter 필드 정렬 — 반복 세트 1](python_coding/01_sorting/CI0005_sorting_r01_itemgetter_field_v05.py)
+- [CI0006 — lambda 복합 key 정렬 — 반복 세트 1](python_coding/01_sorting/CI0006_sorting_r01_lambda_word_key_v06.py)
+- [CI0007 — 점수 순위 정렬 — 반복 세트 1](python_coding/01_sorting/CI0007_sorting_r01_score_ranking_v07.py)
+- [CI0008 — 중복 제거 내림차순 — 반복 세트 1](python_coding/01_sorting/CI0008_sorting_r01_descending_unique_v08.py)
+- [CI0009 — 작은 값 K개 — 반복 세트 1](python_coding/01_sorting/CI0009_sorting_r01_smallest_k_v09.py)
+- [CI0010 — K번째 작은 값 — 반복 세트 1](python_coding/01_sorting/CI0010_sorting_r01_kth_smallest_v10.py)
+- [CI0011 — 두 정렬열 병합 — 반복 세트 1](python_coding/01_sorting/CI0011_sorting_r01_merge_sorted_v11.py)
+- [CI0012 — 거의 정렬된 배열 — 반복 세트 1](python_coding/01_sorting/CI0012_sorting_r01_nearly_sorted_heap_v12.py)
+- [CI0013 — 빈도 기반 정렬 — 반복 세트 1](python_coding/01_sorting/CI0013_sorting_r01_frequency_order_v13.py)
+- [CI0014 — 자연스러운 코드 정렬 — 반복 세트 1](python_coding/01_sorting/CI0014_sorting_r01_natural_codes_v14.py)
+- [CI0015 — 숫자 문자열 정렬 — 반복 세트 1](python_coding/01_sorting/CI0015_sorting_r01_numeric_text_v15.py)
+- [CI0016 — 여러 정렬 배치 병합 — 반복 세트 1](python_coding/01_sorting/CI0016_sorting_r01_merge_batches_v16.py)
+- [CI0017 — sort 반환 계약 — 반복 세트 1](python_coding/01_sorting/CI0017_sorting_r01_sort_contract_v17.py)
+- [CI0018 — 범위 제한 계수 정렬 — 반복 세트 1](python_coding/01_sorting/CI0018_sorting_r01_counting_sort_v18.py)
+- [CI0019 — 삽입 정렬 구현 — 반복 세트 1](python_coding/01_sorting/CI0019_sorting_r01_insertion_sort_v19.py)
+- [CI0020 — 분수 comparator 정렬 — 반복 세트 1](python_coding/01_sorting/CI0020_sorting_r01_fraction_cmp_v20.py)
+- [CI0021 — Sort Descending — 기본 계약](python_coding/01_sorting/CI0021_baseline_v01.py)
+- [CI0022 — 정렬 → 최대 비중첩 일정](python_coding/01_sorting/CI0022_sorting_bridge_interval_schedule_v02.py)
+- [CI0023 — 정렬 → 닫힌 구간 관통](python_coding/01_sorting/CI0023_sorting_bridge_closed_interval_arrows_v03.py)
+- [CI0024 — 정렬 사고 → 문자 구간 분할](python_coding/01_sorting/CI0024_sorting_bridge_partition_labels_v04.py)
+- [CI0025 — 정렬 사고 → 점프 도달 경계](python_coding/01_sorting/CI0025_sorting_bridge_minimum_jumps_v05.py)
+- [CI0026 — 정렬 사고 → 양방향 이웃 제약](python_coding/01_sorting/CI0026_sorting_bridge_minimum_candy_v06.py)
+- [CI0027 — 정렬 → 두 사람 보트 배치](python_coding/01_sorting/CI0027_sorting_bridge_rescue_boats_v07.py)
+- [CI0041 — Sort Custom — 기본 계약](python_coding/01_sorting/CI0041_baseline_v01.py)
+- [CI0061 — Sort Lambda — 기본 계약](python_coding/01_sorting/CI0061_baseline_v01.py)
+- [CI0081 — Sorted Copy — 기본 계약](python_coding/01_sorting/CI0081_baseline_v01.py)
+## 02_pythonic_code
+
+- [CI0101 — Unpacking — 기본 계약](python_coding/02_pythonic_code/CI0101_baseline_v01.py)
+- [CI0102 — 두 값 unpacking — 반복 세트 1](python_coding/02_pythonic_code/CI0102_pythonic_r01_swap_unpack_v02.py)
+- [CI0103 — iterator 한 번 소비 — 반복 세트 1](python_coding/02_pythonic_code/CI0103_pythonic_r01_consume_iterator_v03.py)
+- [CI0104 — 짝수 제곱 generator — 반복 세트 1](python_coding/02_pythonic_code/CI0104_pythonic_r01_yield_even_squares_v04.py)
+- [CI0105 — loop unpacking 곱합 — 반복 세트 1](python_coding/02_pythonic_code/CI0105_pythonic_r01_sum_products_v05.py)
+- [CI0106 — enumerate 라벨 — 반복 세트 1](python_coding/02_pythonic_code/CI0106_pythonic_r01_indexed_labels_v06.py)
+- [CI0107 — 길이 확인 zip — 반복 세트 1](python_coding/02_pythonic_code/CI0107_pythonic_r01_zip_equal_v07.py)
+- [CI0108 — pathlib 경로 분석 — 반복 세트 1](python_coding/02_pythonic_code/CI0108_pythonic_r01_pathlib_summary_v08.py)
+- [CI0109 — JSON 객체 파싱 — 반복 세트 1](python_coding/02_pythonic_code/CI0109_pythonic_r01_json_object_summary_v09.py)
+- [CI0110 — CSV 숫자 열 합계 — 반복 세트 1](python_coding/02_pythonic_code/CI0110_pythonic_r01_csv_column_totals_v10.py)
+- [CI0111 — 첫 원소 기본값 — 반복 세트 1](python_coding/02_pythonic_code/CI0111_pythonic_r01_first_default_v11.py)
+- [CI0112 — lru_cache 계단 경우의 수 — 반복 세트 1](python_coding/02_pythonic_code/CI0112_pythonic_r01_lru_climb_ways_v12.py)
+- [CI0113 — 중첩 레코드 unpacking — 반복 세트 1](python_coding/02_pythonic_code/CI0113_pythonic_r01_flatten_records_v13.py)
+- [CI0114 — filter-map 파이프라인 — 반복 세트 1](python_coding/02_pythonic_code/CI0114_pythonic_r01_positive_square_pipeline_v14.py)
+- [CI0115 — lazy 앞부분 취하기 — 반복 세트 1](python_coding/02_pythonic_code/CI0115_pythonic_r01_take_islice_v15.py)
+- [CI0116 — 연속 차이 — 반복 세트 1](python_coding/02_pythonic_code/CI0116_pythonic_r01_pairwise_differences_v16.py)
+- [CI0117 — 곱집합 라벨 — 반복 세트 1](python_coding/02_pythonic_code/CI0117_pythonic_r01_cartesian_labels_v17.py)
+- [CI0118 — 누적 합 — 반복 세트 1](python_coding/02_pythonic_code/CI0118_pythonic_r01_accumulated_totals_v18.py)
+- [CI0119 — cache 재귀 피보나치 — 반복 세트 1](python_coding/02_pythonic_code/CI0119_pythonic_r01_cached_fibonacci_v19.py)
+- [CI0120 — math 수치 도구 — 반복 세트 1](python_coding/02_pythonic_code/CI0120_pythonic_r01_math_toolkit_v20.py)
+- [CI0121 — Loop Unpacking — 기본 계약](python_coding/02_pythonic_code/CI0121_baseline_v01.py)
+- [CI0122 — Python 연산 → XOR 홀수 원소](python_coding/02_pythonic_code/CI0122_pythonic_bridge_single_unpaired_v02.py)
+- [CI0123 — Python 연산 → XOR 두 그룹](python_coding/02_pythonic_code/CI0123_pythonic_bridge_two_unpaired_v03.py)
+- [CI0124 — Python 연산 → 고정 폭 비트 반전](python_coding/02_pythonic_code/CI0124_pythonic_bridge_reverse_fixed_bits_v04.py)
+- [CI0125 — Python 연산 → 정수 구간 AND](python_coding/02_pythonic_code/CI0125_pythonic_bridge_range_bitwise_and_v05.py)
+- [CI0126 — Python 연산 → 모든 쌍 비트 거리](python_coding/02_pythonic_code/CI0126_pythonic_bridge_total_hamming_distance_v06.py)
+- [CI0127 — Python 연산 → 비트 수 DP 표](python_coding/02_pythonic_code/CI0127_pythonic_bridge_bit_count_table_v07.py)
+- [CI0141 — Enumerate — 기본 계약](python_coding/02_pythonic_code/CI0141_baseline_v01.py)
+- [CI0161 — Zip — 기본 계약](python_coding/02_pythonic_code/CI0161_baseline_v01.py)
+- [CI0181 — Inequality — 기본 계약](python_coding/02_pythonic_code/CI0181_baseline_v01.py)
+- [CI0201 — Min Max Shortcut — 기본 계약](python_coding/02_pythonic_code/CI0201_baseline_v01.py)
+## 03_lists
+
+- [CI0221 — Resizable List Part 1 — 기본 계약](python_coding/03_lists/CI0221_baseline_v01.py)
+- [CI0222 — 복사본에 순차 추가 — 반복 세트 1](python_coding/03_lists/CI0222_lists_r01_append_copy_v02.py)
+- [CI0223 — 삽입 후 음수 제거 — 반복 세트 1](python_coding/03_lists/CI0223_lists_r01_insert_remove_negative_v03.py)
+- [CI0224 — 두 리스트 결합 — 반복 세트 1](python_coding/03_lists/CI0224_lists_r01_concat_without_alias_v04.py)
+- [CI0225 — 독립적인 빈 행 초기화 — 반복 세트 1](python_coding/03_lists/CI0225_lists_r01_independent_rows_v05.py)
+- [CI0226 — 사본 위치 갱신 — 반복 세트 1](python_coding/03_lists/CI0226_lists_r01_clone_update_v06.py)
+- [CI0227 — 짝수 제곱 comprehension — 반복 세트 1](python_coding/03_lists/CI0227_lists_r01_even_squares_v07.py)
+- [CI0228 — 안전한 구간 슬라이스 — 반복 세트 1](python_coding/03_lists/CI0228_lists_r01_slice_window_v08.py)
+- [CI0229 — 오른쪽 회전 — 반복 세트 1](python_coding/03_lists/CI0229_lists_r01_rotate_right_v09.py)
+- [CI0230 — 정렬 리스트 두 수 합 — 반복 세트 1](python_coding/03_lists/CI0230_lists_r01_two_sum_sorted_v10.py)
+- [CI0231 — 안정적인 값 삭제 — 반복 세트 1](python_coding/03_lists/CI0231_lists_r01_stable_remove_v11.py)
+- [CI0232 — 한 단계 평탄화 — 반복 세트 1](python_coding/03_lists/CI0232_lists_r01_flatten_once_v12.py)
+- [CI0233 — 고정 크기 청크 — 반복 세트 1](python_coding/03_lists/CI0233_lists_r01_chunk_by_size_v13.py)
+- [CI0234 — Prefix Sum — 반복 세트 1](python_coding/03_lists/CI0234_lists_r01_prefix_sums_v14.py)
+- [CI0235 — Difference Array 구간 갱신 — 반복 세트 1](python_coding/03_lists/CI0235_lists_r01_difference_updates_v15.py)
+- [CI0236 — 겹치는 구간 병합 — 반복 세트 1](python_coding/03_lists/CI0236_lists_r01_merge_intervals_v16.py)
+- [CI0237 — 고정 창 합 — 반복 세트 1](python_coding/03_lists/CI0237_lists_r01_window_sums_v17.py)
+- [CI0238 — 0을 뒤로 이동 — 반복 세트 1](python_coding/03_lists/CI0238_lists_r01_move_zeros_v18.py)
+- [CI0239 — 자기 자신 제외 곱 — 반복 세트 1](python_coding/03_lists/CI0239_lists_r01_product_except_self_v19.py)
+- [CI0240 — 두 구간 목록 교집합 — 반복 세트 1](python_coding/03_lists/CI0240_lists_r01_interval_intersections_v20.py)
+- [CI0241 — Resizable List Part 2 — 기본 계약](python_coding/03_lists/CI0241_baseline_v01.py)
+- [CI0242 — 리스트 → 인덱스 연결 역전](python_coding/03_lists/CI0242_lists_bridge_linked_reverse_v02.py)
+- [CI0243 — 리스트 → 뒤에서 N번째 노드 삭제](python_coding/03_lists/CI0243_lists_bridge_linked_remove_nth_v03.py)
+- [CI0244 — 리스트 → 연결 경로의 중간 노드](python_coding/03_lists/CI0244_lists_bridge_linked_middle_v04.py)
+- [CI0245 — 리스트 → 사이클 진입 노드](python_coding/03_lists/CI0245_lists_bridge_linked_cycle_entry_v05.py)
+- [CI0246 — 리스트 → 공유 노드 교차점](python_coding/03_lists/CI0246_lists_bridge_linked_intersection_v06.py)
+- [CI0247 — 리스트 → 양끝 교대 재연결](python_coding/03_lists/CI0247_lists_bridge_linked_reorder_v07.py)
+- [CI0261 — List Concat — 기본 계약](python_coding/03_lists/CI0261_baseline_v01.py)
+- [CI0281 — List Initialization — 기본 계약](python_coding/03_lists/CI0281_baseline_v01.py)
+- [CI0301 — List Clone — 기본 계약](python_coding/03_lists/CI0301_baseline_v01.py)
+- [CI0321 — List Comprehension — 기본 계약](python_coding/03_lists/CI0321_baseline_v01.py)
+## 04_stacks_queues
+
+- [CI0341 — Stack Push and Pop — 기본 계약](python_coding/04_stacks_queues/CI0341_baseline_v01.py)
+- [CI0342 — underflow 안전 stack — 반복 세트 1](python_coding/04_stacks_queues/CI0342_stack_queue_r01_safe_stack_v02.py)
+- [CI0343 — stack peek — 반복 세트 1](python_coding/04_stacks_queues/CI0343_stack_queue_r01_stack_peek_v03.py)
+- [CI0344 — 용량 제한 stack — 반복 세트 1](python_coding/04_stacks_queues/CI0344_stack_queue_r01_bounded_stack_v04.py)
+- [CI0345 — stack pop 순서 판정 — 반복 세트 1](python_coding/04_stacks_queues/CI0345_stack_queue_r01_valid_pop_order_v05.py)
+- [CI0346 — 두 stack으로 queue — 반복 세트 1](python_coding/04_stacks_queues/CI0346_stack_queue_r01_queue_two_stacks_v06.py)
+- [CI0347 — 문자열 Undo — 반복 세트 1](python_coding/04_stacks_queues/CI0347_stack_queue_r01_undo_text_v07.py)
+- [CI0348 — 괄호 문자열 검사 — 반복 세트 1](python_coding/04_stacks_queues/CI0348_stack_queue_r01_valid_brackets_v08.py)
+- [CI0349 — 후위 표기식 계산 — 반복 세트 1](python_coding/04_stacks_queues/CI0349_stack_queue_r01_evaluate_rpn_v09.py)
+- [CI0350 — 다음 큰 값 — 반복 세트 1](python_coding/04_stacks_queues/CI0350_stack_queue_r01_next_greater_v10.py)
+- [CI0351 — 더 따뜻한 날까지 — 반복 세트 1](python_coding/04_stacks_queues/CI0351_stack_queue_r01_daily_temperatures_v11.py)
+- [CI0352 — 인접 중복 제거 — 반복 세트 1](python_coding/04_stacks_queues/CI0352_stack_queue_r01_remove_adjacent_duplicates_v12.py)
+- [CI0353 — deque BFS 순회 — 반복 세트 1](python_coding/04_stacks_queues/CI0353_stack_queue_r01_bfs_order_v13.py)
+- [CI0354 — 단조 deque 창 최댓값 — 반복 세트 1](python_coding/04_stacks_queues/CI0354_stack_queue_r01_sliding_max_v14.py)
+- [CI0355 — 고정 길이 원형 버퍼 — 반복 세트 1](python_coding/04_stacks_queues/CI0355_stack_queue_r01_circular_buffer_v15.py)
+- [CI0356 — 최솟값 stack — 반복 세트 1](python_coding/04_stacks_queues/CI0356_stack_queue_r01_min_stack_v16.py)
+- [CI0357 — 소행성 충돌 — 반복 세트 1](python_coding/04_stacks_queues/CI0357_stack_queue_r01_asteroid_collision_v17.py)
+- [CI0358 — 반복 문자열 해독 — 반복 세트 1](python_coding/04_stacks_queues/CI0358_stack_queue_r01_decode_string_v18.py)
+- [CI0359 — 히스토그램 최대 직사각형 — 반복 세트 1](python_coding/04_stacks_queues/CI0359_stack_queue_r01_largest_rectangle_v19.py)
+- [CI0360 — 합이 K 이상인 최단 구간 — 반복 세트 1](python_coding/04_stacks_queues/CI0360_stack_queue_r01_shortest_subarray_v20.py)
+- [CI0361 — Queue Enqueue and Dequeue — 기본 계약](python_coding/04_stacks_queues/CI0361_baseline_v01.py)
+- [CI0362 — 스택 → 이진 트리 전위 순회](python_coding/04_stacks_queues/CI0362_stack_queue_bridge_tree_preorder_v02.py)
+- [CI0363 — 큐 → 이진 트리 레벨별 순회](python_coding/04_stacks_queues/CI0363_stack_queue_bridge_tree_levels_v03.py)
+- [CI0364 — 스택 → BST 전역 경계 검증](python_coding/04_stacks_queues/CI0364_stack_queue_bridge_validate_bst_v04.py)
+- [CI0365 — 스택 → 서브트리 높이 균형](python_coding/04_stacks_queues/CI0365_stack_queue_bridge_tree_balanced_v05.py)
+- [CI0366 — 스택 → 트리 최장 경로](python_coding/04_stacks_queues/CI0366_stack_queue_bridge_tree_diameter_v06.py)
+- [CI0367 — 스택 → 목표 합 루트-리프 경로](python_coding/04_stacks_queues/CI0367_stack_queue_bridge_tree_target_paths_v07.py)
+- [CI0381 — Double Ended Queue — 기본 계약](python_coding/04_stacks_queues/CI0381_baseline_v01.py)
+## 05_2d_lists
+
+- [CI0401 — Multi-Dimensional List — 기본 계약](python_coding/05_2d_lists/CI0401_baseline_v01.py)
+- [CI0402 — 행렬 shape — 반복 세트 1](python_coding/05_2d_lists/CI0402_grid_r01_matrix_shape_v02.py)
+- [CI0403 — 직사각형 판정 — 반복 세트 1](python_coding/05_2d_lists/CI0403_grid_r01_rectangular_check_v03.py)
+- [CI0404 — 셀 변경 깊은 복사 — 반복 세트 1](python_coding/05_2d_lists/CI0404_grid_r01_update_cell_copy_v04.py)
+- [CI0405 — 행 우선 순회 — 반복 세트 1](python_coding/05_2d_lists/CI0405_grid_r01_row_major_v05.py)
+- [CI0406 — 열 우선 순회 — 반복 세트 1](python_coding/05_2d_lists/CI0406_grid_r01_column_major_v06.py)
+- [CI0407 — 행·열 합 — 반복 세트 1](python_coding/05_2d_lists/CI0407_grid_r01_row_column_sums_v07.py)
+- [CI0408 — 행렬 전치 — 반복 세트 1](python_coding/05_2d_lists/CI0408_grid_r01_transpose_v08.py)
+- [CI0409 — 90도 시계 회전 — 반복 세트 1](python_coding/05_2d_lists/CI0409_grid_r01_rotate_clockwise_v09.py)
+- [CI0410 — 두 대각선 — 반복 세트 1](python_coding/05_2d_lists/CI0410_grid_r01_diagonals_v10.py)
+- [CI0411 — 테두리 시계 순회 — 반복 세트 1](python_coding/05_2d_lists/CI0411_grid_r01_boundary_clockwise_v11.py)
+- [CI0412 — 상하좌우 이웃 — 반복 세트 1](python_coding/05_2d_lists/CI0412_grid_r01_orthogonal_neighbors_v12.py)
+- [CI0413 — 8방향 이웃 — 반복 세트 1](python_coding/05_2d_lists/CI0413_grid_r01_eight_neighbors_v13.py)
+- [CI0414 — 나선 순회 — 반복 세트 1](python_coding/05_2d_lists/CI0414_grid_r01_spiral_order_v14.py)
+- [CI0415 — Flood Fill — 반복 세트 1](python_coding/05_2d_lists/CI0415_grid_r01_flood_fill_v15.py)
+- [CI0416 — 2D Prefix Sum — 반복 세트 1](python_coding/05_2d_lists/CI0416_grid_r01_prefix_matrix_v16.py)
+- [CI0417 — 여러 직사각형 합 — 반복 세트 1](python_coding/05_2d_lists/CI0417_grid_r01_region_sums_v17.py)
+- [CI0418 — 섬 개수 — 반복 세트 1](python_coding/05_2d_lists/CI0418_grid_r01_count_islands_v18.py)
+- [CI0419 — 격자 최단 거리 — 반복 세트 1](python_coding/05_2d_lists/CI0419_grid_r01_shortest_grid_path_v19.py)
+- [CI0420 — 최소 경로 합 memoization — 반복 세트 1](python_coding/05_2d_lists/CI0420_grid_r01_min_path_sum_v20.py)
+- [CI0421 — 2D Grid — 기본 계약](python_coding/05_2d_lists/CI0421_baseline_v01.py)
+- [CI0422 — 격자 → 장애물 경로 수 DP](python_coding/05_2d_lists/CI0422_grid_bridge_obstacle_path_count_v02.py)
+- [CI0423 — 2차원 표 → 편집 거리](python_coding/05_2d_lists/CI0423_grid_bridge_edit_distance_v03.py)
+- [CI0424 — 격자 → 최대 1 정사각형](python_coding/05_2d_lists/CI0424_grid_bridge_maximal_square_v04.py)
+- [CI0425 — 격자 → 재사용 없는 단어 탐색](python_coding/05_2d_lists/CI0425_grid_bridge_word_search_v05.py)
+- [CI0426 — 격자 → N-Queen 배치 열 목록](python_coding/05_2d_lists/CI0426_grid_bridge_n_queens_v06.py)
+- [CI0427 — 격자 → 증가 경로 DAG](python_coding/05_2d_lists/CI0427_grid_bridge_longest_increasing_grid_path_v07.py)
+- [CI0441 — Nested List Comprehension — 기본 계약](python_coding/05_2d_lists/CI0441_baseline_v01.py)
+## 06_hashmaps_hashsets
+
+- [CI0461 — Hash Map Basics — 기본 계약](python_coding/06_hashmaps_hashsets/CI0461_baseline_v01.py)
+- [CI0462 — 마지막 값 index — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0462_hashing_r01_last_value_by_key_v02.py)
+- [CI0463 — 첫 글자 defaultdict 그룹 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0463_hashing_r01_group_by_initial_v03.py)
+- [CI0464 — Counter 최빈값 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0464_hashing_r01_most_common_tiebreak_v04.py)
+- [CI0465 — 중복 조기 탐지 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0465_hashing_r01_has_duplicate_v05.py)
+- [CI0466 — tuple 좌표 빈도 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0466_hashing_r01_coordinate_counts_v06.py)
+- [CI0467 — 문자열 key 정규화 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0467_hashing_r01_normalize_keys_v07.py)
+- [CI0468 — 애너그램 그룹 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0468_hashing_r01_group_anagrams_v08.py)
+- [CI0469 — 두 수 합 index — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0469_hashing_r01_two_sum_indices_v09.py)
+- [CI0470 — Counter 다중집합 교집합 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0470_hashing_r01_multiset_intersection_v10.py)
+- [CI0471 — 애너그램 시작 index — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0471_hashing_r01_anagram_windows_v11.py)
+- [CI0472 — 두 레코드 hash join — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0472_hashing_r01_hash_join_v12.py)
+- [CI0473 — 합이 K인 부분배열 수 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0473_hashing_r01_subarray_sum_count_v13.py)
+- [CI0474 — 첫 비반복 값 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0474_hashing_r01_first_unique_v14.py)
+- [CI0475 — 최장 연속 수열 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0475_hashing_r01_longest_consecutive_v15.py)
+- [CI0476 — 정규표현식 단어 빈도 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0476_hashing_r01_regex_word_frequency_v16.py)
+- [CI0477 — 동형 문자열 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0477_hashing_r01_isomorphic_strings_v17.py)
+- [CI0478 — 상위 K개 빈도 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0478_hashing_r01_top_k_frequent_v18.py)
+- [CI0479 — 같은 행·열 쌍 — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0479_hashing_r01_equal_row_column_pairs_v19.py)
+- [CI0480 — 문자열 분할 cache — 반복 세트 1](python_coding/06_hashmaps_hashsets/CI0480_hashing_r01_word_break_cached_v20.py)
+- [CI0481 — Default Dict — 기본 계약](python_coding/06_hashmaps_hashsets/CI0481_baseline_v01.py)
+- [CI0482 — 해시맵 → 접두사 빈도 질의](python_coding/06_hashmaps_hashsets/CI0482_hashing_bridge_trie_prefix_counts_v02.py)
+- [CI0483 — 해시맵 → 최소 고유 접두사](python_coding/06_hashmaps_hashsets/CI0483_hashing_bridge_shortest_unique_prefixes_v03.py)
+- [CI0484 — 해시맵 → 단일 문자 와일드카드](python_coding/06_hashmaps_hashsets/CI0484_hashing_bridge_trie_wildcard_matches_v04.py)
+- [CI0485 — 집합 → 그래프 이분성](python_coding/06_hashmaps_hashsets/CI0485_hashing_bridge_graph_bipartite_v05.py)
+- [CI0486 — 집합 → Union-Find 연결 질의](python_coding/06_hashmaps_hashsets/CI0486_hashing_bridge_connectivity_queries_v06.py)
+- [CI0487 — 해시맵 → 유향 그래프 최단 거리](python_coding/06_hashmaps_hashsets/CI0487_hashing_bridge_graph_bfs_distances_v07.py)
+- [CI0501 — Counter — 기본 계약](python_coding/06_hashmaps_hashsets/CI0501_baseline_v01.py)
+- [CI0521 — Dict Comprehension — 기본 계약](python_coding/06_hashmaps_hashsets/CI0521_baseline_v01.py)
+- [CI0541 — Dict Items — 기본 계약](python_coding/06_hashmaps_hashsets/CI0541_baseline_v01.py)
+- [CI0561 — Hash Set Basics — 기본 계약](python_coding/06_hashmaps_hashsets/CI0561_baseline_v01.py)
+- [CI0581 — Set Comprehension — 기본 계약](python_coding/06_hashmaps_hashsets/CI0581_baseline_v01.py)
+- [CI0601 — Tuple Keys — 기본 계약](python_coding/06_hashmaps_hashsets/CI0601_baseline_v01.py)
+## 07_heaps_priority_queues
+
+- [CI0621 — Heap Push — 기본 계약](python_coding/07_heaps_priority_queues/CI0621_baseline_v01.py)
+- [CI0622 — 삽입별 최솟값 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0622_heap_r01_running_minimum_v02.py)
+- [CI0623 — 안정적 우선순위 queue — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0623_heap_r01_stable_priority_v03.py)
+- [CI0624 — 음수 max-heap Top-K — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0624_heap_r01_max_heap_top_k_v04.py)
+- [CI0625 — 원본 보존 heapify — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0625_heap_r01_heapify_preserve_v05.py)
+- [CI0626 — heapify와 반복 push 비교 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0626_heap_r01_heap_build_comparison_v06.py)
+- [CI0627 — heap peek — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0627_heap_r01_peek_minimum_v07.py)
+- [CI0628 — heap K번째 작은 값 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0628_heap_r01_kth_smallest_heap_v08.py)
+- [CI0629 — K개 정렬 리스트 병합 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0629_heap_r01_merge_k_lists_v09.py)
+- [CI0630 — 작업 스케줄러 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0630_heap_r01_task_schedule_v10.py)
+- [CI0631 — prefix별 Top-K — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0631_heap_r01_streaming_top_k_v11.py)
+- [CI0632 — 두 heap 절반 분할 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0632_heap_r01_balanced_halves_v12.py)
+- [CI0633 — 실시간 중앙값 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0633_heap_r01_running_medians_v13.py)
+- [CI0634 — Lazy deletion 최소값 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0634_heap_r01_lazy_delete_min_v14.py)
+- [CI0635 — 가장 큰 K개 유지 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0635_heap_r01_keep_largest_k_v15.py)
+- [CI0636 — 원점에 가까운 K개 점 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0636_heap_r01_k_closest_points_v16.py)
+- [CI0637 — 필요 회의실 수 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0637_heap_r01_meeting_rooms_v17.py)
+- [CI0638 — 인접 중복 없는 문자열 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0638_heap_r01_reorganize_text_v18.py)
+- [CI0639 — 정렬 행렬 K번째 값 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0639_heap_r01_kth_matrix_v19.py)
+- [CI0640 — K개 목록을 덮는 최소 구간 — 반복 세트 1](python_coding/07_heaps_priority_queues/CI0640_heap_r01_smallest_covering_range_v20.py)
+- [CI0641 — Heap Pop — 기본 계약](python_coding/07_heaps_priority_queues/CI0641_baseline_v01.py)
+- [CI0642 — 힙 → 비음수 가중 최단 거리](python_coding/07_heaps_priority_queues/CI0642_heap_bridge_dijkstra_distances_v02.py)
+- [CI0643 — 힙 → 사전순 최소 위상 정렬](python_coding/07_heaps_priority_queues/CI0643_heap_bridge_lexicographic_toposort_v03.py)
+- [CI0644 — 우선순위 → 경유 횟수 제한 최단 비용](python_coding/07_heaps_priority_queues/CI0644_heap_bridge_bounded_flight_cost_v04.py)
+- [CI0645 — 우선순위 → 최소 신장 트리](python_coding/07_heaps_priority_queues/CI0645_heap_bridge_minimum_spanning_tree_v05.py)
+- [CI0646 — 힙 → 최소 병목 격자 경로](python_coding/07_heaps_priority_queues/CI0646_heap_bridge_minimum_effort_grid_v06.py)
+- [CI0647 — 힙 → 도착 시각이 있는 CPU 스케줄](python_coding/07_heaps_priority_queues/CI0647_heap_bridge_single_cpu_order_v07.py)
+- [CI0661 — Heapify — 기본 계약](python_coding/07_heaps_priority_queues/CI0661_baseline_v01.py)
+- [CI0681 — Max Heap — 기본 계약](python_coding/07_heaps_priority_queues/CI0681_baseline_v01.py)
+- [CI0701 — Custom Heap — 기본 계약](python_coding/07_heaps_priority_queues/CI0701_baseline_v01.py)
+- [CI0721 — Heap N Smallest — 기본 계약](python_coding/07_heaps_priority_queues/CI0721_baseline_v01.py)
+- [CI0741 — Heap N Largest — 기본 계약](python_coding/07_heaps_priority_queues/CI0741_baseline_v01.py)
+## 08_sorted_dicts_sets
+
+- [CI0761 — Sorted Dict Basics — 기본 계약](python_coding/08_sorted_dicts_sets/CI0761_baseline_v01.py)
+- [CI0762 — bisect 좌우 위치 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0762_sorted_structure_r01_bisect_positions_v02.py)
+- [CI0763 — 정렬 상태 삽입 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0763_sorted_structure_r01_ordered_insertions_v03.py)
+- [CI0764 — 정렬 범위 개수 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0764_sorted_structure_r01_range_count_v04.py)
+- [CI0765 — 전임자와 후임자 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0765_sorted_structure_r01_neighbors_v05.py)
+- [CI0766 — 가장 가까운 정렬 값 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0766_sorted_structure_r01_nearest_value_v06.py)
+- [CI0767 — 연속 삽입 위치 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0767_sorted_structure_r01_batch_insert_positions_v07.py)
+- [CI0768 — 정렬 리스트 실시간 중앙값 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0768_sorted_structure_r01_online_medians_v08.py)
+- [CI0769 — 구간 포함 조회 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0769_sorted_structure_r01_interval_lookup_v09.py)
+- [CI0770 — 좌표 압축 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0770_sorted_structure_r01_coordinate_compress_v10.py)
+- [CI0771 — 최장 증가 부분수열 길이 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0771_sorted_structure_r01_lis_length_v11.py)
+- [CI0772 — 목표 이하 쌍 개수 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0772_sorted_structure_r01_pair_sum_count_v12.py)
+- [CI0773 — 시각별 이전 값 조회 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0773_sorted_structure_r01_time_map_v13.py)
+- [CI0774 — 겹치지 않는 일정 삽입 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0774_sorted_structure_r01_calendar_insert_v14.py)
+- [CI0775 — 두 정렬 집합 합집합 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0775_sorted_structure_r01_sorted_union_v15.py)
+- [CI0776 — 정렬 multiset 명령 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0776_sorted_structure_r01_sorted_multiset_v16.py)
+- [CI0777 — Sliding Window 중앙값 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0777_sorted_structure_r01_sliding_medians_v17.py)
+- [CI0778 — 오른쪽 작은 값 개수 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0778_sorted_structure_r01_count_smaller_right_v18.py)
+- [CI0779 — 중요 역순 쌍 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0779_sorted_structure_r01_reverse_pairs_v19.py)
+- [CI0780 — floor·ceil 다중 조회 — 반복 세트 1](python_coding/08_sorted_dicts_sets/CI0780_sorted_structure_r01_floor_ceil_queries_v20.py)
+- [CI0781 — Sorted Set Basics — 기본 계약](python_coding/08_sorted_dicts_sets/CI0781_baseline_v01.py)
+- [CI0782 — 정렬 구조 → 가중 일정 DP](python_coding/08_sorted_dicts_sets/CI0782_sorted_structure_bridge_weighted_interval_profit_v02.py)
+- [CI0783 — 정렬 구조 → 동전 최소 개수 DP](python_coding/08_sorted_dicts_sets/CI0783_sorted_structure_bridge_minimum_coins_v03.py)
+- [CI0784 — 정렬 구조 → 동전 조합 수 DP](python_coding/08_sorted_dicts_sets/CI0784_sorted_structure_bridge_coin_combination_count_v04.py)
+- [CI0785 — 정렬 구조 → 같은 합 부분집합](python_coding/08_sorted_dicts_sets/CI0785_sorted_structure_bridge_equal_subset_partition_v05.py)
+- [CI0786 — 정렬 집합 → 중복 없는 순열](python_coding/08_sorted_dicts_sets/CI0786_sorted_structure_bridge_unique_permutations_v06.py)
+- [CI0787 — 정렬 집합 → 한 번씩 사용하는 목표 조합](python_coding/08_sorted_dicts_sets/CI0787_sorted_structure_bridge_single_use_combination_sum_v07.py)
+
+## 선택 복습
+
+아래 항목은 대응 핵심 문제의 계약·테스트·필수 구현 방식이 같습니다. 시간이 지난 후 빈 화면 복습에 사용하세요.
+
+- [CI0028](python_coding/01_sorting/CI0028_sorting_r02_descending_unique_v08.py) → CI0008 복습
+- [CI0029](python_coding/01_sorting/CI0029_sorting_r02_smallest_k_v09.py) → CI0009 복습
+- [CI0030](python_coding/01_sorting/CI0030_sorting_r02_kth_smallest_v10.py) → CI0010 복습
+- [CI0031](python_coding/01_sorting/CI0031_sorting_r02_merge_sorted_v11.py) → CI0011 복습
+- [CI0032](python_coding/01_sorting/CI0032_sorting_r02_nearly_sorted_heap_v12.py) → CI0012 복습
+- [CI0033](python_coding/01_sorting/CI0033_sorting_r02_frequency_order_v13.py) → CI0013 복습
+- [CI0034](python_coding/01_sorting/CI0034_sorting_r02_natural_codes_v14.py) → CI0014 복습
+- [CI0035](python_coding/01_sorting/CI0035_sorting_r02_numeric_text_v15.py) → CI0015 복습
+- [CI0036](python_coding/01_sorting/CI0036_sorting_r02_merge_batches_v16.py) → CI0016 복습
+- [CI0037](python_coding/01_sorting/CI0037_sorting_r02_sort_contract_v17.py) → CI0017 복습
+- [CI0038](python_coding/01_sorting/CI0038_sorting_r02_counting_sort_v18.py) → CI0018 복습
+- [CI0039](python_coding/01_sorting/CI0039_sorting_r02_insertion_sort_v19.py) → CI0019 복습
+- [CI0040](python_coding/01_sorting/CI0040_sorting_r02_fraction_cmp_v20.py) → CI0020 복습
+- [CI0042](python_coding/01_sorting/CI0042_sorting_r03_edge_values_v02.py) → CI0002 복습
+- [CI0043](python_coding/01_sorting/CI0043_sorting_r03_preserve_input_v03.py) → CI0003 복습
+- [CI0044](python_coding/01_sorting/CI0044_sorting_r03_stable_priorities_v04.py) → CI0004 복습
+- [CI0045](python_coding/01_sorting/CI0045_sorting_r03_itemgetter_field_v05.py) → CI0005 복습
+- [CI0046](python_coding/01_sorting/CI0046_sorting_r03_lambda_word_key_v06.py) → CI0006 복습
+- [CI0047](python_coding/01_sorting/CI0047_sorting_r03_score_ranking_v07.py) → CI0007 복습
+- [CI0048](python_coding/01_sorting/CI0048_sorting_r03_descending_unique_v08.py) → CI0008 복습
+- [CI0049](python_coding/01_sorting/CI0049_sorting_r03_smallest_k_v09.py) → CI0009 복습
+- [CI0050](python_coding/01_sorting/CI0050_sorting_r03_kth_smallest_v10.py) → CI0010 복습
+- [CI0051](python_coding/01_sorting/CI0051_sorting_r03_merge_sorted_v11.py) → CI0011 복습
+- [CI0052](python_coding/01_sorting/CI0052_sorting_r03_nearly_sorted_heap_v12.py) → CI0012 복습
+- [CI0053](python_coding/01_sorting/CI0053_sorting_r03_frequency_order_v13.py) → CI0013 복습
+- [CI0054](python_coding/01_sorting/CI0054_sorting_r03_natural_codes_v14.py) → CI0014 복습
+- [CI0055](python_coding/01_sorting/CI0055_sorting_r03_numeric_text_v15.py) → CI0015 복습
+- [CI0056](python_coding/01_sorting/CI0056_sorting_r03_merge_batches_v16.py) → CI0016 복습
+- [CI0057](python_coding/01_sorting/CI0057_sorting_r03_sort_contract_v17.py) → CI0017 복습
+- [CI0058](python_coding/01_sorting/CI0058_sorting_r03_counting_sort_v18.py) → CI0018 복습
+- [CI0059](python_coding/01_sorting/CI0059_sorting_r03_insertion_sort_v19.py) → CI0019 복습
+- [CI0060](python_coding/01_sorting/CI0060_sorting_r03_fraction_cmp_v20.py) → CI0020 복습
+- [CI0062](python_coding/01_sorting/CI0062_sorting_r04_edge_values_v02.py) → CI0002 복습
+- [CI0063](python_coding/01_sorting/CI0063_sorting_r04_preserve_input_v03.py) → CI0003 복습
+- [CI0064](python_coding/01_sorting/CI0064_sorting_r04_stable_priorities_v04.py) → CI0004 복습
+- [CI0065](python_coding/01_sorting/CI0065_sorting_r04_itemgetter_field_v05.py) → CI0005 복습
+- [CI0066](python_coding/01_sorting/CI0066_sorting_r04_lambda_word_key_v06.py) → CI0006 복습
+- [CI0067](python_coding/01_sorting/CI0067_sorting_r04_score_ranking_v07.py) → CI0007 복습
+- [CI0068](python_coding/01_sorting/CI0068_sorting_r04_descending_unique_v08.py) → CI0008 복습
+- [CI0069](python_coding/01_sorting/CI0069_sorting_r04_smallest_k_v09.py) → CI0009 복습
+- [CI0070](python_coding/01_sorting/CI0070_sorting_r04_kth_smallest_v10.py) → CI0010 복습
+- [CI0071](python_coding/01_sorting/CI0071_sorting_r04_merge_sorted_v11.py) → CI0011 복습
+- [CI0072](python_coding/01_sorting/CI0072_sorting_r04_nearly_sorted_heap_v12.py) → CI0012 복습
+- [CI0073](python_coding/01_sorting/CI0073_sorting_r04_frequency_order_v13.py) → CI0013 복습
+- [CI0074](python_coding/01_sorting/CI0074_sorting_r04_natural_codes_v14.py) → CI0014 복습
+- [CI0075](python_coding/01_sorting/CI0075_sorting_r04_numeric_text_v15.py) → CI0015 복습
+- [CI0076](python_coding/01_sorting/CI0076_sorting_r04_merge_batches_v16.py) → CI0016 복습
+- [CI0077](python_coding/01_sorting/CI0077_sorting_r04_sort_contract_v17.py) → CI0017 복습
+- [CI0078](python_coding/01_sorting/CI0078_sorting_r04_counting_sort_v18.py) → CI0018 복습
+- [CI0079](python_coding/01_sorting/CI0079_sorting_r04_insertion_sort_v19.py) → CI0019 복습
+- [CI0080](python_coding/01_sorting/CI0080_sorting_r04_fraction_cmp_v20.py) → CI0020 복습
+- [CI0082](python_coding/01_sorting/CI0082_sorting_r05_edge_values_v02.py) → CI0002 복습
+- [CI0083](python_coding/01_sorting/CI0083_sorting_r05_preserve_input_v03.py) → CI0003 복습
+- [CI0084](python_coding/01_sorting/CI0084_sorting_r05_stable_priorities_v04.py) → CI0004 복습
+- [CI0085](python_coding/01_sorting/CI0085_sorting_r05_itemgetter_field_v05.py) → CI0005 복습
+- [CI0086](python_coding/01_sorting/CI0086_sorting_r05_lambda_word_key_v06.py) → CI0006 복습
+- [CI0087](python_coding/01_sorting/CI0087_sorting_r05_score_ranking_v07.py) → CI0007 복습
+- [CI0088](python_coding/01_sorting/CI0088_sorting_r05_descending_unique_v08.py) → CI0008 복습
+- [CI0089](python_coding/01_sorting/CI0089_sorting_r05_smallest_k_v09.py) → CI0009 복습
+- [CI0090](python_coding/01_sorting/CI0090_sorting_r05_kth_smallest_v10.py) → CI0010 복습
+- [CI0091](python_coding/01_sorting/CI0091_sorting_r05_merge_sorted_v11.py) → CI0011 복습
+- [CI0092](python_coding/01_sorting/CI0092_sorting_r05_nearly_sorted_heap_v12.py) → CI0012 복습
+- [CI0093](python_coding/01_sorting/CI0093_sorting_r05_frequency_order_v13.py) → CI0013 복습
+- [CI0094](python_coding/01_sorting/CI0094_sorting_r05_natural_codes_v14.py) → CI0014 복습
+- [CI0095](python_coding/01_sorting/CI0095_sorting_r05_numeric_text_v15.py) → CI0015 복습
+- [CI0096](python_coding/01_sorting/CI0096_sorting_r05_merge_batches_v16.py) → CI0016 복습
+- [CI0097](python_coding/01_sorting/CI0097_sorting_r05_sort_contract_v17.py) → CI0017 복습
+- [CI0098](python_coding/01_sorting/CI0098_sorting_r05_counting_sort_v18.py) → CI0018 복습
+- [CI0099](python_coding/01_sorting/CI0099_sorting_r05_insertion_sort_v19.py) → CI0019 복습
+- [CI0100](python_coding/01_sorting/CI0100_sorting_r05_fraction_cmp_v20.py) → CI0020 복습
+- [CI0128](python_coding/02_pythonic_code/CI0128_pythonic_r02_pathlib_summary_v08.py) → CI0108 복습
+- [CI0129](python_coding/02_pythonic_code/CI0129_pythonic_r02_json_object_summary_v09.py) → CI0109 복습
+- [CI0130](python_coding/02_pythonic_code/CI0130_pythonic_r02_csv_column_totals_v10.py) → CI0110 복습
+- [CI0131](python_coding/02_pythonic_code/CI0131_pythonic_r02_first_default_v11.py) → CI0111 복습
+- [CI0132](python_coding/02_pythonic_code/CI0132_pythonic_r02_lru_climb_ways_v12.py) → CI0112 복습
+- [CI0133](python_coding/02_pythonic_code/CI0133_pythonic_r02_flatten_records_v13.py) → CI0113 복습
+- [CI0134](python_coding/02_pythonic_code/CI0134_pythonic_r02_positive_square_pipeline_v14.py) → CI0114 복습
+- [CI0135](python_coding/02_pythonic_code/CI0135_pythonic_r02_take_islice_v15.py) → CI0115 복습
+- [CI0136](python_coding/02_pythonic_code/CI0136_pythonic_r02_pairwise_differences_v16.py) → CI0116 복습
+- [CI0137](python_coding/02_pythonic_code/CI0137_pythonic_r02_cartesian_labels_v17.py) → CI0117 복습
+- [CI0138](python_coding/02_pythonic_code/CI0138_pythonic_r02_accumulated_totals_v18.py) → CI0118 복습
+- [CI0139](python_coding/02_pythonic_code/CI0139_pythonic_r02_cached_fibonacci_v19.py) → CI0119 복습
+- [CI0140](python_coding/02_pythonic_code/CI0140_pythonic_r02_math_toolkit_v20.py) → CI0120 복습
+- [CI0142](python_coding/02_pythonic_code/CI0142_pythonic_r03_swap_unpack_v02.py) → CI0102 복습
+- [CI0143](python_coding/02_pythonic_code/CI0143_pythonic_r03_consume_iterator_v03.py) → CI0103 복습
+- [CI0144](python_coding/02_pythonic_code/CI0144_pythonic_r03_yield_even_squares_v04.py) → CI0104 복습
+- [CI0145](python_coding/02_pythonic_code/CI0145_pythonic_r03_sum_products_v05.py) → CI0105 복습
+- [CI0146](python_coding/02_pythonic_code/CI0146_pythonic_r03_indexed_labels_v06.py) → CI0106 복습
+- [CI0147](python_coding/02_pythonic_code/CI0147_pythonic_r03_zip_equal_v07.py) → CI0107 복습
+- [CI0148](python_coding/02_pythonic_code/CI0148_pythonic_r03_pathlib_summary_v08.py) → CI0108 복습
+- [CI0149](python_coding/02_pythonic_code/CI0149_pythonic_r03_json_object_summary_v09.py) → CI0109 복습
+- [CI0150](python_coding/02_pythonic_code/CI0150_pythonic_r03_csv_column_totals_v10.py) → CI0110 복습
+- [CI0151](python_coding/02_pythonic_code/CI0151_pythonic_r03_first_default_v11.py) → CI0111 복습
+- [CI0152](python_coding/02_pythonic_code/CI0152_pythonic_r03_lru_climb_ways_v12.py) → CI0112 복습
+- [CI0153](python_coding/02_pythonic_code/CI0153_pythonic_r03_flatten_records_v13.py) → CI0113 복습
+- [CI0154](python_coding/02_pythonic_code/CI0154_pythonic_r03_positive_square_pipeline_v14.py) → CI0114 복습
+- [CI0155](python_coding/02_pythonic_code/CI0155_pythonic_r03_take_islice_v15.py) → CI0115 복습
+- [CI0156](python_coding/02_pythonic_code/CI0156_pythonic_r03_pairwise_differences_v16.py) → CI0116 복습
+- [CI0157](python_coding/02_pythonic_code/CI0157_pythonic_r03_cartesian_labels_v17.py) → CI0117 복습
+- [CI0158](python_coding/02_pythonic_code/CI0158_pythonic_r03_accumulated_totals_v18.py) → CI0118 복습
+- [CI0159](python_coding/02_pythonic_code/CI0159_pythonic_r03_cached_fibonacci_v19.py) → CI0119 복습
+- [CI0160](python_coding/02_pythonic_code/CI0160_pythonic_r03_math_toolkit_v20.py) → CI0120 복습
+- [CI0162](python_coding/02_pythonic_code/CI0162_pythonic_r04_swap_unpack_v02.py) → CI0102 복습
+- [CI0163](python_coding/02_pythonic_code/CI0163_pythonic_r04_consume_iterator_v03.py) → CI0103 복습
+- [CI0164](python_coding/02_pythonic_code/CI0164_pythonic_r04_yield_even_squares_v04.py) → CI0104 복습
+- [CI0165](python_coding/02_pythonic_code/CI0165_pythonic_r04_sum_products_v05.py) → CI0105 복습
+- [CI0166](python_coding/02_pythonic_code/CI0166_pythonic_r04_indexed_labels_v06.py) → CI0106 복습
+- [CI0167](python_coding/02_pythonic_code/CI0167_pythonic_r04_zip_equal_v07.py) → CI0107 복습
+- [CI0168](python_coding/02_pythonic_code/CI0168_pythonic_r04_pathlib_summary_v08.py) → CI0108 복습
+- [CI0169](python_coding/02_pythonic_code/CI0169_pythonic_r04_json_object_summary_v09.py) → CI0109 복습
+- [CI0170](python_coding/02_pythonic_code/CI0170_pythonic_r04_csv_column_totals_v10.py) → CI0110 복습
+- [CI0171](python_coding/02_pythonic_code/CI0171_pythonic_r04_first_default_v11.py) → CI0111 복습
+- [CI0172](python_coding/02_pythonic_code/CI0172_pythonic_r04_lru_climb_ways_v12.py) → CI0112 복습
+- [CI0173](python_coding/02_pythonic_code/CI0173_pythonic_r04_flatten_records_v13.py) → CI0113 복습
+- [CI0174](python_coding/02_pythonic_code/CI0174_pythonic_r04_positive_square_pipeline_v14.py) → CI0114 복습
+- [CI0175](python_coding/02_pythonic_code/CI0175_pythonic_r04_take_islice_v15.py) → CI0115 복습
+- [CI0176](python_coding/02_pythonic_code/CI0176_pythonic_r04_pairwise_differences_v16.py) → CI0116 복습
+- [CI0177](python_coding/02_pythonic_code/CI0177_pythonic_r04_cartesian_labels_v17.py) → CI0117 복습
+- [CI0178](python_coding/02_pythonic_code/CI0178_pythonic_r04_accumulated_totals_v18.py) → CI0118 복습
+- [CI0179](python_coding/02_pythonic_code/CI0179_pythonic_r04_cached_fibonacci_v19.py) → CI0119 복습
+- [CI0180](python_coding/02_pythonic_code/CI0180_pythonic_r04_math_toolkit_v20.py) → CI0120 복습
+- [CI0182](python_coding/02_pythonic_code/CI0182_pythonic_r05_swap_unpack_v02.py) → CI0102 복습
+- [CI0183](python_coding/02_pythonic_code/CI0183_pythonic_r05_consume_iterator_v03.py) → CI0103 복습
+- [CI0184](python_coding/02_pythonic_code/CI0184_pythonic_r05_yield_even_squares_v04.py) → CI0104 복습
+- [CI0185](python_coding/02_pythonic_code/CI0185_pythonic_r05_sum_products_v05.py) → CI0105 복습
+- [CI0186](python_coding/02_pythonic_code/CI0186_pythonic_r05_indexed_labels_v06.py) → CI0106 복습
+- [CI0187](python_coding/02_pythonic_code/CI0187_pythonic_r05_zip_equal_v07.py) → CI0107 복습
+- [CI0188](python_coding/02_pythonic_code/CI0188_pythonic_r05_pathlib_summary_v08.py) → CI0108 복습
+- [CI0189](python_coding/02_pythonic_code/CI0189_pythonic_r05_json_object_summary_v09.py) → CI0109 복습
+- [CI0190](python_coding/02_pythonic_code/CI0190_pythonic_r05_csv_column_totals_v10.py) → CI0110 복습
+- [CI0191](python_coding/02_pythonic_code/CI0191_pythonic_r05_first_default_v11.py) → CI0111 복습
+- [CI0192](python_coding/02_pythonic_code/CI0192_pythonic_r05_lru_climb_ways_v12.py) → CI0112 복습
+- [CI0193](python_coding/02_pythonic_code/CI0193_pythonic_r05_flatten_records_v13.py) → CI0113 복습
+- [CI0194](python_coding/02_pythonic_code/CI0194_pythonic_r05_positive_square_pipeline_v14.py) → CI0114 복습
+- [CI0195](python_coding/02_pythonic_code/CI0195_pythonic_r05_take_islice_v15.py) → CI0115 복습
+- [CI0196](python_coding/02_pythonic_code/CI0196_pythonic_r05_pairwise_differences_v16.py) → CI0116 복습
+- [CI0197](python_coding/02_pythonic_code/CI0197_pythonic_r05_cartesian_labels_v17.py) → CI0117 복습
+- [CI0198](python_coding/02_pythonic_code/CI0198_pythonic_r05_accumulated_totals_v18.py) → CI0118 복습
+- [CI0199](python_coding/02_pythonic_code/CI0199_pythonic_r05_cached_fibonacci_v19.py) → CI0119 복습
+- [CI0200](python_coding/02_pythonic_code/CI0200_pythonic_r05_math_toolkit_v20.py) → CI0120 복습
+- [CI0202](python_coding/02_pythonic_code/CI0202_pythonic_r06_swap_unpack_v02.py) → CI0102 복습
+- [CI0203](python_coding/02_pythonic_code/CI0203_pythonic_r06_consume_iterator_v03.py) → CI0103 복습
+- [CI0204](python_coding/02_pythonic_code/CI0204_pythonic_r06_yield_even_squares_v04.py) → CI0104 복습
+- [CI0205](python_coding/02_pythonic_code/CI0205_pythonic_r06_sum_products_v05.py) → CI0105 복습
+- [CI0206](python_coding/02_pythonic_code/CI0206_pythonic_r06_indexed_labels_v06.py) → CI0106 복습
+- [CI0207](python_coding/02_pythonic_code/CI0207_pythonic_r06_zip_equal_v07.py) → CI0107 복습
+- [CI0208](python_coding/02_pythonic_code/CI0208_pythonic_r06_pathlib_summary_v08.py) → CI0108 복습
+- [CI0209](python_coding/02_pythonic_code/CI0209_pythonic_r06_json_object_summary_v09.py) → CI0109 복습
+- [CI0210](python_coding/02_pythonic_code/CI0210_pythonic_r06_csv_column_totals_v10.py) → CI0110 복습
+- [CI0211](python_coding/02_pythonic_code/CI0211_pythonic_r06_first_default_v11.py) → CI0111 복습
+- [CI0212](python_coding/02_pythonic_code/CI0212_pythonic_r06_lru_climb_ways_v12.py) → CI0112 복습
+- [CI0213](python_coding/02_pythonic_code/CI0213_pythonic_r06_flatten_records_v13.py) → CI0113 복습
+- [CI0214](python_coding/02_pythonic_code/CI0214_pythonic_r06_positive_square_pipeline_v14.py) → CI0114 복습
+- [CI0215](python_coding/02_pythonic_code/CI0215_pythonic_r06_take_islice_v15.py) → CI0115 복습
+- [CI0216](python_coding/02_pythonic_code/CI0216_pythonic_r06_pairwise_differences_v16.py) → CI0116 복습
+- [CI0217](python_coding/02_pythonic_code/CI0217_pythonic_r06_cartesian_labels_v17.py) → CI0117 복습
+- [CI0218](python_coding/02_pythonic_code/CI0218_pythonic_r06_accumulated_totals_v18.py) → CI0118 복습
+- [CI0219](python_coding/02_pythonic_code/CI0219_pythonic_r06_cached_fibonacci_v19.py) → CI0119 복습
+- [CI0220](python_coding/02_pythonic_code/CI0220_pythonic_r06_math_toolkit_v20.py) → CI0120 복습
+- [CI0248](python_coding/03_lists/CI0248_lists_r02_slice_window_v08.py) → CI0228 복습
+- [CI0249](python_coding/03_lists/CI0249_lists_r02_rotate_right_v09.py) → CI0229 복습
+- [CI0250](python_coding/03_lists/CI0250_lists_r02_two_sum_sorted_v10.py) → CI0230 복습
+- [CI0251](python_coding/03_lists/CI0251_lists_r02_stable_remove_v11.py) → CI0231 복습
+- [CI0252](python_coding/03_lists/CI0252_lists_r02_flatten_once_v12.py) → CI0232 복습
+- [CI0253](python_coding/03_lists/CI0253_lists_r02_chunk_by_size_v13.py) → CI0233 복습
+- [CI0254](python_coding/03_lists/CI0254_lists_r02_prefix_sums_v14.py) → CI0234 복습
+- [CI0255](python_coding/03_lists/CI0255_lists_r02_difference_updates_v15.py) → CI0235 복습
+- [CI0256](python_coding/03_lists/CI0256_lists_r02_merge_intervals_v16.py) → CI0236 복습
+- [CI0257](python_coding/03_lists/CI0257_lists_r02_window_sums_v17.py) → CI0237 복습
+- [CI0258](python_coding/03_lists/CI0258_lists_r02_move_zeros_v18.py) → CI0238 복습
+- [CI0259](python_coding/03_lists/CI0259_lists_r02_product_except_self_v19.py) → CI0239 복습
+- [CI0260](python_coding/03_lists/CI0260_lists_r02_interval_intersections_v20.py) → CI0240 복습
+- [CI0262](python_coding/03_lists/CI0262_lists_r03_append_copy_v02.py) → CI0222 복습
+- [CI0263](python_coding/03_lists/CI0263_lists_r03_insert_remove_negative_v03.py) → CI0223 복습
+- [CI0264](python_coding/03_lists/CI0264_lists_r03_concat_without_alias_v04.py) → CI0224 복습
+- [CI0265](python_coding/03_lists/CI0265_lists_r03_independent_rows_v05.py) → CI0225 복습
+- [CI0266](python_coding/03_lists/CI0266_lists_r03_clone_update_v06.py) → CI0226 복습
+- [CI0267](python_coding/03_lists/CI0267_lists_r03_even_squares_v07.py) → CI0227 복습
+- [CI0268](python_coding/03_lists/CI0268_lists_r03_slice_window_v08.py) → CI0228 복습
+- [CI0269](python_coding/03_lists/CI0269_lists_r03_rotate_right_v09.py) → CI0229 복습
+- [CI0270](python_coding/03_lists/CI0270_lists_r03_two_sum_sorted_v10.py) → CI0230 복습
+- [CI0271](python_coding/03_lists/CI0271_lists_r03_stable_remove_v11.py) → CI0231 복습
+- [CI0272](python_coding/03_lists/CI0272_lists_r03_flatten_once_v12.py) → CI0232 복습
+- [CI0273](python_coding/03_lists/CI0273_lists_r03_chunk_by_size_v13.py) → CI0233 복습
+- [CI0274](python_coding/03_lists/CI0274_lists_r03_prefix_sums_v14.py) → CI0234 복습
+- [CI0275](python_coding/03_lists/CI0275_lists_r03_difference_updates_v15.py) → CI0235 복습
+- [CI0276](python_coding/03_lists/CI0276_lists_r03_merge_intervals_v16.py) → CI0236 복습
+- [CI0277](python_coding/03_lists/CI0277_lists_r03_window_sums_v17.py) → CI0237 복습
+- [CI0278](python_coding/03_lists/CI0278_lists_r03_move_zeros_v18.py) → CI0238 복습
+- [CI0279](python_coding/03_lists/CI0279_lists_r03_product_except_self_v19.py) → CI0239 복습
+- [CI0280](python_coding/03_lists/CI0280_lists_r03_interval_intersections_v20.py) → CI0240 복습
+- [CI0282](python_coding/03_lists/CI0282_lists_r04_append_copy_v02.py) → CI0222 복습
+- [CI0283](python_coding/03_lists/CI0283_lists_r04_insert_remove_negative_v03.py) → CI0223 복습
+- [CI0284](python_coding/03_lists/CI0284_lists_r04_concat_without_alias_v04.py) → CI0224 복습
+- [CI0285](python_coding/03_lists/CI0285_lists_r04_independent_rows_v05.py) → CI0225 복습
+- [CI0286](python_coding/03_lists/CI0286_lists_r04_clone_update_v06.py) → CI0226 복습
+- [CI0287](python_coding/03_lists/CI0287_lists_r04_even_squares_v07.py) → CI0227 복습
+- [CI0288](python_coding/03_lists/CI0288_lists_r04_slice_window_v08.py) → CI0228 복습
+- [CI0289](python_coding/03_lists/CI0289_lists_r04_rotate_right_v09.py) → CI0229 복습
+- [CI0290](python_coding/03_lists/CI0290_lists_r04_two_sum_sorted_v10.py) → CI0230 복습
+- [CI0291](python_coding/03_lists/CI0291_lists_r04_stable_remove_v11.py) → CI0231 복습
+- [CI0292](python_coding/03_lists/CI0292_lists_r04_flatten_once_v12.py) → CI0232 복습
+- [CI0293](python_coding/03_lists/CI0293_lists_r04_chunk_by_size_v13.py) → CI0233 복습
+- [CI0294](python_coding/03_lists/CI0294_lists_r04_prefix_sums_v14.py) → CI0234 복습
+- [CI0295](python_coding/03_lists/CI0295_lists_r04_difference_updates_v15.py) → CI0235 복습
+- [CI0296](python_coding/03_lists/CI0296_lists_r04_merge_intervals_v16.py) → CI0236 복습
+- [CI0297](python_coding/03_lists/CI0297_lists_r04_window_sums_v17.py) → CI0237 복습
+- [CI0298](python_coding/03_lists/CI0298_lists_r04_move_zeros_v18.py) → CI0238 복습
+- [CI0299](python_coding/03_lists/CI0299_lists_r04_product_except_self_v19.py) → CI0239 복습
+- [CI0300](python_coding/03_lists/CI0300_lists_r04_interval_intersections_v20.py) → CI0240 복습
+- [CI0302](python_coding/03_lists/CI0302_lists_r05_append_copy_v02.py) → CI0222 복습
+- [CI0303](python_coding/03_lists/CI0303_lists_r05_insert_remove_negative_v03.py) → CI0223 복습
+- [CI0304](python_coding/03_lists/CI0304_lists_r05_concat_without_alias_v04.py) → CI0224 복습
+- [CI0305](python_coding/03_lists/CI0305_lists_r05_independent_rows_v05.py) → CI0225 복습
+- [CI0306](python_coding/03_lists/CI0306_lists_r05_clone_update_v06.py) → CI0226 복습
+- [CI0307](python_coding/03_lists/CI0307_lists_r05_even_squares_v07.py) → CI0227 복습
+- [CI0308](python_coding/03_lists/CI0308_lists_r05_slice_window_v08.py) → CI0228 복습
+- [CI0309](python_coding/03_lists/CI0309_lists_r05_rotate_right_v09.py) → CI0229 복습
+- [CI0310](python_coding/03_lists/CI0310_lists_r05_two_sum_sorted_v10.py) → CI0230 복습
+- [CI0311](python_coding/03_lists/CI0311_lists_r05_stable_remove_v11.py) → CI0231 복습
+- [CI0312](python_coding/03_lists/CI0312_lists_r05_flatten_once_v12.py) → CI0232 복습
+- [CI0313](python_coding/03_lists/CI0313_lists_r05_chunk_by_size_v13.py) → CI0233 복습
+- [CI0314](python_coding/03_lists/CI0314_lists_r05_prefix_sums_v14.py) → CI0234 복습
+- [CI0315](python_coding/03_lists/CI0315_lists_r05_difference_updates_v15.py) → CI0235 복습
+- [CI0316](python_coding/03_lists/CI0316_lists_r05_merge_intervals_v16.py) → CI0236 복습
+- [CI0317](python_coding/03_lists/CI0317_lists_r05_window_sums_v17.py) → CI0237 복습
+- [CI0318](python_coding/03_lists/CI0318_lists_r05_move_zeros_v18.py) → CI0238 복습
+- [CI0319](python_coding/03_lists/CI0319_lists_r05_product_except_self_v19.py) → CI0239 복습
+- [CI0320](python_coding/03_lists/CI0320_lists_r05_interval_intersections_v20.py) → CI0240 복습
+- [CI0322](python_coding/03_lists/CI0322_lists_r06_append_copy_v02.py) → CI0222 복습
+- [CI0323](python_coding/03_lists/CI0323_lists_r06_insert_remove_negative_v03.py) → CI0223 복습
+- [CI0324](python_coding/03_lists/CI0324_lists_r06_concat_without_alias_v04.py) → CI0224 복습
+- [CI0325](python_coding/03_lists/CI0325_lists_r06_independent_rows_v05.py) → CI0225 복습
+- [CI0326](python_coding/03_lists/CI0326_lists_r06_clone_update_v06.py) → CI0226 복습
+- [CI0327](python_coding/03_lists/CI0327_lists_r06_even_squares_v07.py) → CI0227 복습
+- [CI0328](python_coding/03_lists/CI0328_lists_r06_slice_window_v08.py) → CI0228 복습
+- [CI0329](python_coding/03_lists/CI0329_lists_r06_rotate_right_v09.py) → CI0229 복습
+- [CI0330](python_coding/03_lists/CI0330_lists_r06_two_sum_sorted_v10.py) → CI0230 복습
+- [CI0331](python_coding/03_lists/CI0331_lists_r06_stable_remove_v11.py) → CI0231 복습
+- [CI0332](python_coding/03_lists/CI0332_lists_r06_flatten_once_v12.py) → CI0232 복습
+- [CI0333](python_coding/03_lists/CI0333_lists_r06_chunk_by_size_v13.py) → CI0233 복습
+- [CI0334](python_coding/03_lists/CI0334_lists_r06_prefix_sums_v14.py) → CI0234 복습
+- [CI0335](python_coding/03_lists/CI0335_lists_r06_difference_updates_v15.py) → CI0235 복습
+- [CI0336](python_coding/03_lists/CI0336_lists_r06_merge_intervals_v16.py) → CI0236 복습
+- [CI0337](python_coding/03_lists/CI0337_lists_r06_window_sums_v17.py) → CI0237 복습
+- [CI0338](python_coding/03_lists/CI0338_lists_r06_move_zeros_v18.py) → CI0238 복습
+- [CI0339](python_coding/03_lists/CI0339_lists_r06_product_except_self_v19.py) → CI0239 복습
+- [CI0340](python_coding/03_lists/CI0340_lists_r06_interval_intersections_v20.py) → CI0240 복습
+- [CI0368](python_coding/04_stacks_queues/CI0368_stack_queue_r02_valid_brackets_v08.py) → CI0348 복습
+- [CI0369](python_coding/04_stacks_queues/CI0369_stack_queue_r02_evaluate_rpn_v09.py) → CI0349 복습
+- [CI0370](python_coding/04_stacks_queues/CI0370_stack_queue_r02_next_greater_v10.py) → CI0350 복습
+- [CI0371](python_coding/04_stacks_queues/CI0371_stack_queue_r02_daily_temperatures_v11.py) → CI0351 복습
+- [CI0372](python_coding/04_stacks_queues/CI0372_stack_queue_r02_remove_adjacent_duplicates_v12.py) → CI0352 복습
+- [CI0373](python_coding/04_stacks_queues/CI0373_stack_queue_r02_bfs_order_v13.py) → CI0353 복습
+- [CI0374](python_coding/04_stacks_queues/CI0374_stack_queue_r02_sliding_max_v14.py) → CI0354 복습
+- [CI0375](python_coding/04_stacks_queues/CI0375_stack_queue_r02_circular_buffer_v15.py) → CI0355 복습
+- [CI0376](python_coding/04_stacks_queues/CI0376_stack_queue_r02_min_stack_v16.py) → CI0356 복습
+- [CI0377](python_coding/04_stacks_queues/CI0377_stack_queue_r02_asteroid_collision_v17.py) → CI0357 복습
+- [CI0378](python_coding/04_stacks_queues/CI0378_stack_queue_r02_decode_string_v18.py) → CI0358 복습
+- [CI0379](python_coding/04_stacks_queues/CI0379_stack_queue_r02_largest_rectangle_v19.py) → CI0359 복습
+- [CI0380](python_coding/04_stacks_queues/CI0380_stack_queue_r02_shortest_subarray_v20.py) → CI0360 복습
+- [CI0382](python_coding/04_stacks_queues/CI0382_stack_queue_r03_safe_stack_v02.py) → CI0342 복습
+- [CI0383](python_coding/04_stacks_queues/CI0383_stack_queue_r03_stack_peek_v03.py) → CI0343 복습
+- [CI0384](python_coding/04_stacks_queues/CI0384_stack_queue_r03_bounded_stack_v04.py) → CI0344 복습
+- [CI0385](python_coding/04_stacks_queues/CI0385_stack_queue_r03_valid_pop_order_v05.py) → CI0345 복습
+- [CI0386](python_coding/04_stacks_queues/CI0386_stack_queue_r03_queue_two_stacks_v06.py) → CI0346 복습
+- [CI0387](python_coding/04_stacks_queues/CI0387_stack_queue_r03_undo_text_v07.py) → CI0347 복습
+- [CI0388](python_coding/04_stacks_queues/CI0388_stack_queue_r03_valid_brackets_v08.py) → CI0348 복습
+- [CI0389](python_coding/04_stacks_queues/CI0389_stack_queue_r03_evaluate_rpn_v09.py) → CI0349 복습
+- [CI0390](python_coding/04_stacks_queues/CI0390_stack_queue_r03_next_greater_v10.py) → CI0350 복습
+- [CI0391](python_coding/04_stacks_queues/CI0391_stack_queue_r03_daily_temperatures_v11.py) → CI0351 복습
+- [CI0392](python_coding/04_stacks_queues/CI0392_stack_queue_r03_remove_adjacent_duplicates_v12.py) → CI0352 복습
+- [CI0393](python_coding/04_stacks_queues/CI0393_stack_queue_r03_bfs_order_v13.py) → CI0353 복습
+- [CI0394](python_coding/04_stacks_queues/CI0394_stack_queue_r03_sliding_max_v14.py) → CI0354 복습
+- [CI0395](python_coding/04_stacks_queues/CI0395_stack_queue_r03_circular_buffer_v15.py) → CI0355 복습
+- [CI0396](python_coding/04_stacks_queues/CI0396_stack_queue_r03_min_stack_v16.py) → CI0356 복습
+- [CI0397](python_coding/04_stacks_queues/CI0397_stack_queue_r03_asteroid_collision_v17.py) → CI0357 복습
+- [CI0398](python_coding/04_stacks_queues/CI0398_stack_queue_r03_decode_string_v18.py) → CI0358 복습
+- [CI0399](python_coding/04_stacks_queues/CI0399_stack_queue_r03_largest_rectangle_v19.py) → CI0359 복습
+- [CI0400](python_coding/04_stacks_queues/CI0400_stack_queue_r03_shortest_subarray_v20.py) → CI0360 복습
+- [CI0428](python_coding/05_2d_lists/CI0428_grid_r02_transpose_v08.py) → CI0408 복습
+- [CI0429](python_coding/05_2d_lists/CI0429_grid_r02_rotate_clockwise_v09.py) → CI0409 복습
+- [CI0430](python_coding/05_2d_lists/CI0430_grid_r02_diagonals_v10.py) → CI0410 복습
+- [CI0431](python_coding/05_2d_lists/CI0431_grid_r02_boundary_clockwise_v11.py) → CI0411 복습
+- [CI0432](python_coding/05_2d_lists/CI0432_grid_r02_orthogonal_neighbors_v12.py) → CI0412 복습
+- [CI0433](python_coding/05_2d_lists/CI0433_grid_r02_eight_neighbors_v13.py) → CI0413 복습
+- [CI0434](python_coding/05_2d_lists/CI0434_grid_r02_spiral_order_v14.py) → CI0414 복습
+- [CI0435](python_coding/05_2d_lists/CI0435_grid_r02_flood_fill_v15.py) → CI0415 복습
+- [CI0436](python_coding/05_2d_lists/CI0436_grid_r02_prefix_matrix_v16.py) → CI0416 복습
+- [CI0437](python_coding/05_2d_lists/CI0437_grid_r02_region_sums_v17.py) → CI0417 복습
+- [CI0438](python_coding/05_2d_lists/CI0438_grid_r02_count_islands_v18.py) → CI0418 복습
+- [CI0439](python_coding/05_2d_lists/CI0439_grid_r02_shortest_grid_path_v19.py) → CI0419 복습
+- [CI0440](python_coding/05_2d_lists/CI0440_grid_r02_min_path_sum_v20.py) → CI0420 복습
+- [CI0442](python_coding/05_2d_lists/CI0442_grid_r03_matrix_shape_v02.py) → CI0402 복습
+- [CI0443](python_coding/05_2d_lists/CI0443_grid_r03_rectangular_check_v03.py) → CI0403 복습
+- [CI0444](python_coding/05_2d_lists/CI0444_grid_r03_update_cell_copy_v04.py) → CI0404 복습
+- [CI0445](python_coding/05_2d_lists/CI0445_grid_r03_row_major_v05.py) → CI0405 복습
+- [CI0446](python_coding/05_2d_lists/CI0446_grid_r03_column_major_v06.py) → CI0406 복습
+- [CI0447](python_coding/05_2d_lists/CI0447_grid_r03_row_column_sums_v07.py) → CI0407 복습
+- [CI0448](python_coding/05_2d_lists/CI0448_grid_r03_transpose_v08.py) → CI0408 복습
+- [CI0449](python_coding/05_2d_lists/CI0449_grid_r03_rotate_clockwise_v09.py) → CI0409 복습
+- [CI0450](python_coding/05_2d_lists/CI0450_grid_r03_diagonals_v10.py) → CI0410 복습
+- [CI0451](python_coding/05_2d_lists/CI0451_grid_r03_boundary_clockwise_v11.py) → CI0411 복습
+- [CI0452](python_coding/05_2d_lists/CI0452_grid_r03_orthogonal_neighbors_v12.py) → CI0412 복습
+- [CI0453](python_coding/05_2d_lists/CI0453_grid_r03_eight_neighbors_v13.py) → CI0413 복습
+- [CI0454](python_coding/05_2d_lists/CI0454_grid_r03_spiral_order_v14.py) → CI0414 복습
+- [CI0455](python_coding/05_2d_lists/CI0455_grid_r03_flood_fill_v15.py) → CI0415 복습
+- [CI0456](python_coding/05_2d_lists/CI0456_grid_r03_prefix_matrix_v16.py) → CI0416 복습
+- [CI0457](python_coding/05_2d_lists/CI0457_grid_r03_region_sums_v17.py) → CI0417 복습
+- [CI0458](python_coding/05_2d_lists/CI0458_grid_r03_count_islands_v18.py) → CI0418 복습
+- [CI0459](python_coding/05_2d_lists/CI0459_grid_r03_shortest_grid_path_v19.py) → CI0419 복습
+- [CI0460](python_coding/05_2d_lists/CI0460_grid_r03_min_path_sum_v20.py) → CI0420 복습
+- [CI0488](python_coding/06_hashmaps_hashsets/CI0488_hashing_r02_group_anagrams_v08.py) → CI0468 복습
+- [CI0489](python_coding/06_hashmaps_hashsets/CI0489_hashing_r02_two_sum_indices_v09.py) → CI0469 복습
+- [CI0490](python_coding/06_hashmaps_hashsets/CI0490_hashing_r02_multiset_intersection_v10.py) → CI0470 복습
+- [CI0491](python_coding/06_hashmaps_hashsets/CI0491_hashing_r02_anagram_windows_v11.py) → CI0471 복습
+- [CI0492](python_coding/06_hashmaps_hashsets/CI0492_hashing_r02_hash_join_v12.py) → CI0472 복습
+- [CI0493](python_coding/06_hashmaps_hashsets/CI0493_hashing_r02_subarray_sum_count_v13.py) → CI0473 복습
+- [CI0494](python_coding/06_hashmaps_hashsets/CI0494_hashing_r02_first_unique_v14.py) → CI0474 복습
+- [CI0495](python_coding/06_hashmaps_hashsets/CI0495_hashing_r02_longest_consecutive_v15.py) → CI0475 복습
+- [CI0496](python_coding/06_hashmaps_hashsets/CI0496_hashing_r02_regex_word_frequency_v16.py) → CI0476 복습
+- [CI0497](python_coding/06_hashmaps_hashsets/CI0497_hashing_r02_isomorphic_strings_v17.py) → CI0477 복습
+- [CI0498](python_coding/06_hashmaps_hashsets/CI0498_hashing_r02_top_k_frequent_v18.py) → CI0478 복습
+- [CI0499](python_coding/06_hashmaps_hashsets/CI0499_hashing_r02_equal_row_column_pairs_v19.py) → CI0479 복습
+- [CI0500](python_coding/06_hashmaps_hashsets/CI0500_hashing_r02_word_break_cached_v20.py) → CI0480 복습
+- [CI0502](python_coding/06_hashmaps_hashsets/CI0502_hashing_r03_last_value_by_key_v02.py) → CI0462 복습
+- [CI0503](python_coding/06_hashmaps_hashsets/CI0503_hashing_r03_group_by_initial_v03.py) → CI0463 복습
+- [CI0504](python_coding/06_hashmaps_hashsets/CI0504_hashing_r03_most_common_tiebreak_v04.py) → CI0464 복습
+- [CI0505](python_coding/06_hashmaps_hashsets/CI0505_hashing_r03_has_duplicate_v05.py) → CI0465 복습
+- [CI0506](python_coding/06_hashmaps_hashsets/CI0506_hashing_r03_coordinate_counts_v06.py) → CI0466 복습
+- [CI0507](python_coding/06_hashmaps_hashsets/CI0507_hashing_r03_normalize_keys_v07.py) → CI0467 복습
+- [CI0508](python_coding/06_hashmaps_hashsets/CI0508_hashing_r03_group_anagrams_v08.py) → CI0468 복습
+- [CI0509](python_coding/06_hashmaps_hashsets/CI0509_hashing_r03_two_sum_indices_v09.py) → CI0469 복습
+- [CI0510](python_coding/06_hashmaps_hashsets/CI0510_hashing_r03_multiset_intersection_v10.py) → CI0470 복습
+- [CI0511](python_coding/06_hashmaps_hashsets/CI0511_hashing_r03_anagram_windows_v11.py) → CI0471 복습
+- [CI0512](python_coding/06_hashmaps_hashsets/CI0512_hashing_r03_hash_join_v12.py) → CI0472 복습
+- [CI0513](python_coding/06_hashmaps_hashsets/CI0513_hashing_r03_subarray_sum_count_v13.py) → CI0473 복습
+- [CI0514](python_coding/06_hashmaps_hashsets/CI0514_hashing_r03_first_unique_v14.py) → CI0474 복습
+- [CI0515](python_coding/06_hashmaps_hashsets/CI0515_hashing_r03_longest_consecutive_v15.py) → CI0475 복습
+- [CI0516](python_coding/06_hashmaps_hashsets/CI0516_hashing_r03_regex_word_frequency_v16.py) → CI0476 복습
+- [CI0517](python_coding/06_hashmaps_hashsets/CI0517_hashing_r03_isomorphic_strings_v17.py) → CI0477 복습
+- [CI0518](python_coding/06_hashmaps_hashsets/CI0518_hashing_r03_top_k_frequent_v18.py) → CI0478 복습
+- [CI0519](python_coding/06_hashmaps_hashsets/CI0519_hashing_r03_equal_row_column_pairs_v19.py) → CI0479 복습
+- [CI0520](python_coding/06_hashmaps_hashsets/CI0520_hashing_r03_word_break_cached_v20.py) → CI0480 복습
+- [CI0522](python_coding/06_hashmaps_hashsets/CI0522_hashing_r04_last_value_by_key_v02.py) → CI0462 복습
+- [CI0523](python_coding/06_hashmaps_hashsets/CI0523_hashing_r04_group_by_initial_v03.py) → CI0463 복습
+- [CI0524](python_coding/06_hashmaps_hashsets/CI0524_hashing_r04_most_common_tiebreak_v04.py) → CI0464 복습
+- [CI0525](python_coding/06_hashmaps_hashsets/CI0525_hashing_r04_has_duplicate_v05.py) → CI0465 복습
+- [CI0526](python_coding/06_hashmaps_hashsets/CI0526_hashing_r04_coordinate_counts_v06.py) → CI0466 복습
+- [CI0527](python_coding/06_hashmaps_hashsets/CI0527_hashing_r04_normalize_keys_v07.py) → CI0467 복습
+- [CI0528](python_coding/06_hashmaps_hashsets/CI0528_hashing_r04_group_anagrams_v08.py) → CI0468 복습
+- [CI0529](python_coding/06_hashmaps_hashsets/CI0529_hashing_r04_two_sum_indices_v09.py) → CI0469 복습
+- [CI0530](python_coding/06_hashmaps_hashsets/CI0530_hashing_r04_multiset_intersection_v10.py) → CI0470 복습
+- [CI0531](python_coding/06_hashmaps_hashsets/CI0531_hashing_r04_anagram_windows_v11.py) → CI0471 복습
+- [CI0532](python_coding/06_hashmaps_hashsets/CI0532_hashing_r04_hash_join_v12.py) → CI0472 복습
+- [CI0533](python_coding/06_hashmaps_hashsets/CI0533_hashing_r04_subarray_sum_count_v13.py) → CI0473 복습
+- [CI0534](python_coding/06_hashmaps_hashsets/CI0534_hashing_r04_first_unique_v14.py) → CI0474 복습
+- [CI0535](python_coding/06_hashmaps_hashsets/CI0535_hashing_r04_longest_consecutive_v15.py) → CI0475 복습
+- [CI0536](python_coding/06_hashmaps_hashsets/CI0536_hashing_r04_regex_word_frequency_v16.py) → CI0476 복습
+- [CI0537](python_coding/06_hashmaps_hashsets/CI0537_hashing_r04_isomorphic_strings_v17.py) → CI0477 복습
+- [CI0538](python_coding/06_hashmaps_hashsets/CI0538_hashing_r04_top_k_frequent_v18.py) → CI0478 복습
+- [CI0539](python_coding/06_hashmaps_hashsets/CI0539_hashing_r04_equal_row_column_pairs_v19.py) → CI0479 복습
+- [CI0540](python_coding/06_hashmaps_hashsets/CI0540_hashing_r04_word_break_cached_v20.py) → CI0480 복습
+- [CI0542](python_coding/06_hashmaps_hashsets/CI0542_hashing_r05_last_value_by_key_v02.py) → CI0462 복습
+- [CI0543](python_coding/06_hashmaps_hashsets/CI0543_hashing_r05_group_by_initial_v03.py) → CI0463 복습
+- [CI0544](python_coding/06_hashmaps_hashsets/CI0544_hashing_r05_most_common_tiebreak_v04.py) → CI0464 복습
+- [CI0545](python_coding/06_hashmaps_hashsets/CI0545_hashing_r05_has_duplicate_v05.py) → CI0465 복습
+- [CI0546](python_coding/06_hashmaps_hashsets/CI0546_hashing_r05_coordinate_counts_v06.py) → CI0466 복습
+- [CI0547](python_coding/06_hashmaps_hashsets/CI0547_hashing_r05_normalize_keys_v07.py) → CI0467 복습
+- [CI0548](python_coding/06_hashmaps_hashsets/CI0548_hashing_r05_group_anagrams_v08.py) → CI0468 복습
+- [CI0549](python_coding/06_hashmaps_hashsets/CI0549_hashing_r05_two_sum_indices_v09.py) → CI0469 복습
+- [CI0550](python_coding/06_hashmaps_hashsets/CI0550_hashing_r05_multiset_intersection_v10.py) → CI0470 복습
+- [CI0551](python_coding/06_hashmaps_hashsets/CI0551_hashing_r05_anagram_windows_v11.py) → CI0471 복습
+- [CI0552](python_coding/06_hashmaps_hashsets/CI0552_hashing_r05_hash_join_v12.py) → CI0472 복습
+- [CI0553](python_coding/06_hashmaps_hashsets/CI0553_hashing_r05_subarray_sum_count_v13.py) → CI0473 복습
+- [CI0554](python_coding/06_hashmaps_hashsets/CI0554_hashing_r05_first_unique_v14.py) → CI0474 복습
+- [CI0555](python_coding/06_hashmaps_hashsets/CI0555_hashing_r05_longest_consecutive_v15.py) → CI0475 복습
+- [CI0556](python_coding/06_hashmaps_hashsets/CI0556_hashing_r05_regex_word_frequency_v16.py) → CI0476 복습
+- [CI0557](python_coding/06_hashmaps_hashsets/CI0557_hashing_r05_isomorphic_strings_v17.py) → CI0477 복습
+- [CI0558](python_coding/06_hashmaps_hashsets/CI0558_hashing_r05_top_k_frequent_v18.py) → CI0478 복습
+- [CI0559](python_coding/06_hashmaps_hashsets/CI0559_hashing_r05_equal_row_column_pairs_v19.py) → CI0479 복습
+- [CI0560](python_coding/06_hashmaps_hashsets/CI0560_hashing_r05_word_break_cached_v20.py) → CI0480 복습
+- [CI0562](python_coding/06_hashmaps_hashsets/CI0562_hashing_r06_last_value_by_key_v02.py) → CI0462 복습
+- [CI0563](python_coding/06_hashmaps_hashsets/CI0563_hashing_r06_group_by_initial_v03.py) → CI0463 복습
+- [CI0564](python_coding/06_hashmaps_hashsets/CI0564_hashing_r06_most_common_tiebreak_v04.py) → CI0464 복습
+- [CI0565](python_coding/06_hashmaps_hashsets/CI0565_hashing_r06_has_duplicate_v05.py) → CI0465 복습
+- [CI0566](python_coding/06_hashmaps_hashsets/CI0566_hashing_r06_coordinate_counts_v06.py) → CI0466 복습
+- [CI0567](python_coding/06_hashmaps_hashsets/CI0567_hashing_r06_normalize_keys_v07.py) → CI0467 복습
+- [CI0568](python_coding/06_hashmaps_hashsets/CI0568_hashing_r06_group_anagrams_v08.py) → CI0468 복습
+- [CI0569](python_coding/06_hashmaps_hashsets/CI0569_hashing_r06_two_sum_indices_v09.py) → CI0469 복습
+- [CI0570](python_coding/06_hashmaps_hashsets/CI0570_hashing_r06_multiset_intersection_v10.py) → CI0470 복습
+- [CI0571](python_coding/06_hashmaps_hashsets/CI0571_hashing_r06_anagram_windows_v11.py) → CI0471 복습
+- [CI0572](python_coding/06_hashmaps_hashsets/CI0572_hashing_r06_hash_join_v12.py) → CI0472 복습
+- [CI0573](python_coding/06_hashmaps_hashsets/CI0573_hashing_r06_subarray_sum_count_v13.py) → CI0473 복습
+- [CI0574](python_coding/06_hashmaps_hashsets/CI0574_hashing_r06_first_unique_v14.py) → CI0474 복습
+- [CI0575](python_coding/06_hashmaps_hashsets/CI0575_hashing_r06_longest_consecutive_v15.py) → CI0475 복습
+- [CI0576](python_coding/06_hashmaps_hashsets/CI0576_hashing_r06_regex_word_frequency_v16.py) → CI0476 복습
+- [CI0577](python_coding/06_hashmaps_hashsets/CI0577_hashing_r06_isomorphic_strings_v17.py) → CI0477 복습
+- [CI0578](python_coding/06_hashmaps_hashsets/CI0578_hashing_r06_top_k_frequent_v18.py) → CI0478 복습
+- [CI0579](python_coding/06_hashmaps_hashsets/CI0579_hashing_r06_equal_row_column_pairs_v19.py) → CI0479 복습
+- [CI0580](python_coding/06_hashmaps_hashsets/CI0580_hashing_r06_word_break_cached_v20.py) → CI0480 복습
+- [CI0582](python_coding/06_hashmaps_hashsets/CI0582_hashing_r07_last_value_by_key_v02.py) → CI0462 복습
+- [CI0583](python_coding/06_hashmaps_hashsets/CI0583_hashing_r07_group_by_initial_v03.py) → CI0463 복습
+- [CI0584](python_coding/06_hashmaps_hashsets/CI0584_hashing_r07_most_common_tiebreak_v04.py) → CI0464 복습
+- [CI0585](python_coding/06_hashmaps_hashsets/CI0585_hashing_r07_has_duplicate_v05.py) → CI0465 복습
+- [CI0586](python_coding/06_hashmaps_hashsets/CI0586_hashing_r07_coordinate_counts_v06.py) → CI0466 복습
+- [CI0587](python_coding/06_hashmaps_hashsets/CI0587_hashing_r07_normalize_keys_v07.py) → CI0467 복습
+- [CI0588](python_coding/06_hashmaps_hashsets/CI0588_hashing_r07_group_anagrams_v08.py) → CI0468 복습
+- [CI0589](python_coding/06_hashmaps_hashsets/CI0589_hashing_r07_two_sum_indices_v09.py) → CI0469 복습
+- [CI0590](python_coding/06_hashmaps_hashsets/CI0590_hashing_r07_multiset_intersection_v10.py) → CI0470 복습
+- [CI0591](python_coding/06_hashmaps_hashsets/CI0591_hashing_r07_anagram_windows_v11.py) → CI0471 복습
+- [CI0592](python_coding/06_hashmaps_hashsets/CI0592_hashing_r07_hash_join_v12.py) → CI0472 복습
+- [CI0593](python_coding/06_hashmaps_hashsets/CI0593_hashing_r07_subarray_sum_count_v13.py) → CI0473 복습
+- [CI0594](python_coding/06_hashmaps_hashsets/CI0594_hashing_r07_first_unique_v14.py) → CI0474 복습
+- [CI0595](python_coding/06_hashmaps_hashsets/CI0595_hashing_r07_longest_consecutive_v15.py) → CI0475 복습
+- [CI0596](python_coding/06_hashmaps_hashsets/CI0596_hashing_r07_regex_word_frequency_v16.py) → CI0476 복습
+- [CI0597](python_coding/06_hashmaps_hashsets/CI0597_hashing_r07_isomorphic_strings_v17.py) → CI0477 복습
+- [CI0598](python_coding/06_hashmaps_hashsets/CI0598_hashing_r07_top_k_frequent_v18.py) → CI0478 복습
+- [CI0599](python_coding/06_hashmaps_hashsets/CI0599_hashing_r07_equal_row_column_pairs_v19.py) → CI0479 복습
+- [CI0600](python_coding/06_hashmaps_hashsets/CI0600_hashing_r07_word_break_cached_v20.py) → CI0480 복습
+- [CI0602](python_coding/06_hashmaps_hashsets/CI0602_hashing_r08_last_value_by_key_v02.py) → CI0462 복습
+- [CI0603](python_coding/06_hashmaps_hashsets/CI0603_hashing_r08_group_by_initial_v03.py) → CI0463 복습
+- [CI0604](python_coding/06_hashmaps_hashsets/CI0604_hashing_r08_most_common_tiebreak_v04.py) → CI0464 복습
+- [CI0605](python_coding/06_hashmaps_hashsets/CI0605_hashing_r08_has_duplicate_v05.py) → CI0465 복습
+- [CI0606](python_coding/06_hashmaps_hashsets/CI0606_hashing_r08_coordinate_counts_v06.py) → CI0466 복습
+- [CI0607](python_coding/06_hashmaps_hashsets/CI0607_hashing_r08_normalize_keys_v07.py) → CI0467 복습
+- [CI0608](python_coding/06_hashmaps_hashsets/CI0608_hashing_r08_group_anagrams_v08.py) → CI0468 복습
+- [CI0609](python_coding/06_hashmaps_hashsets/CI0609_hashing_r08_two_sum_indices_v09.py) → CI0469 복습
+- [CI0610](python_coding/06_hashmaps_hashsets/CI0610_hashing_r08_multiset_intersection_v10.py) → CI0470 복습
+- [CI0611](python_coding/06_hashmaps_hashsets/CI0611_hashing_r08_anagram_windows_v11.py) → CI0471 복습
+- [CI0612](python_coding/06_hashmaps_hashsets/CI0612_hashing_r08_hash_join_v12.py) → CI0472 복습
+- [CI0613](python_coding/06_hashmaps_hashsets/CI0613_hashing_r08_subarray_sum_count_v13.py) → CI0473 복습
+- [CI0614](python_coding/06_hashmaps_hashsets/CI0614_hashing_r08_first_unique_v14.py) → CI0474 복습
+- [CI0615](python_coding/06_hashmaps_hashsets/CI0615_hashing_r08_longest_consecutive_v15.py) → CI0475 복습
+- [CI0616](python_coding/06_hashmaps_hashsets/CI0616_hashing_r08_regex_word_frequency_v16.py) → CI0476 복습
+- [CI0617](python_coding/06_hashmaps_hashsets/CI0617_hashing_r08_isomorphic_strings_v17.py) → CI0477 복습
+- [CI0618](python_coding/06_hashmaps_hashsets/CI0618_hashing_r08_top_k_frequent_v18.py) → CI0478 복습
+- [CI0619](python_coding/06_hashmaps_hashsets/CI0619_hashing_r08_equal_row_column_pairs_v19.py) → CI0479 복습
+- [CI0620](python_coding/06_hashmaps_hashsets/CI0620_hashing_r08_word_break_cached_v20.py) → CI0480 복습
+- [CI0648](python_coding/07_heaps_priority_queues/CI0648_heap_r02_kth_smallest_heap_v08.py) → CI0628 복습
+- [CI0649](python_coding/07_heaps_priority_queues/CI0649_heap_r02_merge_k_lists_v09.py) → CI0629 복습
+- [CI0650](python_coding/07_heaps_priority_queues/CI0650_heap_r02_task_schedule_v10.py) → CI0630 복습
+- [CI0651](python_coding/07_heaps_priority_queues/CI0651_heap_r02_streaming_top_k_v11.py) → CI0631 복습
+- [CI0652](python_coding/07_heaps_priority_queues/CI0652_heap_r02_balanced_halves_v12.py) → CI0632 복습
+- [CI0653](python_coding/07_heaps_priority_queues/CI0653_heap_r02_running_medians_v13.py) → CI0633 복습
+- [CI0654](python_coding/07_heaps_priority_queues/CI0654_heap_r02_lazy_delete_min_v14.py) → CI0634 복습
+- [CI0655](python_coding/07_heaps_priority_queues/CI0655_heap_r02_keep_largest_k_v15.py) → CI0635 복습
+- [CI0656](python_coding/07_heaps_priority_queues/CI0656_heap_r02_k_closest_points_v16.py) → CI0636 복습
+- [CI0657](python_coding/07_heaps_priority_queues/CI0657_heap_r02_meeting_rooms_v17.py) → CI0637 복습
+- [CI0658](python_coding/07_heaps_priority_queues/CI0658_heap_r02_reorganize_text_v18.py) → CI0638 복습
+- [CI0659](python_coding/07_heaps_priority_queues/CI0659_heap_r02_kth_matrix_v19.py) → CI0639 복습
+- [CI0660](python_coding/07_heaps_priority_queues/CI0660_heap_r02_smallest_covering_range_v20.py) → CI0640 복습
+- [CI0662](python_coding/07_heaps_priority_queues/CI0662_heap_r03_running_minimum_v02.py) → CI0622 복습
+- [CI0663](python_coding/07_heaps_priority_queues/CI0663_heap_r03_stable_priority_v03.py) → CI0623 복습
+- [CI0664](python_coding/07_heaps_priority_queues/CI0664_heap_r03_max_heap_top_k_v04.py) → CI0624 복습
+- [CI0665](python_coding/07_heaps_priority_queues/CI0665_heap_r03_heapify_preserve_v05.py) → CI0625 복습
+- [CI0666](python_coding/07_heaps_priority_queues/CI0666_heap_r03_heap_build_comparison_v06.py) → CI0626 복습
+- [CI0667](python_coding/07_heaps_priority_queues/CI0667_heap_r03_peek_minimum_v07.py) → CI0627 복습
+- [CI0668](python_coding/07_heaps_priority_queues/CI0668_heap_r03_kth_smallest_heap_v08.py) → CI0628 복습
+- [CI0669](python_coding/07_heaps_priority_queues/CI0669_heap_r03_merge_k_lists_v09.py) → CI0629 복습
+- [CI0670](python_coding/07_heaps_priority_queues/CI0670_heap_r03_task_schedule_v10.py) → CI0630 복습
+- [CI0671](python_coding/07_heaps_priority_queues/CI0671_heap_r03_streaming_top_k_v11.py) → CI0631 복습
+- [CI0672](python_coding/07_heaps_priority_queues/CI0672_heap_r03_balanced_halves_v12.py) → CI0632 복습
+- [CI0673](python_coding/07_heaps_priority_queues/CI0673_heap_r03_running_medians_v13.py) → CI0633 복습
+- [CI0674](python_coding/07_heaps_priority_queues/CI0674_heap_r03_lazy_delete_min_v14.py) → CI0634 복습
+- [CI0675](python_coding/07_heaps_priority_queues/CI0675_heap_r03_keep_largest_k_v15.py) → CI0635 복습
+- [CI0676](python_coding/07_heaps_priority_queues/CI0676_heap_r03_k_closest_points_v16.py) → CI0636 복습
+- [CI0677](python_coding/07_heaps_priority_queues/CI0677_heap_r03_meeting_rooms_v17.py) → CI0637 복습
+- [CI0678](python_coding/07_heaps_priority_queues/CI0678_heap_r03_reorganize_text_v18.py) → CI0638 복습
+- [CI0679](python_coding/07_heaps_priority_queues/CI0679_heap_r03_kth_matrix_v19.py) → CI0639 복습
+- [CI0680](python_coding/07_heaps_priority_queues/CI0680_heap_r03_smallest_covering_range_v20.py) → CI0640 복습
+- [CI0682](python_coding/07_heaps_priority_queues/CI0682_heap_r04_running_minimum_v02.py) → CI0622 복습
+- [CI0683](python_coding/07_heaps_priority_queues/CI0683_heap_r04_stable_priority_v03.py) → CI0623 복습
+- [CI0684](python_coding/07_heaps_priority_queues/CI0684_heap_r04_max_heap_top_k_v04.py) → CI0624 복습
+- [CI0685](python_coding/07_heaps_priority_queues/CI0685_heap_r04_heapify_preserve_v05.py) → CI0625 복습
+- [CI0686](python_coding/07_heaps_priority_queues/CI0686_heap_r04_heap_build_comparison_v06.py) → CI0626 복습
+- [CI0687](python_coding/07_heaps_priority_queues/CI0687_heap_r04_peek_minimum_v07.py) → CI0627 복습
+- [CI0688](python_coding/07_heaps_priority_queues/CI0688_heap_r04_kth_smallest_heap_v08.py) → CI0628 복습
+- [CI0689](python_coding/07_heaps_priority_queues/CI0689_heap_r04_merge_k_lists_v09.py) → CI0629 복습
+- [CI0690](python_coding/07_heaps_priority_queues/CI0690_heap_r04_task_schedule_v10.py) → CI0630 복습
+- [CI0691](python_coding/07_heaps_priority_queues/CI0691_heap_r04_streaming_top_k_v11.py) → CI0631 복습
+- [CI0692](python_coding/07_heaps_priority_queues/CI0692_heap_r04_balanced_halves_v12.py) → CI0632 복습
+- [CI0693](python_coding/07_heaps_priority_queues/CI0693_heap_r04_running_medians_v13.py) → CI0633 복습
+- [CI0694](python_coding/07_heaps_priority_queues/CI0694_heap_r04_lazy_delete_min_v14.py) → CI0634 복습
+- [CI0695](python_coding/07_heaps_priority_queues/CI0695_heap_r04_keep_largest_k_v15.py) → CI0635 복습
+- [CI0696](python_coding/07_heaps_priority_queues/CI0696_heap_r04_k_closest_points_v16.py) → CI0636 복습
+- [CI0697](python_coding/07_heaps_priority_queues/CI0697_heap_r04_meeting_rooms_v17.py) → CI0637 복습
+- [CI0698](python_coding/07_heaps_priority_queues/CI0698_heap_r04_reorganize_text_v18.py) → CI0638 복습
+- [CI0699](python_coding/07_heaps_priority_queues/CI0699_heap_r04_kth_matrix_v19.py) → CI0639 복습
+- [CI0700](python_coding/07_heaps_priority_queues/CI0700_heap_r04_smallest_covering_range_v20.py) → CI0640 복습
+- [CI0702](python_coding/07_heaps_priority_queues/CI0702_heap_r05_running_minimum_v02.py) → CI0622 복습
+- [CI0703](python_coding/07_heaps_priority_queues/CI0703_heap_r05_stable_priority_v03.py) → CI0623 복습
+- [CI0704](python_coding/07_heaps_priority_queues/CI0704_heap_r05_max_heap_top_k_v04.py) → CI0624 복습
+- [CI0705](python_coding/07_heaps_priority_queues/CI0705_heap_r05_heapify_preserve_v05.py) → CI0625 복습
+- [CI0706](python_coding/07_heaps_priority_queues/CI0706_heap_r05_heap_build_comparison_v06.py) → CI0626 복습
+- [CI0707](python_coding/07_heaps_priority_queues/CI0707_heap_r05_peek_minimum_v07.py) → CI0627 복습
+- [CI0708](python_coding/07_heaps_priority_queues/CI0708_heap_r05_kth_smallest_heap_v08.py) → CI0628 복습
+- [CI0709](python_coding/07_heaps_priority_queues/CI0709_heap_r05_merge_k_lists_v09.py) → CI0629 복습
+- [CI0710](python_coding/07_heaps_priority_queues/CI0710_heap_r05_task_schedule_v10.py) → CI0630 복습
+- [CI0711](python_coding/07_heaps_priority_queues/CI0711_heap_r05_streaming_top_k_v11.py) → CI0631 복습
+- [CI0712](python_coding/07_heaps_priority_queues/CI0712_heap_r05_balanced_halves_v12.py) → CI0632 복습
+- [CI0713](python_coding/07_heaps_priority_queues/CI0713_heap_r05_running_medians_v13.py) → CI0633 복습
+- [CI0714](python_coding/07_heaps_priority_queues/CI0714_heap_r05_lazy_delete_min_v14.py) → CI0634 복습
+- [CI0715](python_coding/07_heaps_priority_queues/CI0715_heap_r05_keep_largest_k_v15.py) → CI0635 복습
+- [CI0716](python_coding/07_heaps_priority_queues/CI0716_heap_r05_k_closest_points_v16.py) → CI0636 복습
+- [CI0717](python_coding/07_heaps_priority_queues/CI0717_heap_r05_meeting_rooms_v17.py) → CI0637 복습
+- [CI0718](python_coding/07_heaps_priority_queues/CI0718_heap_r05_reorganize_text_v18.py) → CI0638 복습
+- [CI0719](python_coding/07_heaps_priority_queues/CI0719_heap_r05_kth_matrix_v19.py) → CI0639 복습
+- [CI0720](python_coding/07_heaps_priority_queues/CI0720_heap_r05_smallest_covering_range_v20.py) → CI0640 복습
+- [CI0722](python_coding/07_heaps_priority_queues/CI0722_heap_r06_running_minimum_v02.py) → CI0622 복습
+- [CI0723](python_coding/07_heaps_priority_queues/CI0723_heap_r06_stable_priority_v03.py) → CI0623 복습
+- [CI0724](python_coding/07_heaps_priority_queues/CI0724_heap_r06_max_heap_top_k_v04.py) → CI0624 복습
+- [CI0725](python_coding/07_heaps_priority_queues/CI0725_heap_r06_heapify_preserve_v05.py) → CI0625 복습
+- [CI0726](python_coding/07_heaps_priority_queues/CI0726_heap_r06_heap_build_comparison_v06.py) → CI0626 복습
+- [CI0727](python_coding/07_heaps_priority_queues/CI0727_heap_r06_peek_minimum_v07.py) → CI0627 복습
+- [CI0728](python_coding/07_heaps_priority_queues/CI0728_heap_r06_kth_smallest_heap_v08.py) → CI0628 복습
+- [CI0729](python_coding/07_heaps_priority_queues/CI0729_heap_r06_merge_k_lists_v09.py) → CI0629 복습
+- [CI0730](python_coding/07_heaps_priority_queues/CI0730_heap_r06_task_schedule_v10.py) → CI0630 복습
+- [CI0731](python_coding/07_heaps_priority_queues/CI0731_heap_r06_streaming_top_k_v11.py) → CI0631 복습
+- [CI0732](python_coding/07_heaps_priority_queues/CI0732_heap_r06_balanced_halves_v12.py) → CI0632 복습
+- [CI0733](python_coding/07_heaps_priority_queues/CI0733_heap_r06_running_medians_v13.py) → CI0633 복습
+- [CI0734](python_coding/07_heaps_priority_queues/CI0734_heap_r06_lazy_delete_min_v14.py) → CI0634 복습
+- [CI0735](python_coding/07_heaps_priority_queues/CI0735_heap_r06_keep_largest_k_v15.py) → CI0635 복습
+- [CI0736](python_coding/07_heaps_priority_queues/CI0736_heap_r06_k_closest_points_v16.py) → CI0636 복습
+- [CI0737](python_coding/07_heaps_priority_queues/CI0737_heap_r06_meeting_rooms_v17.py) → CI0637 복습
+- [CI0738](python_coding/07_heaps_priority_queues/CI0738_heap_r06_reorganize_text_v18.py) → CI0638 복습
+- [CI0739](python_coding/07_heaps_priority_queues/CI0739_heap_r06_kth_matrix_v19.py) → CI0639 복습
+- [CI0740](python_coding/07_heaps_priority_queues/CI0740_heap_r06_smallest_covering_range_v20.py) → CI0640 복습
+- [CI0742](python_coding/07_heaps_priority_queues/CI0742_heap_r07_running_minimum_v02.py) → CI0622 복습
+- [CI0743](python_coding/07_heaps_priority_queues/CI0743_heap_r07_stable_priority_v03.py) → CI0623 복습
+- [CI0744](python_coding/07_heaps_priority_queues/CI0744_heap_r07_max_heap_top_k_v04.py) → CI0624 복습
+- [CI0745](python_coding/07_heaps_priority_queues/CI0745_heap_r07_heapify_preserve_v05.py) → CI0625 복습
+- [CI0746](python_coding/07_heaps_priority_queues/CI0746_heap_r07_heap_build_comparison_v06.py) → CI0626 복습
+- [CI0747](python_coding/07_heaps_priority_queues/CI0747_heap_r07_peek_minimum_v07.py) → CI0627 복습
+- [CI0748](python_coding/07_heaps_priority_queues/CI0748_heap_r07_kth_smallest_heap_v08.py) → CI0628 복습
+- [CI0749](python_coding/07_heaps_priority_queues/CI0749_heap_r07_merge_k_lists_v09.py) → CI0629 복습
+- [CI0750](python_coding/07_heaps_priority_queues/CI0750_heap_r07_task_schedule_v10.py) → CI0630 복습
+- [CI0751](python_coding/07_heaps_priority_queues/CI0751_heap_r07_streaming_top_k_v11.py) → CI0631 복습
+- [CI0752](python_coding/07_heaps_priority_queues/CI0752_heap_r07_balanced_halves_v12.py) → CI0632 복습
+- [CI0753](python_coding/07_heaps_priority_queues/CI0753_heap_r07_running_medians_v13.py) → CI0633 복습
+- [CI0754](python_coding/07_heaps_priority_queues/CI0754_heap_r07_lazy_delete_min_v14.py) → CI0634 복습
+- [CI0755](python_coding/07_heaps_priority_queues/CI0755_heap_r07_keep_largest_k_v15.py) → CI0635 복습
+- [CI0756](python_coding/07_heaps_priority_queues/CI0756_heap_r07_k_closest_points_v16.py) → CI0636 복습
+- [CI0757](python_coding/07_heaps_priority_queues/CI0757_heap_r07_meeting_rooms_v17.py) → CI0637 복습
+- [CI0758](python_coding/07_heaps_priority_queues/CI0758_heap_r07_reorganize_text_v18.py) → CI0638 복습
+- [CI0759](python_coding/07_heaps_priority_queues/CI0759_heap_r07_kth_matrix_v19.py) → CI0639 복습
+- [CI0760](python_coding/07_heaps_priority_queues/CI0760_heap_r07_smallest_covering_range_v20.py) → CI0640 복습
+- [CI0788](python_coding/08_sorted_dicts_sets/CI0788_sorted_structure_r02_online_medians_v08.py) → CI0768 복습
+- [CI0789](python_coding/08_sorted_dicts_sets/CI0789_sorted_structure_r02_interval_lookup_v09.py) → CI0769 복습
+- [CI0790](python_coding/08_sorted_dicts_sets/CI0790_sorted_structure_r02_coordinate_compress_v10.py) → CI0770 복습
+- [CI0791](python_coding/08_sorted_dicts_sets/CI0791_sorted_structure_r02_lis_length_v11.py) → CI0771 복습
+- [CI0792](python_coding/08_sorted_dicts_sets/CI0792_sorted_structure_r02_pair_sum_count_v12.py) → CI0772 복습
+- [CI0793](python_coding/08_sorted_dicts_sets/CI0793_sorted_structure_r02_time_map_v13.py) → CI0773 복습
+- [CI0794](python_coding/08_sorted_dicts_sets/CI0794_sorted_structure_r02_calendar_insert_v14.py) → CI0774 복습
+- [CI0795](python_coding/08_sorted_dicts_sets/CI0795_sorted_structure_r02_sorted_union_v15.py) → CI0775 복습
+- [CI0796](python_coding/08_sorted_dicts_sets/CI0796_sorted_structure_r02_sorted_multiset_v16.py) → CI0776 복습
+- [CI0797](python_coding/08_sorted_dicts_sets/CI0797_sorted_structure_r02_sliding_medians_v17.py) → CI0777 복습
+- [CI0798](python_coding/08_sorted_dicts_sets/CI0798_sorted_structure_r02_count_smaller_right_v18.py) → CI0778 복습
+- [CI0799](python_coding/08_sorted_dicts_sets/CI0799_sorted_structure_r02_reverse_pairs_v19.py) → CI0779 복습
+- [CI0800](python_coding/08_sorted_dicts_sets/CI0800_sorted_structure_r02_floor_ceil_queries_v20.py) → CI0780 복습

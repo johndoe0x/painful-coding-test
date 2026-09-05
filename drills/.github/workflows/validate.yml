@@ -1,0 +1,20 @@
+name: Validate problem bank
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -B -m python_basic.catalog.validate_catalog
+      - run: python -B python_basic/validate_bank.py --strict-user-code
+      - run: python -B python_coding/validate_bank.py --strict-user-code
+      - run: python -B review_bank.py
+      - run: python -B -m unittest discover -s tests -v

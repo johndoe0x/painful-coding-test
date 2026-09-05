@@ -1,0 +1,9 @@
+.tmp/
+proofs/
+**/_preserved_answers/
+**/__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+.DS_Store

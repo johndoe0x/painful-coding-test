@@ -1,4 +1,32 @@
-# NeetCode 500 Dashboard
+# Painful Coding Test — Python 문제은행
+
+검토·개선된 한국어 Python 문제은행은 **[drills/](drills/README.md)** 에 있습니다.
+
+- Python Basic 820개와 Python Coding 800개, 총 1,620개
+- 148개 문제 개선: Basic 37개, Coding 111개
+- Coding 핵심 계약 240개와 선택 복습 560개
+- 새 연결 학습 문제 48개, 재현 가능한 회귀 테스트 43개
+
+**[학습 경로](drills/STUDY_PATH.md)** ·
+**[문제은행 리뷰](drills/docs/reviews/2026-09-05-problem-bank-review.md)** ·
+**[전체 검사 결과](drills/docs/reviews/2026-09-05-problem-bank.json)**
+
+```bash
+git clone https://github.com/johndoe0x/painful-coding-test.git
+cd painful-coding-test/drills
+# 문제 파일의 starter를 구현한 뒤 실행합니다.
+python3 -B -m python_basic PB0001 --strict
+python3 -B -m unittest discover -s tests -v
+```
+
+문제은행에는 Python 3.11 이상이 필요하며 외부 패키지는 필요하지 않습니다.
+문제 파일에는 스타터와 공개 테스트를 제공하고, 검증용 참조 구현은 `drills/tests/`에 있습니다.
+개인 풀이·학습 기록은 공개 문제은행에 포함하지 않습니다.
+
+## 이전 대시보드 Foundation 문서
+
+아래 내용과 루트의 대시보드 소스는 기존 작업 기록입니다. 현재 문제 연습은 위의
+`drills/` 안내를 따르세요.
 
 한국어 우선, 로컬 전용 NeetCode 500 학습 대시보드입니다. 현재 브랜치는 **Foundation slice**만 구현합니다. 고정된 1년 계획, 서울 기준 달력, SQLite/Alembic, append-only 이벤트, 검증형 백업, 읽기 전용 Foundation UI가 준비되어 있습니다.
 

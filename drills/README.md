@@ -33,6 +33,8 @@ GitHub CLI로 로그인한 뒤 다음 한 줄로 검사·이력 저장·공개 �
 
 ```bash
 python3 -B submit_answer.py PB0001
+# 푼 문제 전체를 검증해 일괄 업로드
+python3 -B submit_answer.py --all
 # 오프라인 저장: --local-only / 저장본 재전송: --retry
 ```
 

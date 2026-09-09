@@ -309,6 +309,141 @@ class SubmissionTests(unittest.TestCase):
         self.assertIn('LOCAL_ONLY', result.stdout)
         self.assertTrue((self.root/'answers/PB0001').is_dir())
 
+    def enable_batch_fixture(self):
+        coding = self.root/'python_coding'
+        coding.mkdir()
+        (coding/'generated_manifest.json').write_text('{"problems":{}}')
+        manifest_path = self.root/'python_basic/catalog/generated_manifest.json'
+        manifest = json.loads(manifest_path.read_text())
+        starter = EXERCISE.replace('return value + 1', 'raise NotImplementedError("TODO")')
+        manifest['problems']['PB0001']['starter_sha256'] = sha256(starter.encode()).hexdigest()
+        manifest_path.write_text(json.dumps(manifest))
+
+    def add_batch_problem(self, identity, source, *, pristine=False):
+        source = source.replace('PB0001', identity)
+        path = self.root/'python_basic'/f'{identity}_demo.py'
+        path.write_text(source)
+        starter = (source if pristine else EXERCISE.replace('PB0001', identity).replace(
+            'return value + 1', 'raise NotImplementedError("TODO")'))
+        manifest_path = self.root/'python_basic/catalog/generated_manifest.json'
+        manifest = json.loads(manifest_path.read_text())
+        manifest['problems'][identity] = {'path': path.name, 'starter_sha256': sha256(starter.encode()).hexdigest()}
+        manifest_path.write_text(json.dumps(manifest))
+        return path
+
+    def test_batch_discovery_skips_starters_and_unfinished_but_reports_real_errors(self):
+        self.enable_batch_fixture()
+        self.add_batch_problem('PB0002', EXERCISE, pristine=True)
+        self.add_batch_problem('PB0003', EXERCISE.replace('return value + 1', 'raise NotImplementedError("TODO")')+'\n# working\n')
+        self.add_batch_problem('PB0004', 'def broken(:\n')
+        self.add_batch_problem('PB0005', EXERCISE+'\n# NotImplementedError in a comment is not unfinished\n')
+        missing = self.add_batch_problem('PB0006', EXERCISE)
+        missing.unlink()
+        (self.root/'python_basic/PB0001_personal_copy.py').write_text('raise AssertionError("private draft")')
+        archived = self.root/'python_basic/_preserved_answers'
+        archived.mkdir()
+        (archived/'PB9999_old.py').write_text(EXERCISE)
+        selected = submit.discover_answers(self.root)
+        self.assertEqual(selected.candidates, ['PB0001', 'PB0004', 'PB0005'])
+        self.assertEqual(selected.skipped_starters, 1)
+        self.assertEqual(selected.skipped_unfinished, 1)
+        self.assertEqual(set(selected.failures), {'PB0006'})
+        self.assertFalse((self.root/'answers').exists())
+
+    def test_all_uploads_only_passed_answers_in_one_commit_and_reports_failure(self):
+        self.enable_batch_fixture()
+        self.add_batch_problem('PB0002', EXERCISE)
+        self.add_batch_problem('PB0003', EXERCISE.replace('return value + 1', 'return 0'))
+        self.add_batch_problem('PB0004', EXERCISE.replace('return value + 1', 'raise NotImplementedError("TODO")')+'\n# working\n')
+        self.add_batch_problem('PB0005', EXERCISE, pristine=True)
+        client, output, errors = FakeGitHub(), StringIO(), StringIO()
+        with patch.object(submit, 'ROOT', self.root), patch.object(sys, 'argv', ['submit_answer.py', '--all']), \
+             patch.object(submit, 'GitHub', return_value=client), redirect_stdout(output), redirect_stderr(errors):
+            with self.assertRaises(SystemExit) as exit_result:
+                submit.main()
+        self.assertEqual(exit_result.exception.code, 2)
+        self.assertIn('BATCH_SUMMARY passed=2 failed=1 untouched=1 unfinished=1', output.getvalue())
+        self.assertIn('UPLOADED', output.getvalue())
+        self.assertIn('FAILED PB0003', errors.getvalue())
+        self.assertEqual(len(client.files), 4)
+        self.assertEqual({path.split('/')[1] for path in client.files}, {'PB0001', 'PB0002'})
+        self.assertEqual([method for method, _, _ in client.calls if method != 'GET'], ['POST', 'POST', 'PATCH'])
+
+    def test_explicit_id_batch_remains_all_or_nothing_on_verification_failure(self):
+        self.enable_batch_fixture()
+        self.add_batch_problem('PB0002', EXERCISE.replace('return value + 1', 'return 0'))
+        with patch.object(submit, 'ROOT', self.root), \
+             patch.object(sys, 'argv', ['submit_answer.py', 'PB0001', 'PB0002']), \
+             patch.object(submit, 'GitHub') as client, redirect_stdout(StringIO()), redirect_stderr(StringIO()):
+            with self.assertRaises(SystemExit) as exit_result:
+                submit.main()
+        self.assertEqual(exit_result.exception.code, 1)
+        client.assert_not_called()
+        self.assertTrue((self.root/'answers/PB0001/latest.json').is_file())
+
+    def test_empty_all_does_not_contact_github(self):
+        self.enable_batch_fixture()
+        self.add_batch_problem('PB0001', EXERCISE, pristine=True)
+        output = StringIO()
+        with patch.object(submit, 'ROOT', self.root), patch.object(sys, 'argv', ['submit_answer.py', '--all']), \
+             patch.object(submit, 'GitHub') as client, redirect_stdout(output):
+            submit.main()
+        client.assert_not_called()
+        self.assertIn('NOTHING_TO_UPLOAD', output.getvalue())
+        self.assertFalse((self.root/'answers').exists())
+
+    def test_crlf_only_changes_do_not_select_untouched_runnable_starters(self):
+        self.enable_batch_fixture()
+        path = self.add_batch_problem('PB0001', EXERCISE, pristine=True)
+        path.write_bytes(EXERCISE.replace('\n', '\r\n').encode())
+        selected = submit.discover_answers(self.root)
+        self.assertEqual(selected.candidates, [])
+        self.assertEqual(selected.skipped_starters, 1)
+
+    def test_all_local_only_then_all_retry_uses_saved_versions(self):
+        self.enable_batch_fixture()
+        second = self.add_batch_problem('PB0002', EXERCISE)
+        with patch.object(submit, 'ROOT', self.root), \
+             patch.object(sys, 'argv', ['submit_answer.py', '--all', '--local-only']), \
+             patch.object(submit, 'GitHub') as client, redirect_stdout(StringIO()):
+            submit.main()
+        client.assert_not_called()
+        second.write_text('def still_editing(:')
+        (self.root/'answers/personal-notes.txt').write_text('never upload me')
+        client = FakeGitHub()
+        with patch.object(submit, 'ROOT', self.root), \
+             patch.object(sys, 'argv', ['submit_answer.py', '--all', '--retry']), \
+             patch.object(submit, 'GitHub', return_value=client), redirect_stdout(StringIO()):
+            submit.main()
+        self.assertEqual(len(client.files), 4)
+        self.assertFalse(any('personal-notes' in path for path in client.files))
+        self.assertFalse(any('still_editing' in content for content in client.files.values()))
+
+    def test_all_retry_reports_corrupt_snapshot_and_still_uploads_valid_one(self):
+        self.enable_batch_fixture()
+        self.add_batch_problem('PB0002', EXERCISE)
+        with redirect_stdout(StringIO()):
+            good = submit.prepare_answer(self.root, 'PB0001')
+            bad = submit.prepare_answer(self.root, 'PB0002')
+        (bad.directory/'solution.py').write_text('corrupted')
+        client = FakeGitHub()
+        with patch.object(submit, 'ROOT', self.root), \
+             patch.object(sys, 'argv', ['submit_answer.py', '--all', '--retry']), \
+             patch.object(submit, 'GitHub', return_value=client), redirect_stdout(StringIO()), redirect_stderr(StringIO()):
+            with self.assertRaises(SystemExit) as exit_result:
+                submit.main()
+        self.assertEqual(exit_result.exception.code, 2)
+        self.assertEqual(set(client.files), {good.remote_path+'/solution.py', good.remote_path+'/result.json'})
+
+    def test_all_invalid_combinations_are_rejected_before_network(self):
+        for arguments in ([], ['--all', 'PB0001'], ['--all', '--retry', '--version', 'a'*64]):
+            with self.subTest(arguments=arguments), patch.object(sys, 'argv', ['submit_answer.py', *arguments]), \
+                 patch.object(submit, 'GitHub') as client, redirect_stderr(StringIO()):
+                with self.assertRaises(SystemExit) as exit_result:
+                    submit.main()
+                self.assertEqual(exit_result.exception.code, 2)
+                client.assert_not_called()
+
 
 class GitHubTransportTests(unittest.TestCase):
     def test_gh_uses_json_stdin_and_does_not_embed_source_in_argv(self):

@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import base64
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 import errno
 from hashlib import sha1, sha256
@@ -18,8 +19,8 @@ import sys
 from urllib.parse import quote
 from uuid import uuid4
 
-from bank_inventory import find_managed_problem
-from run_problem import OutputRecord, print_output_records
+from bank_inventory import BANKS, find_managed_problem, managed_paths
+from run_problem import OutputRecord, print_output_records, unfinished_lines
 
 
 ROOT = Path(__file__).resolve().parent
@@ -36,6 +37,54 @@ MAX_SOURCE_BYTES = 512_000
 
 class SubmissionError(RuntimeError):
     pass
+
+
+@dataclass
+class BatchSelection:
+    candidates: list[str] = field(default_factory=list)
+    skipped_starters: int = 0
+    skipped_unfinished: int = 0
+    failures: dict[str, str] = field(default_factory=dict)
+
+
+def discover_answers(root: Path, *, retry: bool = False) -> BatchSelection:
+    """Select only canonical manifest files, never unrelated drafts or archives."""
+    selection = BatchSelection()
+    for prefix, (bank, manifest_name) in BANKS.items():
+        paths = managed_paths(root, prefix)
+        manifest = json.loads((root / bank / manifest_name).read_text(encoding="utf-8"))["problems"]
+        for identity, path in sorted(paths.items()):
+            if retry:
+                saved = root / "answers" / identity
+                if saved.exists() or saved.is_symlink():
+                    selection.candidates.append(identity)
+                continue
+            starter_hash = manifest[identity].get("starter_sha256")
+            if not isinstance(starter_hash, str) or not HASH_RE.fullmatch(starter_hash):
+                raise SubmissionError(f"{identity}: manifest의 starter 해시를 확인할 수 없습니다.")
+            try:
+                if path.stat().st_size > MAX_SOURCE_BYTES:
+                    raise SubmissionError(f"답안 크기가 {MAX_SOURCE_BYTES:,}바이트를 넘습니다.")
+                source = path.read_bytes()
+            except (OSError, SubmissionError) as error:
+                selection.failures[identity] = str(error)
+                continue
+            normalized = source.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+            if sha256(source).hexdigest() == starter_hash or sha256(normalized).hexdigest() == starter_hash:
+                selection.skipped_starters += 1
+                continue
+            try:
+                tree = ast.parse(source.decode("utf-8"))
+            except (SyntaxError, UnicodeError):
+                # Fresh verification reports the actual error; it is not hidden
+                # among ordinary untouched or unfinished exercises.
+                selection.candidates.append(identity)
+                continue
+            if unfinished_lines(tree):
+                selection.skipped_unfinished += 1
+                continue
+            selection.candidates.append(identity)
+    return selection
 
 
 @dataclass(frozen=True)
@@ -353,7 +402,8 @@ def upload_answers(answers: list[Answer], repo: str, branch: str | None = None,
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="검증한 PB/CI 답안을 GitHub answers/에 올립니다.")
-    parser.add_argument("problem_ids", nargs="+", help="예: PB0001 CI0022")
+    parser.add_argument("problem_ids", nargs="*", help="예: PB0001 CI0022")
+    parser.add_argument("--all", action="store_true", help="작성한 모든 문제를 검증하고 PASS한 답안만 한 번에 올립니다.")
     parser.add_argument("--local-only", action="store_true", help="로컬 이력만 저장하며 네트워크를 사용하지 않습니다.")
     parser.add_argument("--retry", action="store_true", help="현재 코드 대신 마지막으로 저장한 답안을 업로드합니다.")
     parser.add_argument("--version", help="--retry 시 업로드할 소스 SHA-256 (문제 한 개만)")
@@ -361,23 +411,55 @@ def main() -> None:
     parser.add_argument("--branch", help="생략하면 저장소의 기본 브랜치")
     parser.add_argument("--timeout", type=float, default=30, help="문제별 검증 제한 초 (기본 30)")
     args = parser.parse_args()
+    if args.all and args.problem_ids:
+        parser.error("--all과 문제 ID 나열은 함께 사용할 수 없습니다.")
+    if not args.all and not args.problem_ids:
+        parser.error("문제 ID 또는 --all을 지정하세요.")
     if args.version and (not args.retry or len(args.problem_ids) != 1):
         parser.error("--version은 문제 한 개의 --retry에서만 사용합니다.")
     if not 0 < args.timeout <= 300:
         parser.error("--timeout은 0보다 크고 300 이하여야 합니다.")
     upload_started = False
     answers = []
+    failures = {}
     try:
-        identities = list(dict.fromkeys(problem_id(value) for value in args.problem_ids))
-        answers = [load_answer(ROOT, identity, args.version) if args.retry else
-                   prepare_answer(ROOT, identity, args.timeout) for identity in identities]
+        if args.all:
+            selection = discover_answers(ROOT, retry=args.retry)
+            failures.update(selection.failures)
+            for position, identity in enumerate(selection.candidates, start=1):
+                print(f"CHECK {position}/{len(selection.candidates)} {identity}", flush=True)
+                try:
+                    answer = (load_answer(ROOT, identity) if args.retry else
+                              prepare_answer(ROOT, identity, args.timeout))
+                    answers.append(answer)
+                except (SubmissionError, OSError, ValueError, KeyError) as error:
+                    failures[identity] = str(error)
+            print(f"BATCH_SUMMARY passed={len(answers)} failed={len(failures)} "
+                  f"untouched={selection.skipped_starters} unfinished={selection.skipped_unfinished}")
+            for identity, reason in sorted(failures.items()):
+                print(f"FAILED {identity}: {reason}", file=sys.stderr)
+            if not answers:
+                print("NOTHING_TO_UPLOAD: 업로드할 검증 답안이 없습니다.")
+                if failures:
+                    raise SystemExit(2)
+                return
+        else:
+            identities = list(dict.fromkeys(problem_id(value) for value in args.problem_ids))
+            answers = [load_answer(ROOT, identity, args.version) if args.retry else
+                       prepare_answer(ROOT, identity, args.timeout) for identity in identities]
         if args.local_only:
-            print("LOCAL_ONLY: 답안이 저장됐습니다. 업로드하려면 같은 ID에 --retry를 사용하세요.")
+            retry_hint = "--all --retry" if args.all else "같은 ID와 --retry"
+            print(f"LOCAL_ONLY: 답안이 저장됐습니다. 업로드하려면 {retry_hint}를 사용하세요.")
+            if failures:
+                raise SystemExit(2)
             return
         print(f"UPLOAD TARGET: {args.repo}/answers/")
         upload_started = True
         url, changed = upload_answers(answers, args.repo, args.branch)
         print(("UPLOADED " if changed else "ALREADY_UPLOADED ") + url)
+        if failures:
+            print("PARTIAL: 통과한 답안 처리는 완료됐습니다. FAILED로 표시된 문제는 수정 후 다시 실행하세요.", file=sys.stderr)
+            raise SystemExit(2)
     except (SubmissionError, OSError, ValueError, KeyError) as error:
         print(f"ERROR: {error}", file=sys.stderr)
         if upload_started:

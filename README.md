@@ -15,9 +15,12 @@
 
 ```bash
 python3 -B submit_answer.py PB0001
+# 푼 문제 전체를 한꺼번에 올리기
+python3 -B submit_answer.py --all
 ```
 
-검증에 실패하면 업로드하지 않습니다. 오프라인은 `--local-only`, 재전송은 `--retry`를 사용합니다.
+단일 문제는 검증 실패 시 업로드하지 않습니다. `--all`은 실패한 문제를 표시하고 통과한 답안만 모아 올립니다.
+오프라인은 `--local-only`, 재전송은 `--retry`를 사용합니다.
 GitHub CLI(`gh`)와 저장소 쓰기 권한이 필요합니다. [자세한 사용법](drills/docs/submit-answers.md)
 
 **[학습 경로](drills/STUDY_PATH.md)** ·

@@ -1,5 +1,6 @@
 .tmp/
 proofs/
+answers/
 **/_preserved_answers/
 **/__pycache__/
 *.py[cod]

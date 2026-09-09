@@ -115,7 +115,7 @@ def find_problem(problem_id: str) -> Path:
 
 
 def parse_source(path: Path) -> tuple[str, ast.Module]:
-    source = path.read_text(encoding="utf-8")
+    source = path.read_bytes().decode("utf-8")
     try:
         tree = ast.parse(source, filename=str(path))
     except SyntaxError as error:
@@ -341,7 +341,9 @@ def verify_receipt(problem_id: str, source: str) -> None:
     print(f"source_sha256={actual}")
 
 
-def prove(problem_id: str, strict: bool, no_receipt: bool) -> None:
+def prove(
+    problem_id: str, strict: bool, no_receipt: bool, *, emit_output: bool = True,
+) -> dict[str, object]:
     path = find_problem(problem_id)
     source, tree = parse_source(path)
     unfinished = unfinished_lines(tree)
@@ -407,19 +409,21 @@ def prove(problem_id: str, strict: bool, no_receipt: bool) -> None:
     if not no_receipt:
         written = write_receipt(receipt)
 
-    print(f"PASS {problem_id}", flush=True)
-    print_output_records(output.records)
-    print(f"file={path.relative_to(ROOT)}")
-    print(f"proof_level={proof_level}")
-    print(f"source_sha256={receipt['source_sha256']}")
-    print(f"public_examples={len(example_results)}")
-    print(f"self_test_asserts={assert_count}")
-    print(f"source_checks={len(source_checks)}")
-    print(f"elapsed_ms={receipt['total_elapsed_ms']}")
-    if written is not None:
-        print(f"receipt={written.relative_to(ROOT)}")
-    if not present:
-        print("warning=self_test()가 없어 공개 예시만 증명했습니다. 강한 증명은 --strict를 사용하세요.")
+    if emit_output:
+        print(f"PASS {problem_id}", flush=True)
+        print_output_records(output.records)
+        print(f"file={path.relative_to(ROOT)}")
+        print(f"proof_level={proof_level}")
+        print(f"source_sha256={receipt['source_sha256']}")
+        print(f"public_examples={len(example_results)}")
+        print(f"self_test_asserts={assert_count}")
+        print(f"source_checks={len(source_checks)}")
+        print(f"elapsed_ms={receipt['total_elapsed_ms']}")
+        if written is not None:
+            print(f"receipt={written.relative_to(ROOT)}")
+        if not present:
+            print("warning=self_test()가 없어 공개 예시만 증명했습니다. 강한 증명은 --strict를 사용하세요.")
+    return receipt
 
 
 def parse_args() -> argparse.Namespace:
@@ -442,7 +446,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="테스트만 실행하고 증명 영수증은 쓰지 않습니다.",
     )
-    return parser.parse_args()
+    parser.add_argument("--json", action="store_true", help="자동화용 JSON 결과를 출력합니다.")
+    args = parser.parse_args()
+    if args.json and args.verify_receipt:
+        parser.error("--json은 새 검증 결과 출력에 사용하며 --verify-receipt와 함께 사용할 수 없습니다.")
+    return args
 
 
 def main() -> None:
@@ -454,11 +462,20 @@ def main() -> None:
         if args.verify_receipt:
             verify_receipt(problem_id, source)
         else:
-            prove(problem_id, strict=args.strict, no_receipt=args.no_receipt)
+            receipt = prove(problem_id, strict=args.strict, no_receipt=args.no_receipt,
+                            emit_output=not args.json)
+            if args.json:
+                print(json.dumps(receipt, ensure_ascii=False))
     except ProofFailure as error:
-        print(f"FAIL {problem_id}", flush=True)
-        print_output_records(error.output_records)
-        print(error, flush=True)
+        if args.json:
+            print(json.dumps({"status": "FAIL", "problem_id": problem_id,
+                              "error": str(error),
+                              "execution_output": [asdict(record) for record in error.output_records]},
+                             ensure_ascii=False))
+        else:
+            print(f"FAIL {problem_id}", flush=True)
+            print_output_records(error.output_records)
+            print(error, flush=True)
         raise SystemExit(1) from error
 
 

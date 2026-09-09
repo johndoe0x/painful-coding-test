@@ -27,6 +27,10 @@
 
 전체 문제 링크는 [INDEX.md](INDEX.md)에서 확인합니다.
 
+풀이를 작성한 뒤 `python3 -B submit_answer.py CI0022`로 검증·버전 저장·공개 GitHub 업로드를
+한 번에 실행할 수 있습니다. 기본 목적지는 `painful-coding-test/answers/`입니다.
+로컬에만 보관하려면 `--local-only`를 사용합니다. [업로드 안내](../docs/submit-answers.md)
+
 ## 품질 기준
 
 예전 v02~v20은 문제 설명에서 보조 알고리즘을 요구하면서도 실제 함수 시그니처와 테스트는 baseline을 반복했습니다. 현재 문제은행은 각 파일의 문제, 함수 시그니처, 세 테스트와 필수 API 검사가 같은 계약을 가리키도록 다시 생성했습니다.

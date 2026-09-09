@@ -26,6 +26,18 @@ python3 -B -m python_basic PB0001 --strict
 python3 -B -m python_coding CI0022 --strict
 ```
 
+## 푼 답안 올리기
+
+GitHub CLI로 로그인한 뒤 다음 한 줄로 검사·이력 저장·공개 업로드를 수행합니다.
+기본 위치는 `johndoe0x/painful-coding-test/answers/`입니다.
+
+```bash
+python3 -B submit_answer.py PB0001
+# 오프라인 저장: --local-only / 저장본 재전송: --retry
+```
+
+[답안 업로드 안내](docs/submit-answers.md)에 저장 위치·재시도·다른 저장소 설정을 설명했습니다.
+
 미구현 스타터는 FAIL을 출력하는 것이 정상입니다. 작성한 구현이 공개 예시와
 구현 방식 검사를 통과하면 로컬 proofs/에 영수증을 기록합니다. 이 영수증은
 공개 테스트 실행 기록이며 비공개 채점, 독립 풀이, 장기 기억을 인증하지 않습니다.

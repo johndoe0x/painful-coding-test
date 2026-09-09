@@ -27,6 +27,10 @@ Python 문법과 기본 자료구조를 생각과 동시에 구현하는 자동�
 
 전체 문제 링크는 [INDEX.md](INDEX.md)에서 확인합니다.
 
+풀이를 작성한 뒤 `python3 -B submit_answer.py PB0001`로 검증·버전 저장·공개 GitHub 업로드를
+한 번에 실행할 수 있습니다. 기본 목적지는 `painful-coding-test/answers/`입니다.
+로컬에만 보관하려면 `--local-only`를 사용합니다. [업로드 안내](../docs/submit-answers.md)
+
 2026-09-05 재평가 결과와 학습 순서는 [통합 학습 경로](../STUDY_PATH.md)와
 [문제은행 리뷰](../docs/reviews/2026-09-05-problem-bank-review.md)에 있습니다.
 이 은행은 기초 문법을 배운 뒤 속도를 익히는 드릴입니다. 처음 Python을 배우는

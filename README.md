@@ -6,7 +6,19 @@
 - 148개 문제 개선: Basic 37개, Coding 111개
 - Python Coding 800개를 Python 도구 자동화 훈련으로 운영
 - 목적을 벗어났던 알고리즘 48개를 150~300초 Python 사용법 드릴로 교정
-- 재현 가능한 회귀 테스트 36개
+- 문제은행·답안 업로드 흐름의 재현 가능한 회귀 검증
+
+## 답안 올리기
+
+문제 파일에 풀이를 작성한 뒤 `drills/`에서 다음 명령을 실행하세요.
+공개 **[answers/](answers/README.md)** 에 해당 답안과 검증 결과 요약을 저장합니다.
+
+```bash
+python3 -B submit_answer.py PB0001
+```
+
+검증에 실패하면 업로드하지 않습니다. 오프라인은 `--local-only`, 재전송은 `--retry`를 사용합니다.
+GitHub CLI(`gh`)와 저장소 쓰기 권한이 필요합니다. [자세한 사용법](drills/docs/submit-answers.md)
 
 **[학습 경로](drills/STUDY_PATH.md)** ·
 **[목적 교정 보고서](drills/docs/reviews/2026-09-05-python-coding-purpose-correction.md)** ·
